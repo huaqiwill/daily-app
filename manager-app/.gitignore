@@ -1,0 +1,68 @@
+# HBuilderX 编辑器配置文件
+.hbuilderx/
+
+# node_modules 目录，Node.js 的依赖
+node_modules/
+
+# npm、yarn、pnpm 的日志文件
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# dist 目录，编译后的文件
+/dist/
+
+# 微信小程序、支付宝小程序等的编译输出目录
+/unpackage/dist/dev/mp-weixin/
+/unpackage/dist/dev/mp-alipay/
+/unpackage/dist/dev/mp-baidu/
+/unpackage/dist/dev/mp-toutiao/
+/unpackage/dist/dev/mp-qq/
+/unpackage/dist/dev/mp-kuaishou/
+/unpackage/dist/dev/mp-lark/
+/unpackage/dist/build/mp-weixin/
+/unpackage/dist/build/mp-alipay/
+/unpackage/dist/build/mp-baidu/
+/unpackage/dist/build/mp-toutiao/
+/unpackage/dist/build/mp-qq/
+/unpackage/dist/build/mp-kuaishou/
+/unpackage/dist/build/mp-lark/
+
+# H5 相关的编译输出目录
+/unpackage/dist/dev/h5/
+/unpackage/dist/build/h5/
+
+# App 相关的编译输出目录
+/unpackage/resources/build/
+/unpackage/dist/build/app-plus/
+/unpackage/dist/dev/app-plus/
+
+# Android 和 iOS 相关文件
+/platforms/android/
+platforms/ios/
+
+# 调试相关的文件
+*.log
+*.tmp
+
+# Mac 系统生成的文件
+.DS_Store
+
+# Windows 系统生成的文件
+Thumbs.db
+Desktop.ini
+
+# 环境配置文件
+.env
+.env.*
+
+# 其他编辑器配置文件
+.idea/
+.vscode/
+
+# uni-app 自动生成的文件
+unpackage/
+
+# 临时文件
+*.swp
