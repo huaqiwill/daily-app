@@ -3,15 +3,118 @@
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "uni-app"
+				"navigationBarTitleText": "首页"
+			}
+		},
+		{
+			"path": "pages/login/login",
+			"style": {
+				"navigationBarTitleText": "登录"
+			}
+		},
+		{
+			"path": "pages/login/register",
+			"style": {
+				"navigationBarTitleText": "注册"
+			}
+		},
+		{
+			"path": "pages/friends/friends",
+			"style": {
+				"navigationBarTitleText": "关系管理"
+			}
+		},
+		{
+			"path": "pages/bill/bill",
+			"style": {
+				"navigationBarTitleText": "账单管理"
+			}
+		},
+		{
+			"path": "pages/notes/notes",
+			"style": {
+				"navigationBarTitleText": "笔记管理"
+			}
+		},
+		{
+			"path": "pages/todos/todos",
+			"style": {
+				"navigationBarTitleText": "待办管理"
+			}
+		},
+		{
+			"path": "pages/birth/birth",
+			"style": {
+				"navigationBarTitleText": "生日管理"
+			}
+		},
+		{
+			"path": "pages/birth/birth-add",
+			"style": {
+				"navigationBarTitleText": "添加生日"
+			}
+		},
+		{
+			"path": "pages/birth/birth-edit",
+			"style": {
+				"navigationBarTitleText": "编辑生日"
+			}
+		},
+		{
+			"path": "pages/birth/birth-detail",
+			"style": {
+				"navigationBarTitleText": "生日详情"
+			}
+		},
+		{
+			"path": "pages/profile/profile",
+			"style": {
+				"navigationBarTitleText": "我的账户"
+			}
+		},
+		{
+			"path": "pages/profile/profile-edit",
+			"style": {
+				"navigationBarTitleText": "账户编辑"
+			}
+		},
+		{
+			"path" : "pages/food/food",
+			"style" : 
+			{
+				"navigationBarTitleText" : ""
 			}
 		}
 	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "uni-app",
+		"navigationBarTitleText": "Life Manager",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
 	},
-	"uniIdRouter": {}
+	"uniIdRouter": {
+
+	},
+	"tabBar": {
+		"color": "#7A7E83",
+		"selectedColor": "#3cc51f",
+		"borderStyle": "black",
+		"backgroundColor": "#ffffff",
+		"height": "50px",
+		"fontSize": "16px",
+		"iconWidth": "24px",
+		"spacing": "3px",
+		"list": [{
+			"pagePath": "pages/index/index",
+			"text": "首页"
+		}, {
+			"pagePath": "pages/profile/profile",
+			"text": "账户"
+		}],
+		"midButton": {
+			"width": "80px",
+			"height": "50px",
+			"text": "添加"
+		}
+	}
 }

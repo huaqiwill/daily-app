@@ -1,13 +1,5 @@
 <?php
-// +----------------------------------------------------------------------
-// | ThinkPHP [ WE CAN DO IT JUST THINK ]
-// +----------------------------------------------------------------------
-// | Copyright (c) 2006~2018 http://thinkphp.cn All rights reserved.
-// +----------------------------------------------------------------------
-// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
-// +----------------------------------------------------------------------
-// | Author: liu21st <liu21st@gmail.com>
-// +----------------------------------------------------------------------
+
 use think\facade\Route;
 
 Route::get('think', function () {
@@ -16,33 +8,43 @@ Route::get('think', function () {
 
 Route::get('hello/:name', 'index/hello');
 
+
 // bill
-Route::get('bill/<id>','Bill/read'); // 定义GET请求路由规则
-Route::post('bill/<id>','Bill/update'); // 定义POST请求路由规则
-Route::put('bill/:id','Bill/update'); // 定义PUT请求路由规则
-Route::delete('bill/:id','Bill/delete'); // 定义DELETE请求路由规则
+Route::get('bill', 'Bill/list');
+Route::get('bill/<id>', 'Bill/find');
+Route::post('bill', 'Bill/add');
+Route::put('bill/:id', 'Bill/update');
+Route::delete('bill/:id', 'Bill/delete');
+
+
+// login
+Route::post('login', 'Login/login');
+
 
 // user
-Route::get('user/<id>','User/read'); // 定义GET请求路由规则
-Route::post('user/<id>','User/update'); // 定义POST请求路由规则
-Route::put('user/:id','User/update'); // 定义PUT请求路由规则
-Route::delete('user/:id','User/delete'); // 定义DELETE请求路由规则
+Route::get('user', 'User/list');
+Route::get('user/<id>', 'User/find');
+Route::post('user', 'User/add');
+Route::put('user/:id', 'User/edit');
+Route::delete('user/:id', 'User/delete');
 
 // friends
-Route::get('friends/<id>','Friends/read'); // 定义GET请求路由规则
-Route::post('friends/<id>','Friends/update'); // 定义POST请求路由规则
-Route::put('friends/:id','Friends/update'); // 定义PUT请求路由规则
-Route::delete('friends/:id','Friends/delete'); // 定义DELETE请求路由规则
+Route::get('friends', 'Friends/find');
+Route::get('friends/<id>', 'Friends/list');
+Route::post('friends', 'Friends/add');
+Route::put('friends/:id', 'Friends/update');
+Route::delete('friends/:id', 'Friends/delete');
 
 // todos
-Route::get('todos/<id>','News/read'); // 定义GET请求路由规则
-Route::post('todos/<id>','News/update'); // 定义POST请求路由规则
-Route::put('todos/:id','News/update'); // 定义PUT请求路由规则
-Route::delete('todos/:id','News/delete'); // 定义DELETE请求路由规则
+Route::get('todos/<id>', 'Todos/find');
+Route::get('todos/<id>', 'Todos/list');
+Route::post('todos/<id>', 'Todos/add');
+Route::put('todos/:id', 'Todos/update');
+Route::delete('todos/:id', 'Todos/delete');
 
 // notes
-Route::get('notes/<id>','News/read'); // 定义GET请求路由规则
-Route::post('notes/<id>','News/update'); // 定义POST请求路由规则
-Route::put('notes/:id','News/update'); // 定义PUT请求路由规则
-Route::delete('notes/:id','News/delete'); // 定义DELETE请求路由规则
-
+Route::get('notes/<id>', 'Notes/find');
+Route::get('notes/<id>', 'Notes/list');
+Route::post('notes/<id>', 'Notes/add');
+Route::put('notes/:id', 'Notes/update');
+Route::delete('notes/:id', 'Notes/delete');

@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "bootstrap": "^4.6.2",
+    "vant": "^4.9.7"
+  }
+}
