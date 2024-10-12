@@ -1,5 +1,5 @@
 <?php
-namespace app\controller;
+namespace app\admin\controller;
 
 use app\BaseController;
 use think\facade\Db;
