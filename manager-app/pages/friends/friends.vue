@@ -1,6 +1,6 @@
 <template>
 	<view>
-		1
+		关系管理
 	</view>
 </template>
 

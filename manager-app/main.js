@@ -26,6 +26,7 @@ import Vant from 'vant'; // 引入 Vant 组件库
 
 
 
+
 export function createApp() {
 	const app = createSSRApp(App)
 

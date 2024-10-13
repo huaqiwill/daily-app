@@ -1,6 +1,6 @@
 <template>
 	<view>
-		
+		笔记管理
 	</view>
 </template>
 

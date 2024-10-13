@@ -2,30 +2,42 @@
 	<view class="container">
 		<view class="profile-header">
 			<text class="profile-title">个人资料</text>
-			<button class="edit-button" @click="editProfile">编辑</button>
 		</view>
 
 		<view class="profile-info">
+
 			<view class="info-item">
-				<text class="info-label">姓名:</text>
-				<text class="info-value">{{ userInfo.name }}</text>
+				<van-cell-group inset style="display: flex;height:200rpx;">
+					<van-field style="width: 120rpx;" label="头像:" readonly />
+					<image src="../../static/logo.png" mode="" class="avatar"></image>
+				</van-cell-group>
+			</view>
+
+			<view class="info-item">
+				<van-cell-group inset>
+					<van-field label="姓名:" v-model="userInfo.name" readonly />
+				</van-cell-group>
 			</view>
 			<view class="info-item">
-				<text class="info-label">邮箱:</text>
-				<text class="info-value">{{ userInfo.email }}</text>
+				<van-cell-group inset>
+					<van-field label="邮箱:" v-model="userInfo.email" readonly />
+				</van-cell-group>
 			</view>
 			<view class="info-item">
-				<text class="info-label">电话:</text>
-				<text class="info-value">{{ userInfo.phone }}</text>
+				<van-cell-group inset>
+					<van-field label="电话:" v-model="userInfo.phone" readonly />
+				</van-cell-group>
 			</view>
 			<view class="info-item">
-				<text class="info-label">生日:</text>
-				<text class="info-value">{{ userInfo.birthday }}</text>
+				<van-cell-group inset>
+					<van-field label="生日:" v-model="userInfo.birthday" readonly />
+				</van-cell-group>
 			</view>
 		</view>
 
+		<van-button class="btn btn-edit" type="primary" size="large" @click="editProfile">编辑</van-button>
 		<view class="footer">
-			<button class="logout-button" @click="logout">退出登录</button>
+			<van-button class="btn btn-logout" type="primary" size="large" @click="logout">退出登录</van-button>
 		</view>
 	</view>
 </template>
@@ -54,6 +66,9 @@
 					title: '已退出登录',
 					icon: 'success'
 				});
+				uni.switchTab({
+					url:"/pages/index/index"
+				})
 			}
 		}
 	};
@@ -61,56 +76,59 @@
 
 <style scoped>
 	.container {
-		padding: 20px;
-		background-color: #f5f5f5;
+		padding: 0 20px;
+	}
+
+	.btn {
+		margin-top: 10rpx;
 	}
 
 	.profile-header {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		margin-bottom: 20px;
+		padding: 20rpx 0;
 	}
 
 	.profile-title {
-		font-size: 24px;
 		font-weight: bold;
-	}
-
-	.edit-button {
-		padding: 5px 10px;
-		background-color: #007aff;
-		color: white;
-		border: none;
-		border-radius: 5px;
-	}
-
-	.profile-info {
-		background-color: white;
-		padding: 15px;
-		border-radius: 5px;
+		font-size: 40rpx;
 	}
 
 	.info-item {
-		display: flex;
-		justify-content: space-between;
-		margin-bottom: 10px;
-	}
-
-	.info-label {
-		font-weight: bold;
-	}
-
-	.footer {
-		margin-top: 20px;
-	}
-
-	.logout-button {
 		width: 100%;
-		padding: 10px;
-		background-color: #ff3b30;
+		margin-top: 30rpx;
+	}
+
+	.avatar {
+		width: 200rpx;
+		height: 200rpx
+	}
+
+	.avatar:hover::before {
+		content: "编辑";
 		color: white;
-		border: none;
-		border-radius: 5px;
+		font-size: 16px;
+		text-align: center;
+		line-height: 200rpx;
+		/* 设置与高度一致，使得文字居中 */
+	}
+
+	.avatar::before {
+		content: "";
+		width: 200rpx;
+		height: 200rpx;
+		background-color: rgba(0, 0, 0, 0.3);
+		position: absolute;
+		top: 0;
+		left: 0;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		opacity: 0;
+		transition: opacity 0.3s ease;
+		/* 过渡效果 */
+	}
+
+	.avatar:hover::before {
+		opacity: 1;
+		/* 鼠标悬停时，显示伪类 */
 	}
 </style>

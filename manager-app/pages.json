@@ -31,6 +31,24 @@
 			}
 		},
 		{
+			"path": "pages/bill/bill-edit",
+			"style": {
+				"navigationBarTitleText": "编辑账单"
+			}
+		},
+		{
+			"path": "pages/bill/bill-add",
+			"style": {
+				"navigationBarTitleText": "新增账单"
+			}
+		},
+		{
+			"path": "pages/bill/bill-detail",
+			"style": {
+				"navigationBarTitleText": "账单详情"
+			}
+		},
+		{
 			"path": "pages/notes/notes",
 			"style": {
 				"navigationBarTitleText": "笔记管理"
@@ -67,6 +85,12 @@
 			}
 		},
 		{
+			"path": "pages/add/add",
+			"style": {
+				"navigationBarTitleText": "添加"
+			}
+		},
+		{
 			"path": "pages/profile/profile",
 			"style": {
 				"navigationBarTitleText": "我的账户"
@@ -79,10 +103,9 @@
 			}
 		},
 		{
-			"path" : "pages/food/food",
-			"style" : 
-			{
-				"navigationBarTitleText" : ""
+			"path": "pages/food/food",
+			"style": {
+				"navigationBarTitleText": "美食"
 			}
 		}
 	],
@@ -97,24 +120,35 @@
 	},
 	"tabBar": {
 		"color": "#7A7E83",
-		"selectedColor": "#3cc51f",
+		"selectedColor": "#4b5be6",
 		"borderStyle": "black",
 		"backgroundColor": "#ffffff",
 		"height": "50px",
-		"fontSize": "16px",
+		"fontSize": "25rpx",
 		"iconWidth": "24px",
-		"spacing": "3px",
+		"spacing": "5rpx",
 		"list": [{
-			"pagePath": "pages/index/index",
-			"text": "首页"
-		}, {
-			"pagePath": "pages/profile/profile",
-			"text": "账户"
-		}],
-		"midButton": {
-			"width": "80px",
-			"height": "50px",
-			"text": "添加"
-		}
+				"pagePath": "pages/index/index",
+				"text": "首页",
+				"iconPath": "static/images/property-agent.png"
+			},
+			{
+				"pagePath": "pages/add/add",
+				"text": "添加",
+				"iconPath": "static/images/add-note.png"
+
+			},
+			{
+				"pagePath": "pages/profile/profile",
+				"text": "账户",
+				"iconPath": "static/images/user.png"
+			}
+		]
+		// ,
+		// "midButton": {
+		// 	"width": "80px",
+		// 	"height": "50px",
+		// 	"text": "添加s"
+		// }
 	}
 }

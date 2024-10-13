@@ -1,16 +1,25 @@
 <template>
 	<view class="container">
-		<!-- 登录表单 -->
-		<view class="form">
-			<!-- 用户名输入框 -->
-			<input v-model="form.username" type="text" placeholder="请输入用户名" class="input" />
 
-			<!-- 密码输入框 -->
-			<input v-model="form.password" type="password" placeholder="请输入密码" class="input" />
-
-			<!-- 登录按钮 -->
-			<button class="btn" @click="login">登录</button>
+		<view class="logo">
+			<image src="../../static/pj-logo.png" mode=""></image>
 		</view>
+		<!-- 登录表单 -->
+		<van-form @submit="login()" class="login_form">
+			<van-cell-group inset>
+				<van-field v-model="form.username" name="用户名" label="用户名" placeholder="用户名"
+					:rules="[{ required: true, message: '请填写用户名' }]" />
+				<van-field v-model="form.password" type="password" name="密码" label="密码" placeholder="密码"
+					:rules="[{ required: true, message: '请填写密码' }]" />
+			</van-cell-group>
+			<div style="margin: 16px;">
+				<van-button @click="login()" round block type="primary" native-type="submit">
+					用户登录
+				</van-button>
+				<text class="text-register-info">没账号？去<text class="link-register"
+						@click="goToRegister()">注册</text>。</text>
+			</div>
+		</van-form>
 	</view>
 </template>
 
@@ -65,6 +74,11 @@
 						});
 					}
 				}, 1000);
+			},
+			goToRegister() {
+				uni.navigateTo({
+					url: "/pages/login/register"
+				})
 			}
 		}
 	};
@@ -72,40 +86,28 @@
 
 <style scoped>
 	.container {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		height: 100vh;
-		background-color: #f7f7f7;
+		height: calc(100vh - 90rpx);
+		background-color: aliceblue;
+		overflow: hidden;
+		padding: 100rpx 20rpx;
 	}
 
-	.form {
-		width: 80%;
-		background-color: #fff;
-		padding: 20px;
-		border-radius: 10px;
-		box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-	}
-
-	.input {
-		width: 100%;
-		height: 45px;
-		margin-bottom: 20px;
-		padding: 0 15px;
-		border: 1px solid #ddd;
-		border-radius: 5px;
-		font-size: 16px;
-	}
-
-	.btn {
-		width: 100%;
-		height: 45px;
-		background-color: #007aff;
-		color: #fff;
-		border: none;
-		border-radius: 5px;
-		font-size: 16px;
+	.logo {
 		text-align: center;
-		line-height: 45px;
+	}
+
+	.logo image {
+		width: 200rpx;
+		height: 200rpx;
+	}
+
+	.login_form {}
+
+	.text-register-info {
+		font-size: 28rpx;
+	}
+
+	.link-register {
+		color: #1989fa;
 	}
 </style>
