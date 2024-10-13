@@ -1,5 +1,8 @@
 # Daily App
 
+Github项目地址：https://github.com/huaqiwill/daily-app
+
+
 ## 技术 & 架构描述
 
 前端使用unaipp开发，适配安卓、iOS、微信小程序三大平台。
