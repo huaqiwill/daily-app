@@ -1,71 +1,71 @@
 <template>
 	<view class="container">
-		<van-nav-bar title="生日编辑" left-text="返回" @click-left="goBack" right-text="完成" @click-right="onComplete" />
-
-		<van-cell-group>
-			<van-field v-model="birthdayInfo.name" label="姓名" placeholder="请输入姓名" readonly />
-			<van-field v-model="birthdayInfo.date" label="生日" placeholder="请选择生日" is-link readonly
-				@click="showDatePicker" />
-			<van-field v-model="birthdayInfo.age" label="年龄" placeholder="请输入年龄" readonly />
-			<van-field v-model="birthdayInfo.notes" label="备注" placeholder="请输入备注" readonly />
-		</van-cell-group>
-
-		<van-button type="danger" @click="onDelete">删除</van-button>
+		<van-form @submit="onSubmit">
+			<van-field v-model="name" label="姓名" placeholder="请输入姓名" required />
+			<van-field v-model="date" label="生日日期" placeholder="请选择日期" is-link @click="showDatePicker" required />
+			<van-popup v-model="showPicker" position="bottom">
+				<van-datetime-picker type="date" v-model="date" @confirm="onDateConfirm" @cancel="onPickerCancel" />
+			</van-popup>
+			<van-button type="primary" block round native-type="submit">更新生日</van-button>
+		</van-form>
 	</view>
 </template>
 
 <script>
-	import {
-		Toast
-	} from 'vant';
-
 	export default {
 		data() {
 			return {
-				birthdayInfo: {
-					name: '',
-					date: '',
-					age: '',
-					notes: ''
-				}
+				name: '',
+				date: '',
+				showPicker: false,
+				id: null
 			};
 		},
-		methods: {
-			goBack() {
-				uni.navigateBack();
-			},
-			onComplete() {
-				// 完成操作，比如保存更改
-				Toast('完成');
-			},
-			onDelete() {
-				// 删除操作
-				Toast('已删除');
-				// 在这里可以调用删除 API 或其他逻辑
-			},
-			showDatePicker() {
-				uni.showDatePicker({
-					success: (res) => {
-						this.birthdayInfo.date = res.date; // 获取选择的日期
-						// 计算年龄
-						const birthDate = new Date(res.date);
-						const age = new Date().getFullYear() - birthDate.getFullYear();
-						this.birthdayInfo.age = age;
-					}
-				});
-			}
-		},
 		onLoad(options) {
-			// 假设从上个页面获取生日信息
-			if (options) {
-				this.birthdayInfo = JSON.parse(options.birthdayInfo);
+			// 模拟获取生日详情
+			const birthday = {
+				id: options.id,
+				name: '李四',
+				date: '1992-11-23'
+			};
+			this.name = birthday.name;
+			this.date = birthday.date;
+			this.id = birthday.id;
+		},
+		methods: {
+			showDatePicker() {
+				this.showPicker = true;
+			},
+			onDateConfirm(value) {
+				this.date = value;
+				this.showPicker = false;
+			},
+			onPickerCancel() {
+				this.showPicker = false;
+			},
+			onSubmit() {
+				if (!this.name || !this.date) {
+					uni.showToast({
+						title: '请填写完整信息',
+						icon: 'none'
+					});
+					return;
+				}
+				// 模拟更新生日逻辑
+				uni.showToast({
+					title: '更新成功',
+					icon: 'success'
+				});
+				setTimeout(() => {
+					uni.navigateBack();
+				}, 1000);
 			}
 		}
 	};
 </script>
 
-<style>
+<style scoped>
 	.container {
-		padding: 16px;
+		padding: 20px;
 	}
 </style>

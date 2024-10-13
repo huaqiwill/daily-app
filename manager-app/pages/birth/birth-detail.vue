@@ -1,72 +1,42 @@
 <template>
 	<view class="container">
-		<van-nav-bar title="生日详情" left-text="返回" @click-left="goBack" right-text="编辑" @click-right="onComplete" />
-
-		<van-cell-group>
-			<van-field v-model="birthdayInfo.name" label="姓名" placeholder="请输入姓名" readonly />
-			<van-field v-model="birthdayInfo.date" label="生日" placeholder="请选择生日" is-link readonly
-				@click="showDatePicker" />
-			<van-field v-model="birthdayInfo.age" label="年龄" placeholder="请输入年龄" readonly />
-			<van-field v-model="birthdayInfo.notes" label="备注" placeholder="请输入备注" readonly />
-		</van-cell-group>
-
-		<van-button type="danger" @click="onDelete">删除</van-button>
+		<van-cell title="姓名" :value="birthday.name" />
+		<van-cell title="生日日期" :value="birthday.date" />
+		<van-button type="primary" block @click="editBirthday">编辑生日</van-button>
 	</view>
 </template>
 
 <script>
-	import { Toast } from 'vant';
-
 	export default {
 		data() {
 			return {
-				birthdayInfo: {
+				birthday: {
+					id: null,
 					name: '',
-					date: '',
-					age: '',
-					notes: ''
+					date: ''
 				}
 			};
 		},
-		methods: {
-			goBack() {
-				uni.navigateBack();
-			},
-			onComplete() {
-				// 完成操作，比如保存更改
-				Toast('完成');
-				uni.navigateTo({
-					url: "/pages/birth/birth-detail"
-				})
-			},
-			onDelete() {
-				// 删除操作
-				Toast('已删除');
-				// 在这里可以调用删除 API 或其他逻辑
-			},
-			showDatePicker() {
-				uni.showDatePicker({
-					success: (res) => {
-						this.birthdayInfo.date = res.date; // 获取选择的日期
-						// 计算年龄
-						const birthDate = new Date(res.date);
-						const age = new Date().getFullYear() - birthDate.getFullYear();
-						this.birthdayInfo.age = age;
-					}
-				});
-			}
-		},
 		onLoad(options) {
-			// 假设从上个页面获取生日信息
-			if (options) {
-				this.birthdayInfo = JSON.parse(options.birthdayInfo);
+			// 模拟获取生日详情
+			this.birthday = {
+				id: options.id,
+				name: '李四',
+				date: '1992-11-23'
+			};
+		},
+		methods: {
+			editBirthday() {
+				uni.navigateTo({
+					url: `/pages/birth/birth-edit`
+				});
 			}
 		}
 	};
 </script>
 
-<style>
+<style scoped>
 	.container {
-		padding: 16px;
+		padding: 20px;
 	}
 </style>

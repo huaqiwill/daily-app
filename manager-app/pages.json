@@ -25,6 +25,22 @@
 			}
 		},
 		{
+			"path": "pages/friends/friends-edit",
+			"style": {
+				"navigationBarTitleText": "编辑关系"
+			}
+		}, {
+			"path": "pages/friends/friends-add",
+			"style": {
+				"navigationBarTitleText": "新增关系"
+			}
+		}, {
+			"path": "pages/friends/friends-detail",
+			"style": {
+				"navigationBarTitleText": "关系详情"
+			}
+		},
+		{
 			"path": "pages/bill/bill",
 			"style": {
 				"navigationBarTitleText": "账单管理"
@@ -55,9 +71,45 @@
 			}
 		},
 		{
+			"path": "pages/notes/notes-add",
+			"style": {
+				"navigationBarTitleText": "新增笔记"
+			}
+		},
+		{
+			"path": "pages/notes/notes-detail",
+			"style": {
+				"navigationBarTitleText": "笔记详情"
+			}
+		},
+		{
+			"path": "pages/notes/notes-edit",
+			"style": {
+				"navigationBarTitleText": "编辑笔记"
+			}
+		},
+		{
 			"path": "pages/todos/todos",
 			"style": {
 				"navigationBarTitleText": "待办管理"
+			}
+		},
+		{
+			"path": "pages/todos/todos-add",
+			"style": {
+				"navigationBarTitleText": "新增待办"
+			}
+		},
+		{
+			"path": "pages/todos/todos-edit",
+			"style": {
+				"navigationBarTitleText": "编辑待办"
+			}
+		},
+		{
+			"path": "pages/todos/todos-detail",
+			"style": {
+				"navigationBarTitleText": "待办详情"
 			}
 		},
 		{
@@ -105,7 +157,25 @@
 		{
 			"path": "pages/food/food",
 			"style": {
-				"navigationBarTitleText": "美食"
+				"navigationBarTitleText": "食谱管理"
+			}
+		},
+		{
+			"path": "pages/food/food-add",
+			"style": {
+				"navigationBarTitleText": "新增食谱"
+			}
+		},
+		{
+			"path": "pages/food/food-edit",
+			"style": {
+				"navigationBarTitleText": "编辑食谱"
+			}
+		},
+		{
+			"path": "pages/food/food-detail",
+			"style": {
+				"navigationBarTitleText": "食谱详情"
 			}
 		}
 	],
