@@ -1,14 +1,28 @@
 <template>
 	<view class="container">
-		<view class="header">
-			<text>生日管理</text>
-
+		<view class="search">
+			<van-search v-model="kw" shape="round" background="#fff" placeholder="请输入搜索关键词" />
 		</view>
 		<van-list v-model="loading" :finished="finished" @load="getBirthdayList">
-			<van-cell v-for="(birthday, index) in birthdays" :key="index" :title="birthday.name" :label="birthday.date"
-				is-link @click="navigateToDetail(birthday.id)" />
+			<van-cell center="true" class="birth-card" v-for="(birthday, index) in birthdays" :key="index"
+				:label="birthday.date" @click="navigateToDetail(birthday.id)">
+				<template #icon>
+					<image src="../../static/logo.png" alt="icon" class="custom-icon" />
+				</template>
+
+				<!-- 自定义 value 内容 -->
+				<template #value>
+					<div class="custom-value">
+						<div>{{ birthday.name }}</div> <!-- 第一行：name -->
+						<div>{{ 10 }} 天</div> <!-- 第二行：天数 -->
+					</div>
+				</template>
+			</van-cell>
+
 		</van-list>
-		<van-button type="primary" block @click="navigateToAddBirthday">新增生日</van-button>
+		
+		
+		<view class="add_birth" @click="navigateToAddBirthday">+</view>
 	</view>
 </template>
 
@@ -35,6 +49,16 @@
 							id: 2,
 							name: '李四',
 							date: '1992-11-23'
+						},
+						{
+							id: 3,
+							name: '李四',
+							date: '1992-11-23'
+						},
+						{
+							id: 3,
+							name: '李四',
+							date: '1992-11-23'
 						}
 					];
 					this.finished = true;
@@ -57,7 +81,8 @@
 
 <style scoped>
 	.container {
-		padding: 20px;
+		padding: 10rpx 20rpx;
+		
 	}
 
 	.header {
@@ -65,5 +90,33 @@
 		justify-content: space-between;
 		align-items: center;
 		margin-bottom: 20px;
+	}
+
+	.birth-card {
+		margin-bottom: 20rpx;
+		border-radius: 20rpx;
+		/* background-color: red; */
+		background-color: aliceblue;
+	}
+
+	.custom-icon {
+		width: 100rpx;
+		/* 设置图标宽度 */
+		height: 100rpx;
+		border-radius: 50%;
+		/* 设置图标高度 */
+	}
+	.add_birth{
+		position: fixed;
+		right: 30rpx;
+		bottom: 50rpx;
+		width: 100rpx;
+		height: 100rpx;
+		border-radius: 50%;
+		background-color: bisque;
+		text-align: center;
+		line-height: 85rpx;
+		color: aliceblue;
+		font-size: 80rpx;
 	}
 </style>
