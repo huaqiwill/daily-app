@@ -1,9 +1,11 @@
 <template>
 	<view class="container">
 		<van-form @submit="onSubmit">
-			<van-field v-model="title" label="标题" placeholder="请输入标题" required />
+			<van-field v-model="name" label="食谱名称" placeholder="请输入食谱名称" required />
 			<van-field v-model="description" label="描述" placeholder="请输入描述" required />
-			<van-button type="primary" block round native-type="submit">更新待办</van-button>
+			<van-field v-model="ingredients" label="食材" placeholder="请输入食材" type="textarea" rows="3" required />
+			<van-field v-model="steps" label="步骤" placeholder="请输入步骤" type="textarea" rows="6" required />
+			<van-button type="primary" block round native-type="submit">保存食谱</van-button>
 		</van-form>
 	</view>
 </template>
@@ -12,34 +14,24 @@
 	export default {
 		data() {
 			return {
-				title: '',
+				name: '',
 				description: '',
-				id: null
+				ingredients: '',
+				steps: ''
 			};
-		},
-		onLoad(options) {
-			// 模拟获取待办事项详情
-			const todo = {
-				id: options.id,
-				title: '完成项目报告',
-				description: '需要提交季度项目报告'
-			};
-			this.title = todo.title;
-			this.description = todo.description;
-			this.id = todo.id;
 		},
 		methods: {
 			onSubmit() {
-				if (!this.title || !this.description) {
+				if (!this.name || !this.description || !this.ingredients || !this.steps) {
 					uni.showToast({
 						title: '请填写完整信息',
 						icon: 'none'
 					});
 					return;
 				}
-				// 模拟更新待办事项
+				// 模拟保存食谱逻辑
 				uni.showToast({
-					title: '更新成功',
+					title: '保存成功',
 					icon: 'success'
 				});
 				setTimeout(() => {
