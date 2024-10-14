@@ -21,4 +21,19 @@ class Login extends BaseController
             return json(['code' => 202, 'msg' => '用户不存在']);
         }
     }
+
+
+    public function register() {
+
+    }
+
+    public function logout() {
+        
+    }
+
+    public function check() {
+
+    }
+
+    
 }

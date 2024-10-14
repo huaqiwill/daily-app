@@ -5,9 +5,9 @@ namespace app\api\controller;
 use app\BaseController;
 use think\facade\Db;
 
-class Friends extends BaseController
+class Friend extends BaseController
 {
-    public function add()
+    public function create()
     {
         $postData = input('post.');
         $data = [
@@ -23,18 +23,19 @@ class Friends extends BaseController
         Db::table('friends')->delete(['id' => $id]);
     }
 
-    public function find()
+    public function query()
     {
         $data = Db::table('')->find();
         return json($data);
     }
 
-    public function edit() {
+
+    public function update() {
         $postData = input('post.');
         Db::table('friends')->update($postData);
     }
 
-    public function list()
+    public function queryList()
     {
         $data = Db::table('')->select();
         return json($data);

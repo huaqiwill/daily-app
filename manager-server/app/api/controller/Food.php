@@ -6,16 +6,12 @@ use app\BaseController;
 use Exception;
 use think\facade\Db;
 
-class Foods extends BaseController
+class Food extends BaseController
 {
     protected $user_table = 'user';
 
-    public function index()
-    {
-        return $this->jsonResponse();
-    }
 
-    public function add()
+    public function create()
     {
         try {
             $postData = input('post.');
@@ -46,7 +42,7 @@ class Foods extends BaseController
         return $this->jsonResponse();
     }
 
-    public function find()
+    public function query()
     {
         try {
             $id = $this->request->param('id');
@@ -57,7 +53,7 @@ class Foods extends BaseController
         }
     }
 
-    public function edit()
+    public function update()
     {
         try {
             $id = $this->request->param('id');
@@ -80,7 +76,7 @@ class Foods extends BaseController
         }
     }
 
-    public function list()
+    public function queryList()
     {
         $list = Db::table('user')->select();
         return json($list);

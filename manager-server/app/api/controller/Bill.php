@@ -8,7 +8,7 @@ use think\facade\Db;
 class Bill extends BaseController
 {
 
-    public function add()
+    public function create()
     {
         $postData = input('post.');
 
@@ -28,14 +28,20 @@ class Bill extends BaseController
         return $this->jsonResponse();
     }
 
-    public function find()
+    public function query()
     {
         $id = $this->request->param('id');
         $data = Db::table('birth')->where('id', $id)->find();
         return $this->jsonResponse($data);
     }
 
-    public function edit()
+    public function queryList()
+    {
+        $data = Db::table('app_bill')->select();
+        return $this->jsonResponse($data);
+    }
+
+    public function update()
     {
         $id = $this->request->param('id');
         $postData = input('post.');
