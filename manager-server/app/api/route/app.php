@@ -26,15 +26,15 @@ Route::put('bill/:id', 'Bill/update');
 Route::delete('bill/:id', 'Bill/delete');
 
 // 生日路由
-Route::get('birth', 'Birth/queryList');
 Route::get('birth/<id>', 'Birth/query');
+Route::get('birth', 'Birth/queryList');
 Route::post('birth', 'Birth/create');
 Route::put('birth/<id>', 'Birth/update');
 Route::delete('birth/<id>', 'Birth/delete');
 
 // 档案路由
-Route::get('friend', 'Friend/queryList');
 Route::get('friend/<id>', 'Friend/query');
+Route::get('friend', 'Friend/queryList');
 Route::post('friend', 'Friend/create');
 Route::put('friend/:id', 'Friend/update');
 Route::delete('friend/:id', 'Friend/delete');

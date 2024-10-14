@@ -102,4 +102,9 @@ abstract class BaseController
 
         return json($response);
     }
+
+    public function getParam($name, $default = '')
+    {
+        return $this->request->param($name, $default);
+    }
 }

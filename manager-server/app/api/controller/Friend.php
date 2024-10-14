@@ -7,37 +7,57 @@ use think\facade\Db;
 
 class Friend extends BaseController
 {
+    public function getParam($name, $default = '')
+    {
+        return $this->request->param($name, $default);
+    }
+
     public function create()
     {
-        $postData = input('post.');
         $data = [
-            'name' => $postData['name'],
-            'age' => 18,
+            'name' => $this->getParam('name'),
+            'sex' => $this->getParam('sex'),
+            'birth_date' => $this->getParam('birth_date'),
+            'status' => $this->getParam('status'),
+            'avatar' => $this->getParam('avatar'),
+            'phone' => $this->getParam('phone'),
+            'qq' => $this->getParam('qq'),
+            'wechat' => $this->getParam('wechat'),
+            'email' => $this->getParam('email'),
+            'address' => $this->getParam('address'),
+            'remark' => $this->getParam('remark'),
         ];
-        Db::table('friends')->insert($data);
+        $id =  Db::table('app_friend')->insert($data, true);
+        $data['id'] = $id;
+        return $this->jsonResponse($data);
     }
 
     public function delete()
     {
-        $id = input('id');
-        Db::table('friends')->delete(['id' => $id]);
+        $id = $this->request->param('id');
+        Db::table('app_friend')->where('id', $id)->delete();
+        return $this->jsonResponse();
     }
 
     public function query()
     {
-        $data = Db::table('')->find();
-        return json($data);
+        $id = $this->request->param('id');
+        $data = Db::table('app_friend')->where('id', $id)->find();
+        return $this->jsonResponse($data);
     }
 
 
-    public function update() {
+    public function update()
+    {
+        $id = $this->request->param('id');
         $postData = input('post.');
-        Db::table('friends')->update($postData);
+        Db::table('app_friend')->where('id', $id)->update($postData);
+        return $this->jsonResponse();
     }
 
     public function queryList()
     {
-        $data = Db::table('')->select();
-        return json($data);
+        $data = Db::table('app_friend')->select();
+        return $this->jsonResponse($data);
     }
 }

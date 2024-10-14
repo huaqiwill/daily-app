@@ -18,7 +18,7 @@ class Birth extends BaseController
             'birth_date' => $postData['birth_date'],
             'birth_type' => $postData['birth_type'],
             'phone' => $postData['phone'],
-            'email' => $postData['emai'],
+            'email' => $postData['email'],
             'wechat' => $postData['wechat'],
             'qq' => $postData['qq'],
         ];
