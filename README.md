@@ -12,12 +12,17 @@ Github项目地址：https://github.com/huaqiwill/daily-app
 后期接入AI大模型为App注入智能化管理。
 
 
+前端技术体系
 
 * 网络请求使用axios
 * 前端UI使用Vant4 + Bootstrap
-* 后台管理系统后续完成
-* 
+* 前端路由使用uniapp自带
 
+
+服务端技术体系
+
+* 后台管理系统后续完成
+* 后台基于ThinPHP6开发
 
 
 
