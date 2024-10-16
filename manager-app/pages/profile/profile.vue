@@ -1,134 +1,177 @@
 <template>
 	<view class="container">
-		<view class="profile-header">
-			<text class="profile-title">个人资料</text>
-		</view>
+		<view class="profile_top">
+			<view class="avatar">
 
-		<view class="profile-info">
-
-			<view class="info-item">
-				<van-cell-group inset style="display: flex;height:200rpx;">
-					<van-field style="width: 120rpx;" label="头像:" readonly />
-					<image src="../../static/logo.png" mode="" class="avatar"></image>
-				</van-cell-group>
 			</view>
-
-			<view class="info-item">
-				<van-cell-group inset>
-					<van-field label="姓名:" v-model="userInfo.name" readonly />
-				</van-cell-group>
+			<view class="user_tip" @click="goToLogin()">
+				<text>注册/登录</text>
+				<text>登录后可体验更多服务</text>
 			</view>
-			<view class="info-item">
-				<van-cell-group inset>
-					<van-field label="邮箱:" v-model="userInfo.email" readonly />
-				</van-cell-group>
-			</view>
-			<view class="info-item">
-				<van-cell-group inset>
-					<van-field label="电话:" v-model="userInfo.phone" readonly />
-				</van-cell-group>
-			</view>
-			<view class="info-item">
-				<van-cell-group inset>
-					<van-field label="生日:" v-model="userInfo.birthday" readonly />
-				</van-cell-group>
+			<view class="setting" @click="goToSetting()">
+				<text class="setting-text">设置</text>
 			</view>
 		</view>
 
-		<van-button class="btn btn-edit" type="primary" size="large" @click="editProfile">编辑</van-button>
-		<view class="footer">
-			<van-button class="btn btn-logout" type="primary" size="large" @click="logout">退出登录</van-button>
+		<view class="profile_look">
+			<view class="history">
+				<text>{{1}}</text>
+				<text>浏览历史</text>
+			</view>
+
+			<view class="collect">
+				<text>{{1}}</text>
+				<text>收藏</text>
+			</view>
+
+			<view class="current">
+				<text>{{1}}</text>
+				<text>服务</text>
+			</view>
 		</view>
+
+
+		<view class="profile_tools">
+			<view class="relation">
+				关系管理
+			</view>
+			<view class="birth">
+				生日管理
+			</view>
+			<view class="everyday">
+				日常管理
+			</view>
+			<view class="note">
+				笔记管理
+			</view>
+			<view class="bill">
+				账单管理
+			</view>
+			<view class="backlog">
+				待办管理
+			</view>
+		</view>
+
+		<view class="other">
+			other
+		</view>
+
+		<up-toast ref="uToast"></up-toast>
 	</view>
 </template>
-
 <script>
 	export default {
 		data() {
 			return {
-				userInfo: {
-					name: '张三',
-					email: 'zhangsan@example.com',
-					phone: '12345678901',
-					birthday: '1990-01-01'
-				}
-			};
+				title: "hello"
+			}
 		},
 		methods: {
-			editProfile() {
-				uni.navigateTo({
-					url: '/pages/profile/profile-edit' // 跳转到编辑页面
-				});
+			goToSetting() {
+				this.$refs.uToast.show({
+					message: "setting"
+				})
 			},
-			logout() {
-				// 处理退出登录逻辑
-				uni.showToast({
-					title: '已退出登录',
-					icon: 'success'
-				});
-				uni.switchTab({
-					url:"/pages/index/index"
+			goToLogin() {
+				uni.navigateTo({
+					url: "/pages/login/login"
 				})
 			}
 		}
-	};
+	}
 </script>
-
 <style scoped>
 	.container {
-		padding: 0 20px;
+		padding: 30rpx 30rpx;
+		background-color: #f5f5f5;
+		/* 设置背景颜色 */
+		height: 100%;
+		/* 确保填充整个页面 */
+		min-height: 100vh;
+		/* 确保在小屏幕设备上依然填充整个页面 */
 	}
 
-	.btn {
-		margin-top: 10rpx;
-	}
-
-	.profile-header {
-		padding: 20rpx 0;
-	}
-
-	.profile-title {
-		font-weight: bold;
-		font-size: 40rpx;
-	}
-
-	.info-item {
-		width: 100%;
-		margin-top: 30rpx;
+	.profile_top {
+		display: flex;
+		align-items: center;
 	}
 
 	.avatar {
-		width: 200rpx;
-		height: 200rpx
+		width: 150rpx;
+		height: 150rpx;
+		background-color: darkgray;
+		border-radius: 50%;
 	}
 
-	.avatar:hover::before {
-		content: "编辑";
-		color: white;
-		font-size: 16px;
+	.user_tip {
+		display: flex;
+		flex-direction: column;
+		margin-left: 20rpx;
+	}
+
+	.user_tip text:first-child {
+		font-size: 40rpx;
+		font-weight: bold;
+
+	}
+
+	.profile_look {
+		width: 100%;
+		height: 170rpx;
+		border-radius: 40rpx;
+		background-color: #fff;
+		margin-top: 80rpx;
+
+		display: flex;
+		justify-content: space-evenly;
+		align-items: center;
+
+	}
+
+	.history,
+	.collect,
+	.current {
+		display: flex;
+		flex-direction: column;
+		text-align: center;
+	}
+
+	.profile_tools {
+		width: 100%;
+		height: 500rpx;
+		background-color: #fff;
+		border-radius: 40rpx;
+		margin-top: 40rpx;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: start;
+		align-items: center;
+
+	}
+
+	.relation,
+	.backlog,
+	.bill,
+	.birth,
+	.everyday,
+	.note {
+		margin: 0 20rpx;
+	}
+
+	.other {
+		width: 100%;
+		height: 200rpx;
+		background-color: #fff;
+		border-radius: 40rpx;
+		margin-top: 40rpx;
+		font-size: 40rpx;
+		font-weight: bold;
 		text-align: center;
 		line-height: 200rpx;
-		/* 设置与高度一致，使得文字居中 */
 	}
 
-	.avatar::before {
-		content: "";
-		width: 200rpx;
-		height: 200rpx;
-		background-color: rgba(0, 0, 0, 0.3);
-		position: absolute;
-		top: 0;
-		left: 0;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		opacity: 0;
-		transition: opacity 0.3s ease;
-		/* 过渡效果 */
-	}
-
-	.avatar:hover::before {
-		opacity: 1;
-		/* 鼠标悬停时，显示伪类 */
+	.setting {
+		margin-top: -100rpx;
+		margin-left: 18%;
 	}
 </style>

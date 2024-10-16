@@ -1,57 +1,7 @@
 <template>
-	<view class="container">
-		<van-form @submit="onSubmit">
-			<van-field v-model="title" label="标题" placeholder="请输入标题" required />
-			<van-field v-model="description" label="描述" placeholder="请输入描述" required />
-			<van-button type="primary" block round native-type="submit">更新待办</van-button>
-		</van-form>
-	</view>
+	<view>todos</view>
 </template>
-
 <script>
-	export default {
-		data() {
-			return {
-				title: '',
-				description: '',
-				id: null
-			};
-		},
-		onLoad(options) {
-			// 模拟获取待办事项详情
-			const todo = {
-				id: options.id,
-				title: '完成项目报告',
-				description: '需要提交季度项目报告'
-			};
-			this.title = todo.title;
-			this.description = todo.description;
-			this.id = todo.id;
-		},
-		methods: {
-			onSubmit() {
-				if (!this.title || !this.description) {
-					uni.showToast({
-						title: '请填写完整信息',
-						icon: 'none'
-					});
-					return;
-				}
-				// 模拟更新待办事项
-				uni.showToast({
-					title: '更新成功',
-					icon: 'success'
-				});
-				setTimeout(() => {
-					uni.navigateBack();
-				}, 1000);
-			}
-		}
-	};
+	
 </script>
-
-<style scoped>
-	.container {
-		padding: 20px;
-	}
-</style>
+<style></style>

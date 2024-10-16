@@ -4,18 +4,18 @@
 		<view>age:{{userData.age}}</view>
 		<button @click="getData">getData</button>
 
-		<van-button type="primary" @click="goToFriendsPage()" block>关系管理</van-button>
-		<van-button type="primary" @click="goToBillPage()" block>账单管理</van-button>
-		<van-button type="primary" @click="goToNotesPage()" block>笔记管理</van-button>
-		<van-button type="primary" block>待办管理</van-button>
-		<van-button type="primary" @click="goToBirthManagerPage()" block>生日管理</van-button>
-		<van-button type="primary" @click="goToBirthManagerPage()" block>添加生日</van-button>
-		<van-button type="primary" @click="goToBirthManagerPage()" block>编辑生日</van-button>
-		<van-button type="primary" @click="goToBirthManagerPage()" block>生日详情</van-button>
-		<van-button type="primary" @click="goToProfilePage()" block>我的账户</van-button>
-		<van-button type="primary" @click="goToProfilePage()" block>账户编辑</van-button>
-		<van-button type="primary" @click="goToLoginPage()" block>登录</van-button>
-		<van-button type="primary" @click="goToRegisterPage()" block>注册</van-button>
+		<button type="primary" @click="goToFriendsPage()" >关系管理</button>
+		<button type="primary" @click="goToBillPage()">账单管理</button>
+		<button type="primary" @click="goToNotesPage()">笔记管理</button>
+		<button type="primary" >待办管理</button>
+		<button type="primary" @click="goToBirthManagerPage()">生日管理</button>
+		<button type="primary" @click="goToBirthManagerPage()">添加生日</button>
+		<button type="primary" @click="goToBirthManagerPage()">编辑生日</button>
+		<button type="primary" @click="goToBirthManagerPage()">生日详情</button>
+		<button type="primary" @click="goToProfilePage()">我的账户</button>
+		<button type="primary" @click="goToProfilePage()">账户编辑</button>
+		<button type="primary" @click="goToLoginPage()">登录</button>
+		<button type="primary" @click="goToRegisterPage()">注册</button>
 	</view>
 </template>
 

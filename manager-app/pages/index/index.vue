@@ -1,12 +1,8 @@
 <template>
 	<view class="content">
-
+		<up-toast ref="uToastRef"></up-toast>
 		<view class="seach-box">
-			<van-search v-model="kw" shape="round" background="#fff" placeholder="请输入搜索关键词" style="flex: 6;"
-				@search="onSearch(kw)"/>
-			<view class="user_login" @click="goToLogin()">
-				user
-			</view>
+			<u-search @search="onSearch(kw)" class="seach-input" placeholder="日照香炉生紫烟" v-model="kw"></u-search>
 		</view>
 
 		<swiper circular :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000"
@@ -80,27 +76,20 @@
 					</view>
 					<text>bill</text>
 				</view>
-
 			</view>
-			<!-- 			<button class="btn" @click="goToProfile">跳转到个人中心</button>
-			<button class="btn" @click="goToBirth">跳转到生日管理</button>
-			<button class="btn" @click="gotoFriends">跳转到朋友管理</button>
-			<navigator url="/pages/friends/friends">导航到朋友管理</navigator> -->
 		</view>
 	</view>
 </template>
 
 <script>
 	import {
-		showToast
-	} from 'vant';
-	import {
 		toUrl
 	} from '../../utils';
 	export default {
 		data() {
 			return {
-				kw: ""
+				kw: "",
+				show:false
 			}
 		},
 		onLoad() {
@@ -129,7 +118,10 @@
 				})
 			},
 			onSearch(val) {
-				showToast(val)
+				this.$refs.uToastRef.show({
+					message:val,
+					type:"success"
+				})
 			}
 		}
 	}
@@ -167,17 +159,10 @@
 
 	.seach-box {
 		display: flex;
-		padding: 10rpx 10rpx 0 0;
+		padding: 20rpx 15rpx;
 	}
 
-	.user_login {
-		flex: 1;
-		width: 200rpx;
-		height: 100rpx;
-		background-color: darkgray;
-		color: aliceblue;
-		border-radius: 50%;
-		text-align: center;
-		line-height: 100rpx;
+	.seach-input {
+		flex: 6 !important;
 	}
 </style>

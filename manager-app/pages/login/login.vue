@@ -1,113 +1,79 @@
 <template>
 	<view class="container">
-
 		<view class="logo">
-			<image src="../../static/pj-logo.png" mode=""></image>
+			<image class="logo-pic" src="../../static/pj-logo.png" mode=""></image>
 		</view>
-		<!-- 登录表单 -->
-		<van-form @submit="login()" class="login_form">
-			<van-cell-group inset>
-				<van-field v-model="form.username" name="用户名" label="用户名" placeholder="用户名"
-					:rules="[{ required: true, message: '请填写用户名' }]" />
-				<van-field v-model="form.password" type="password" name="密码" label="密码" placeholder="密码"
-					:rules="[{ required: true, message: '请填写密码' }]" />
-			</van-cell-group>
-			<div style="margin: 16px;">
-				<van-button @click="login()" round block type="primary" native-type="submit">
-					用户登录
-				</van-button>
-				<text class="text-register-info">没账号？去<text class="link-register"
-						@click="goToRegister()">注册</text>。</text>
-			</div>
-		</van-form>
+
+		<view class="my-form">
+			<text>用户名：</text>
+			<input type="text" v-model="userData.username" name="username" id="username" />
+			<text>密码：</text>
+			<input type="password" v-model="userData.password" name="password" id="password">
+
+			<button @click="userLogin()">登录</button>
+		</view>
+		<up-toast ref="uToast"></up-toast>
 	</view>
 </template>
-
 <script>
 	export default {
 		data() {
 			return {
-				form: {
-					username: '',
-					password: ''
+				userData: {
+					username: "admin",
+					password: "admin"
 				}
-			};
+			}
 		},
 		methods: {
-			login() {
-				// 简单的表单验证
-				if (!this.form.username) {
-					return uni.showToast({
-						title: '请输入用户名',
-						icon: 'none'
-					});
+			userLogin() {
+				console.log(this.userData.username, this.userData.password);
+				if (this.userData.username == "admin" && this.userData.password == "admin") {
+					uni.switchTab({
+						url: "/pages/index/index",
+						success: function() {
+							console.log('跳转成功');
+						},
+						fail: function(error) {
+							console.log('跳转失败:', error);
+						}
+					})
+				} else {
+					this.$refs.uToast.show({
+						message: "用户名或密码错误！！！",
+						type: "warning"
+					})
 				}
-				if (!this.form.password) {
-					return uni.showToast({
-						title: '请输入密码',
-						icon: 'none'
-					});
-				}
-
-				// 模拟登录请求
-				uni.showLoading({
-					title: '正在登录...'
-				});
-
-				// 模拟登录请求，替换为实际的请求
-				setTimeout(() => {
-					uni.hideLoading();
-					if (this.form.username === 'admin' && this.form.password === '123456') {
-						uni.showToast({
-							title: '登录成功',
-							icon: 'success'
-						});
-
-						// 跳转到首页（或其他页面）
-						uni.switchTab({
-							url: '/pages/index/index' // 修改为实际首页路径
-						});
-					} else {
-						uni.showToast({
-							title: '用户名或密码错误',
-							icon: 'none'
-						});
-					}
-				}, 1000);
-			},
-			goToRegister() {
-				uni.navigateTo({
-					url: "/pages/login/register"
-				})
 			}
 		}
-	};
+	}
 </script>
-
 <style scoped>
 	.container {
-		height: calc(100vh - 90rpx);
-		background-color: aliceblue;
-		overflow: hidden;
-		padding: 100rpx 20rpx;
+		padding: 30rpx 30rpx;
+		background-color: #f5f5f5;
+		/* 设置背景颜色 */
+		height: 100%;
+		/* 确保填充整个页面 */
+		min-height: 100vh;
+		/* 确保在小屏幕设备上依然填充整个页面 */
 	}
 
 	.logo {
-		text-align: center;
+		display: flex;
+		justify-content: center;
 	}
 
-	.logo image {
+	.logo-pic {
 		width: 200rpx;
 		height: 200rpx;
 	}
 
-	.login_form {}
-
-	.text-register-info {
-		font-size: 28rpx;
-	}
-
-	.link-register {
-		color: #1989fa;
+	#username,
+	#password {
+		height: 80rpx;
+		border: 1px solid #83a0d1;
+		margin-bottom: 30rpx;
+		text-indent: 10rpx;
 	}
 </style>
