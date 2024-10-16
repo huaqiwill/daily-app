@@ -11,6 +11,7 @@
 			<input type="password" v-model="userData.password" name="password" id="password">
 
 			<button @click="userLogin()">登录</button>
+			<text>没有账号？去<text class="regster-text" @click="goToRegister()">注册</text>。</text>
 		</view>
 		<up-toast ref="uToast"></up-toast>
 	</view>
@@ -26,6 +27,7 @@
 			}
 		},
 		methods: {
+			
 			userLogin() {
 				console.log(this.userData.username, this.userData.password);
 				if (this.userData.username == "admin" && this.userData.password == "admin") {
@@ -44,6 +46,12 @@
 						type: "warning"
 					})
 				}
+			},
+			// 用户注册
+			goToRegister(){
+				uni.navigateTo({
+					url:"/pages/login/register"
+				})
 			}
 		}
 	}
@@ -75,5 +83,8 @@
 		border: 1px solid #83a0d1;
 		margin-bottom: 30rpx;
 		text-indent: 10rpx;
+	}
+	.regster-text{
+		color: #83a0d1;
 	}
 </style>

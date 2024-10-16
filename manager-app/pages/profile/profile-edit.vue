@@ -1,13 +1,124 @@
 <template>
-
+	<view class="container">
+		<view class="cover-bg">
+			<image class="cover-pic" src="../../static/banner/1.png" mode=""></image>
+		</view>
+		<view class="user-info">
+			<view class="avatar-box">
+				<image class="avatar-pic" src="../../static/pj-logo.png" mode=""></image>
+			</view>
+			<view class="info">
+				<view class="info-item"><text>名字</text><text>{{userInfo.username}}</text></view>
+				<view class="info-item"><text>简介</text><text>{{userInfo.introductory}}</text></view>
+				<view class="info-item"><text>性别</text><text>{{userInfo.gender}}</text></view>
+				<view class="info-item"><text>生日</text><text>{{userInfo.birthday}}</text></view>
+				<view class="info-item"><text>所在地</text><text>{{userInfo.address}}</text></view>
+				<view class="info-item"><text>学校</text><text>{{userInfo.school}}</text></view>
+				<view class="info-item"><text>Id</text><text>{{userInfo.Id}}</text></view>
+			</view>
+			
+			<button class="save-edit" @click="saveEdit()">保存编辑</button>
+		</view>
+		<u-toast ref="uToast"></u-toast>
+	</view>
 </template>
 
 <script>
 	export default {
 		data() {
 			return {
-				disabled: true
+				userInfo:{
+					username:"张三",
+					introductory:"介绍",
+					gender:"性别",
+					birthday:"1990-01-01",
+					address:"hubei",
+					school:"whdx",
+					Id:""
+				}
 			};
+		},
+		methods:{
+			saveEdit(){
+				this.$refs.uToast.show({
+					message:"保存成功",
+					type:"success"
+				})
+				setTimeout(()=>{
+					uni.switchTab({
+						url:"/pages/profile/profile"
+					})
+				},1000)
+				
+			}
 		}
 	};
 </script>
+<style scoped>
+	.container {
+		padding: 30rpx 0;
+		background-color: #f5f5f5;
+		/* 设置背景颜色 */
+		height: 100%;
+		/* 确保填充整个页面 */
+		min-height: 100vh;
+		/* 确保在小屏幕设备上依然填充整个页面 */
+	}
+	.cover-bg{
+		width: 100%;
+		height: 400rpx;
+		background-color: red;
+		overflow: hidden;
+	}
+	.cover-bg .cover-pic{
+		width: 100%;
+		background-size: cover;
+	}
+	.user-info{
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		position: relative;
+		width: 100%;
+		height: 1100rpx;
+		background: #f5f5f5;
+		top: -50rpx;
+		border-radius: 20rpx;
+		
+	}
+	.avatar-box{
+		position: absolute;
+		top: -100rpx;
+		width: 200rpx;
+		height: 200rpx;
+		background-color: rgba(0, 0, 0);
+		border-radius: 50%;
+		overflow: hidden;
+	}
+	.avatar-pic{
+		width: 200rpx;
+		height: 200rpx;
+	}
+	.info{
+		width: 100%;
+		margin-top: 200rpx;
+		/* background-color: red; */
+	}
+	.info .info-item{
+		display: flex;
+		align-items: center;
+		margin-bottom: 50rpx;
+	}
+	.info .info-item text:nth-child(1){
+		width: 200rpx;
+		margin-left: 80rpx;
+	}
+	.info .info-item text:nth-child(2){
+		margin-left: 20rpx;
+	}
+	.save-edit{
+		width: 80%;
+		position: absolute;
+		bottom: 40rpx;
+	}
+</style>

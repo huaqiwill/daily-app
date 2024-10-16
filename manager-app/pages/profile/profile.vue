@@ -71,6 +71,9 @@
 				this.$refs.uToast.show({
 					message: "setting"
 				})
+				uni.navigateTo({
+					url:"/pages/profile/profile-edit"
+				})
 			},
 			goToLogin() {
 				uni.navigateTo({
