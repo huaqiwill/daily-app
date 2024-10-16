@@ -9,19 +9,40 @@
 				<template #icon>
 					<image src="../../static/logo.png" alt="icon" class="custom-icon" />
 				</template>
-
-				<!-- 自定义 value 内容 -->
 				<template #value>
 					<div class="custom-value">
-						<div>{{ birthday.name }}</div> <!-- 第一行：name -->
-						<div>{{ 10 }} 天</div> <!-- 第二行：天数 -->
+						<div>{{ birthday.name }}</div>
+						<div>{{ 10 }} 天</div>
 					</div>
 				</template>
 			</van-cell>
+			<van-swipe-cell v-for="(birthday, index) in birthdays" :key="index" :label="birthday.date"
+				@click="navigateToDetail(birthday.id)">
+	<!-- 			<template #left>
+					<van-button square type="primary" text="选择" />
+				</template> -->
+				<van-cell center="true" class="birth-card">
+					<template #icon>
+						<image src="../../static/logo.png" alt="icon" class="custom-icon" />
+					</template>
 
+					<!-- 自定义 value 内容 -->
+					<template #value>
+						<div class="custom-value">
+							<div>{{ birthday.name }}</div> <!-- 第一行：name -->
+							<div>{{ 10 }} 天</div> <!-- 第二行：天数 -->
+						</div>
+					</template>
+				</van-cell>
+				<template #right>
+					<van-button class="del-birth" square type="danger" text="删除" />
+					<van-button class="edit-birth" square type="primary" text="收藏" />
+				</template>
+			</van-swipe-cell>
 		</van-list>
-		
-		
+
+
+
 		<view class="add_birth" @click="navigateToAddBirthday">+</view>
 	</view>
 </template>
@@ -82,14 +103,7 @@
 <style scoped>
 	.container {
 		padding: 10rpx 20rpx;
-		
-	}
 
-	.header {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		margin-bottom: 20px;
 	}
 
 	.birth-card {
@@ -106,7 +120,8 @@
 		border-radius: 50%;
 		/* 设置图标高度 */
 	}
-	.add_birth{
+
+	.add_birth {
 		position: fixed;
 		right: 30rpx;
 		bottom: 50rpx;
@@ -118,5 +133,9 @@
 		line-height: 85rpx;
 		color: aliceblue;
 		font-size: 80rpx;
+	}
+	.del-birth,
+	.edit-birth{
+		height: 100%;
 	}
 </style>
