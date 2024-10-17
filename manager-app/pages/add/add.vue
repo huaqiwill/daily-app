@@ -4,10 +4,10 @@
 		<view>age:{{userData.age}}</view>
 		<button @click="getData">getData</button>
 
-		<button type="primary" @click="goToFriendsPage()" >关系管理</button>
+		<button type="primary" @click="goToFriendsPage()">关系管理</button>
 		<button type="primary" @click="goToBillPage()">账单管理</button>
 		<button type="primary" @click="goToNotesPage()">笔记管理</button>
-		<button type="primary" >待办管理</button>
+		<button type="primary" @click="goTotoDos()">待办管理</button>
 		<button type="primary" @click="goToBirthManagerPage()">生日管理</button>
 		<button type="primary" @click="goToBirthManagerPage()">添加生日</button>
 		<button type="primary" @click="goToBirthManagerPage()">编辑生日</button>
@@ -16,9 +16,9 @@
 		<button type="primary" @click="goToProfilePage()">账户编辑</button>
 		<button type="primary" @click="goToLoginPage()">登录</button>
 		<button type="primary" @click="goToRegisterPage()">注册</button>
+		<button type="primary" @click="goToTabbar()">tabbar</button>
 	</view>
 </template>
-
 <script>
 	import {
 		getData
@@ -74,6 +74,16 @@
 			goToRegisterPage() {
 				uni.navigateTo({
 					url: "/pages/login/register"
+				})
+			},
+			goToTabbar() {
+				uni.navigateTo({
+					url: "/pages/tabbar/tabbar"
+				})
+			},
+			goTotoDos(){
+				uni.navigateTo({
+					url:"/pages/todos/todos"
 				})
 			}
 		}

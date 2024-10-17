@@ -187,6 +187,11 @@
 			"style": {
 				"navigationBarTitleText": "食谱详情"
 			}
+		}, {
+			"path": "pages/tabbar/tabbar",
+			"style": {
+				"navigationBarTitleText": "tabbar"
+			}
 		}
 	],
 	"globalStyle": {
@@ -207,7 +212,8 @@
 		"fontSize": "25rpx",
 		"iconWidth": "24px",
 		"spacing": "5rpx",
-		"list": [{
+		"list": [
+			{
 				"pagePath": "pages/index/index",
 				"text": "首页",
 				"iconPath": "static/images/property-agent.png"

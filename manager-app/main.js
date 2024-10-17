@@ -32,9 +32,11 @@ import {
 
 
 import uviewPlus from 'uview-plus'
-
+// main.js
+import tabBar from '@/pages/tabbar/tabbar'
 export function createApp() {
 	const app = createSSRApp(App)
+	app.component('tab-bar',tabBar) //挂载
 	app.use(uviewPlus)
 	// app.use(Vant); // 全局注册 Vant 组件
 

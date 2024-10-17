@@ -89,7 +89,7 @@
 		data() {
 			return {
 				kw: "",
-				show:false
+				show: false
 			}
 		},
 		onLoad() {
@@ -119,8 +119,8 @@
 			},
 			onSearch(val) {
 				this.$refs.uToastRef.show({
-					message:val,
-					type:"success"
+					message: val,
+					type: "success"
 				})
 			}
 		}

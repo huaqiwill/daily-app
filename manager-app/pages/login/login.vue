@@ -27,7 +27,7 @@
 			}
 		},
 		methods: {
-			
+
 			userLogin() {
 				console.log(this.userData.username, this.userData.password);
 				if (this.userData.username == "admin" && this.userData.password == "admin") {
@@ -48,9 +48,9 @@
 				}
 			},
 			// 用户注册
-			goToRegister(){
+			goToRegister() {
 				uni.navigateTo({
-					url:"/pages/login/register"
+					url: "/pages/login/register"
 				})
 			}
 		}
@@ -84,7 +84,8 @@
 		margin-bottom: 30rpx;
 		text-indent: 10rpx;
 	}
-	.regster-text{
+
+	.regster-text {
 		color: #83a0d1;
 	}
 </style>

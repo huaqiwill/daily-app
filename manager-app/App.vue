@@ -17,6 +17,6 @@
 	@import "uview-plus/index.scss";
 
 	body {
-		font-family: 'Courier New', Courier, monospace ;
+		font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
 	}
 </style>
