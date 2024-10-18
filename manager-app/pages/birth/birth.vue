@@ -14,18 +14,13 @@
 				<text>生日提醒</text>
 			</view>
 			<view class="birth-list">
-				<!-- 			<u-cell-group :border="false">
-					<u-cell v-for="(item,index) in birthList" :key="item.id" class="birth-item" :border="false"
-						:isLink="true" :title="item.name" :label="item.date">
-					</u-cell>
-				</u-cell-group> -->
 
 				<up-swipe-action>
 					<up-swipe-action-item class="birth-items" :border="false" v-for="(item,index) in birthList"
-						:key="item.id" v-model:show="item.ishow" :options="options1">
+						:key="item.id" v-model:show="item.ishow" :options="options1" @close="" @open="">
 						<u-cell-group :border="false">
-							<u-cell @click="editBirth()" class="birth-item" :border="false" :isLink="true" :title="item.name"
-								:label="item.date">
+							<u-cell @click="editBirth()" class="birth-item" :border="false" :isLink="true"
+								:title="item.name" :label="item.date">
 							</u-cell>
 						</u-cell-group>
 					</up-swipe-action-item>
@@ -33,12 +28,25 @@
 			</view>
 		</view>
 		<u-toast ref="uToast"></u-toast>
+
+		<up-popup :show="show" mode="bottom" @close="close" @open="open">
+			<view>
+				<view class="backlogForm" style="height: 800rpx;">
+					<up-input type="text" clearable placeholder="请输入待办标题"></up-input>
+					<u-textarea></u-textarea>
+					<up-datetime-picker hasInput :show="dateShow" v-model="value1" mode="datetime"></up-datetime-picker>
+				</view>
+				<u-button style="width: 500rpx;" @click="saveBirth()">保存</u-button>
+			</view>
+		</up-popup>
+
 	</view>
 </template>
 <script>
 	export default {
 		data() {
 			return {
+				show: false,
 				birthList: [{
 						id: 1,
 						name: "张三",
@@ -88,11 +96,10 @@
 		},
 		methods: {
 			addBirth() {
-				this.$refs.uToast.show({
-					message: "新增成功",
-					type: "success"
-				})
-
+				this.show = true
+			},
+			saveBirth() {
+				this.show = false
 				this.birthList.push({
 					id: Date.now(),
 					name: "王武",
@@ -100,11 +107,15 @@
 					ishow: false
 
 				})
-			},
-			editBirth(){
 				this.$refs.uToast.show({
-					message:"编辑成功",
-					type:"success"
+					message: "新增成功",
+					type: "success"
+				})
+			},
+			editBirth() {
+				this.$refs.uToast.show({
+					message: "编辑成功",
+					type: "success"
 				})
 			}
 		}
