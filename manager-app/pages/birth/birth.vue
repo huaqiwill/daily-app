@@ -4,7 +4,7 @@
 			<view class="birth-title">
 				<text>生日管理</text>
 			</view>
-			<view class="add-icon">
+			<view class="add-icon" @click="addBirth()">
 				<u-icon name="plus"></u-icon>
 			</view>
 		</view>
@@ -14,25 +14,25 @@
 				<text>生日提醒</text>
 			</view>
 			<view class="birth-list">
-				<u-cell-group :border="false">
+				<!-- 			<u-cell-group :border="false">
 					<u-cell v-for="(item,index) in birthList" :key="item.id" class="birth-item" :border="false"
 						:isLink="true" :title="item.name" :label="item.date">
 					</u-cell>
-				</u-cell-group>
+				</u-cell-group> -->
+
+				<up-swipe-action>
+					<up-swipe-action-item class="birth-items" :border="false" v-for="(item,index) in birthList"
+						:key="item.id" v-model:show="item.ishow" :options="options1">
+						<u-cell-group :border="false">
+							<u-cell @click="editBirth()" class="birth-item" :border="false" :isLink="true" :title="item.name"
+								:label="item.date">
+							</u-cell>
+						</u-cell-group>
+					</up-swipe-action-item>
+				</up-swipe-action>
 			</view>
 		</view>
-
-		<view>
-			<up-swipe-action>
-				<up-swipe-action-item class="birth-items" :border="false" v-for="(item,index) in birthList"
-					:key="item.id" v-model:show="item.ishow" :options="options1">
-					<u-cell-group :border="false">
-						<u-cell class="birth-item" :border="false" :isLink="true" :title="item.name" :label="item.date">
-						</u-cell>
-					</u-cell-group>
-				</up-swipe-action-item>
-			</up-swipe-action>
-		</view>
+		<u-toast ref="uToast"></u-toast>
 	</view>
 </template>
 <script>
@@ -87,7 +87,26 @@
 			console.log("页面加载");
 		},
 		methods: {
+			addBirth() {
+				this.$refs.uToast.show({
+					message: "新增成功",
+					type: "success"
+				})
 
+				this.birthList.push({
+					id: Date.now(),
+					name: "王武",
+					date: "10.20",
+					ishow: false
+
+				})
+			},
+			editBirth(){
+				this.$refs.uToast.show({
+					message:"编辑成功",
+					type:"success"
+				})
+			}
 		}
 	}
 </script>
@@ -121,35 +140,23 @@
 		}
 
 		.birth-item {
-			border: 1rpx solid #949d99;
+			border-radius: 15rpx 0rpx 0rpx 15rpx;
+			// margin-bottom: 20rpx;
+			transition: all .5s;
+
+		}
+
+		.birth-items {
+			// border: 1rpx solid #949d99;
 			border-radius: 15rpx;
 			margin-bottom: 20rpx;
 			transition: all .5s;
+			overflow: hidden;
 		}
 
 		.birth-item:hover {
 			background-color: #ddeafc;
-			border: 1rpx solid transparent;
+			border: none;
 		}
-	}
-
-	.birth-item {
-		border-radius: 15rpx 0rpx 0rpx 15rpx;
-		// margin-bottom: 20rpx;
-		transition: all .5s;
-
-	}
-
-	.birth-items {
-		// border: 1rpx solid #949d99;
-		border-radius: 15rpx;
-		margin-bottom: 20rpx;
-		transition: all .5s;
-		overflow: hidden;
-	}
-
-	.birth-item:hover {
-		background-color: #ddeafc;
-		border: none;
 	}
 </style>
