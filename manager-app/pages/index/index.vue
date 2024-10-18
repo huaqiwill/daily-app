@@ -5,7 +5,7 @@
 			<u-search @search="onSearch(kw)" class="seach-input" placeholder="日照香炉生紫烟" v-model="kw"></u-search>
 		</view>
 
-		<swiper circular :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000"
+		<!-- <swiper circular :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000"
 			style="width: 100%;height: 350rpx;">
 			<swiper-item style="background-color: red; text-align: center;">
 				<view class="swiper-item">
@@ -17,7 +17,14 @@
 					<image src="../../static/banner/2.png" style="width: 100%;"></image>
 				</view>
 			</swiper-item>
-		</swiper>
+		</swiper> -->
+
+		<view class="u-demo-block">
+			<!-- <text class="u-demo-block__title">卡片式</text> -->
+			<up-swiper :list="list3" previousMargin="30" nextMargin="30" circular :autoplay="false" radius="5"
+				bgColor="#ffffff"></up-swiper>
+		</view>
+
 		<view>
 			<view class="nav">
 				<view class="nav-item-box">
@@ -89,7 +96,12 @@
 		data() {
 			return {
 				kw: "",
-				show: false
+				show: false,
+				list3: [
+					'https://cdn.uviewui.com/uview/swiper/swiper3.png',
+					'https://cdn.uviewui.com/uview/swiper/swiper2.png',
+					'https://cdn.uviewui.com/uview/swiper/swiper1.png',
+				]
 			}
 		},
 		onLoad() {

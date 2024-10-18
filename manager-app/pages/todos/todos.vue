@@ -2,7 +2,8 @@
 	<view class="container">
 		<view class="todos-top">
 			<view class="min-avatar">
-				<image class="min-avatar-pic" src="../../favicon.ico" mode=""></image>
+				<u-avatar src="../../favicon.ico"></u-avatar>
+				<!-- <image class="min-avatar-pic" src="../../favicon.ico" mode=""></image> -->
 				<text class="todos-title">待办清单</text>
 			</view>
 			<view class="todos-tool">
@@ -10,8 +11,9 @@
 					<u-icon name="plus"></u-icon>
 				</view>
 				<view class="tip-todo" style="position: relative;">
-					<up-badge showZero="true" :value="num" style="z-index: 99;" :isDot="true" type="error" absolute="false" offset="[1,1]">
-						
+					<up-badge showZero="true" :value="num" style="z-index: 99;" :isDot="true" type="error"
+						absolute="false" offset="[1,1]">
+
 					</up-badge>
 					<u-icon name="bell"></u-icon>
 				</view>
@@ -96,27 +98,54 @@
 				</view>
 			</view>
 		</view>
-	
-	
+
+
 		<u-toast ref="uToast"></u-toast>
+
+		<up-popup :show="show" mode="bottom" @close="close" @open="open">
+			<view>
+				<view class="backlogForm" style="height: 800rpx;">
+					<up-input type="text" clearable placeholder="请输入待办标题"></up-input>
+					<u-textarea></u-textarea>
+					<up-datetime-picker hasInput :show="dateShow" v-model="value1" mode="datetime"></up-datetime-picker>
+				</view>
+				<u-button style="width: 500rpx;" @click="saveBacklog()">保存</u-button>
+			</view>
+		</up-popup>
+
+
 	</view>
 </template>
 <script>
-export default{
-	data(){
-		return{
-			num:1
-		}
-	},
-	methods:{
-		addTask(){
-			this.$refs.uToast.show({
-				message:"新增成功",
-				type:"success"
-			})
+	export default {
+		data() {
+			return {
+				num: 1,
+				src: 'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg',
+				show: false,
+				dateShow: false,
+				dateTime: Date.now(),
+				taskList: [],
+				task: {
+					taskTitle: "",
+					taskContent: "",
+					taskState: false
+				}
+			}
+		},
+		methods: {
+			addTask() {
+				this.$refs.uToast.show({
+					message: "新增成功",
+					type: "success"
+				})
+				this.show = true
+			},
+			saveBacklog() {
+				this.show = false
+			}
 		}
 	}
-}
 </script>
 <style scoped>
 	.container {
