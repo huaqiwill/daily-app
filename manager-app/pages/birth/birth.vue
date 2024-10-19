@@ -82,7 +82,7 @@
 				],
 				birthData: {
 					name: "",
-					date: "",
+					date: this.formatTimestamp(Number(new Date())),
 					ishow: false
 				},
 				options1: [{
@@ -109,6 +109,7 @@
 			},
 			saveBirth() {
 				this.addBrithShow = false
+				// 参数校验，取消按钮
 				this.birthList.push({
 					id: Date.now(),
 					name: this.birthData.name,

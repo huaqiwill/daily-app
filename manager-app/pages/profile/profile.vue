@@ -32,24 +32,34 @@
 
 
 		<view class="profile_tools">
-			<view class="relation">
+			<view :class="item.name" v-for="(item,index) of tools" :key="item.id">
+				<u-icon :size="item.icon_size" class="icon-map" :name="item.type"></u-icon>
+				{{item.title}}
+			</view>
+			<!-- <view class="relation">
+				<u-icon :size="30" class="icon-map" name="map"></u-icon>
 				关系管理
 			</view>
 			<view class="birth">
+				<u-icon :size="30" class="icon-map" name="map"></u-icon>
 				生日管理
 			</view>
 			<view class="everyday">
+				<u-icon :size="30" class="icon-map" name="map"></u-icon>
 				日常管理
 			</view>
 			<view class="note">
+				<u-icon :size="30" class="icon-map" name="map"></u-icon>
 				笔记管理
 			</view>
 			<view class="bill">
+				<u-icon :size="30" class="icon-map" name="map"></u-icon>
 				账单管理
 			</view>
 			<view class="backlog">
+				<u-icon :size="30" class="icon-map" name="map"></u-icon>
 				待办管理
-			</view>
+			</view> -->
 		</view>
 
 		<view class="other">
@@ -63,7 +73,50 @@
 	export default {
 		data() {
 			return {
-				title: "hello"
+				title: "hello",
+				tools: [{
+						id: 1,
+						name: "relation",
+						type: "map",
+						title: "关系管理",
+						icon_size: 30
+					},
+					{
+						id: 2,
+						name: "birth",
+						type: "map",
+						title: "生日管理",
+						icon_size: 30
+					},
+					{
+						id: 3,
+						name: "everyday",
+						type: "map",
+						title: "日常管理",
+						icon_size: 30
+					},
+					{
+						id: 4,
+						name: "note",
+						type: "map",
+						title: "笔记管理",
+						icon_size: 30
+					},
+					{
+						id: 5,
+						name: "bill",
+						type: "map",
+						title: "账单管理",
+						icon_size: 30
+					},
+					{
+						id: 6,
+						name: "backlog",
+						type: "map",
+						title: "关系管理",
+						icon_size: 30
+					}
+				]
 			}
 		},
 		methods: {
@@ -72,7 +125,7 @@
 					message: "setting"
 				})
 				uni.navigateTo({
-					url:"/pages/profile/profile-edit"
+					url: "/pages/profile/profile-edit"
 				})
 			},
 			goToLogin() {
@@ -149,7 +202,6 @@
 		flex-wrap: wrap;
 		justify-content: start;
 		align-items: center;
-
 	}
 
 	.relation,
@@ -158,7 +210,8 @@
 	.birth,
 	.everyday,
 	.note {
-		margin: 0 20rpx;
+		margin: 0 20rpx 0 20rpx;
+		/* margin-right: 40rpx; */
 	}
 
 	.other {
@@ -176,5 +229,12 @@
 	.setting {
 		margin-top: -100rpx;
 		margin-left: 18%;
+	}
+
+	.icon-map {
+		display: flex;
+		justify-content: center;
+		/* margin-bottom: 10rpx; */
+		/* background-color: red; */
 	}
 </style>

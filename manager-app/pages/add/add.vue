@@ -32,6 +32,12 @@
 				}
 			}
 		},
+		onLoad() {
+
+		},
+		onReachBottom() {
+			console.log("我触底执行了");
+		},
 		methods: {
 			async getData() {
 				try {
@@ -81,9 +87,9 @@
 					url: "/pages/tabbar/tabbar"
 				})
 			},
-			goTotoDos(){
+			goTotoDos() {
 				uni.navigateTo({
-					url:"/pages/todos/todos"
+					url: "/pages/todos/todos"
 				})
 			}
 		}

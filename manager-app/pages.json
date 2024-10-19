@@ -232,18 +232,21 @@
 			{
 				"pagePath": "pages/index/index",
 				"text": "首页",
-				"iconPath": "static/images/property-agent.png"
+				"iconPath": "static/images/property-agent.png",
+				"selectedIconPath": "static/images/property-agent.png"
 			},
 			{
 				"pagePath": "pages/add/add",
 				"text": "添加",
-				"iconPath": "static/images/add-note.png"
+				"iconPath": "static/images/add-note.png",
+				"selectedIconPath": "static/images/add-note.png"
 
 			},
 			{
 				"pagePath": "pages/profile/profile",
 				"text": "账户",
-				"iconPath": "static/images/user.png"
+				"iconPath": "static/images/user.png",
+				"selectedIconPath": "static/images/user.png"
 			}
 		]
 	}
