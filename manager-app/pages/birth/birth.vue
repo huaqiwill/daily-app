@@ -17,7 +17,7 @@
 
 				<up-swipe-action>
 					<up-swipe-action-item class="birth-items" :border="false" v-for="(item,index) in birthList"
-						:key="item.id" v-model:show="item.ishow" :options="options1" @close="" @open="">
+						:key="item.id" @click="delBirth(item,index)" v-model:show="item.ishow" :options="options1" @close="" @open="">
 						<u-cell-group :border="false">
 							<u-cell @click="editBirth()" class="birth-item" :border="false" :isLink="true"
 								:title="item.name" :label="item.date">
@@ -29,12 +29,13 @@
 		</view>
 		<u-toast ref="uToast"></u-toast>
 
-		<up-popup :show="show" mode="bottom" @close="close" @open="open">
+		<up-popup :show="addBrithShow" mode="bottom" @close="close" @open="open">
 			<view>
 				<view class="backlogForm" style="height: 800rpx;">
-					<up-input type="text" clearable placeholder="请输入待办标题"></up-input>
+					<up-input v-model="birthData.name" type="text" clearable placeholder="请输入待办标题"></up-input>
 					<u-textarea></u-textarea>
-					<up-datetime-picker hasInput :show="dateShow" v-model="value1" mode="datetime"></up-datetime-picker>
+					<up-datetime-picker hasInput :show="dateShow" v-model="birthData.date"
+						mode="datetime"></up-datetime-picker>
 				</view>
 				<u-button style="width: 500rpx;" @click="saveBirth()">保存</u-button>
 			</view>
@@ -46,7 +47,7 @@
 	export default {
 		data() {
 			return {
-				show: false,
+				addBrithShow: false,
 				birthList: [{
 						id: 1,
 						name: "张三",
@@ -79,9 +80,10 @@
 					}
 
 				],
-				birth: {
+				birthData: {
 					name: "",
-					date: ""
+					date: "",
+					ishow: false
 				},
 				options1: [{
 					text: "删除",
@@ -95,28 +97,45 @@
 			console.log("页面加载");
 		},
 		methods: {
+			formatTimestamp(timestamp) {
+				const date = new Date(timestamp);
+				const year = date.getFullYear();
+				const month = String(date.getMonth() + 1).padStart(2, '0'); // 月份从 0 开始
+				const day = String(date.getDate()).padStart(2, '0');
+				return `${year}-${month}-${day}`;
+			},
 			addBirth() {
-				this.show = true
+				this.addBrithShow = true
 			},
 			saveBirth() {
-				this.show = false
+				this.addBrithShow = false
 				this.birthList.push({
 					id: Date.now(),
-					name: "王武",
-					date: "10.20",
+					name: this.birthData.name,
+					date: this.formatTimestamp(this.birthData.date),
 					ishow: false
-
 				})
 				this.$refs.uToast.show({
 					message: "新增成功",
 					type: "success"
 				})
+				this.birthData = {
+					name: "",
+					date: "",
+					ishow: false
+				}
+			},
+			delBirth(e) {
+				// 模拟删除操作
+				this.birthList = this.birthList.filter(f=>{
+					return f.id != e.id
+				})
 			},
 			editBirth() {
-				this.$refs.uToast.show({
-					message: "编辑成功",
-					type: "success"
-				})
+				// this.$refs.uToast.show({
+				// 	message: "编辑成功",
+				// 	type: "success"
+				// })
 			}
 		}
 	}

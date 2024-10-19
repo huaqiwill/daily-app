@@ -207,11 +207,27 @@
 		"color": "#7A7E83",
 		"selectedColor": "#4b5be6",
 		"borderStyle": "black",
+		// #ifdef H5
 		"backgroundColor": "#ffffff",
-		"height": "50px",
-		"fontSize": "25rpx",
-		"iconWidth": "24px",
+		"height": "40px",
+		"fontSize": "20rpx",
+		"iconWidth": "40rpx",
 		"spacing": "5rpx",
+		// #endif
+		// #ifdef MP-WEIXIN
+		"backgroundColor": "#ffffff",
+		"height": "40px",
+		"fontSize": "20rpx",
+		"iconWidth": "40rpx",
+		"spacing": "5rpx",
+		// #endif
+		// #ifdef APP-PLUS
+		"backgroundColor": "#ffffff",
+		"height": "40rpx",
+		"fontSize": "15rpx",
+		"iconWidth": "20rpx",
+		"spacing": "5rpx",
+		// #endif
 		"list": [
 			{
 				"pagePath": "pages/index/index",

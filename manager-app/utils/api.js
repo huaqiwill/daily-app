@@ -55,3 +55,20 @@ export const saveProfileInfo = (data) => requests({
 	method: "post",
 	url: "/profile/save"
 })
+
+
+// birth modules
+export const addBirth = (data) => requests({
+	method: "post",
+	url: "/birth/add"
+})
+
+export const getBirthList = () => requests({
+	method: "get",
+	url: "/birth/list"
+})
+
+export const getBirth = (id) => requests({
+	method: "get",
+	url: `/birth?id=${id}`
+})
