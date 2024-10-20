@@ -17,9 +17,11 @@
 
 				<up-swipe-action>
 					<up-swipe-action-item class="birth-items" :border="false" v-for="(item,index) in birthList"
-						:key="item.id" @click="delBirth(item,index)" v-model:show="item.ishow" :options="options1" @close="" @open="">
+						:key="item.id" @click="delBirth(item,index)" v-model:show="item.ishow" :options="options1"
+						@close="" @open="">
 						<u-cell-group :border="false">
-							<u-cell @click="editBirth()" class="birth-item" :border="false" :isLink="true"
+							<u-cell style="border-radius: 15rpx 0rpx 0rpx 15rpx;
+		transition: all 0.5s;" @click="editBirth()" class="birth-item" :border="false" :isLink="true"
 								:title="item.name" :label="item.date">
 							</u-cell>
 						</u-cell-group>
@@ -128,7 +130,7 @@
 			},
 			delBirth(e) {
 				// 模拟删除操作
-				this.birthList = this.birthList.filter(f=>{
+				this.birthList = this.birthList.filter(f => {
 					return f.id != e.id
 				})
 			},
@@ -142,6 +144,8 @@
 	}
 </script>
 <style scoped lang="scss">
+	@charset "UTF-8";
+
 	.container {
 		padding: 30rpx 30rpx;
 		background-color: #f5f5f5;
@@ -156,38 +160,35 @@
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
+	}
 
-		.birth-title {
-			font-size: 40rpx;
-			font-weight: bold;
-		}
+	.birth-top .birth-title {
+		font-size: 40rpx;
+		font-weight: bold;
 	}
 
 	.birth-content {
 		margin-top: 30rpx;
+	}
 
-		.title {
-			margin-bottom: 30rpx;
-		}
+	.birth-content .title {
+		margin-bottom: 30rpx;
+	}
 
-		.birth-item {
-			border-radius: 15rpx 0rpx 0rpx 15rpx;
-			// margin-bottom: 20rpx;
-			transition: all .5s;
+	.birth-content .birth-item {
+		border-radius: 15rpx 0rpx 0rpx 15rpx;
+		transition: all 0.5s;
+	}
 
-		}
+	.birth-content .birth-items {
+		border-radius: 15rpx;
+		margin-bottom: 20rpx;
+		transition: all 0.5s;
+		overflow: hidden;
+	}
 
-		.birth-items {
-			// border: 1rpx solid #949d99;
-			border-radius: 15rpx;
-			margin-bottom: 20rpx;
-			transition: all .5s;
-			overflow: hidden;
-		}
-
-		.birth-item:hover {
-			background-color: #ddeafc;
-			border: none;
-		}
+	.birth-content .birth-item:hover {
+		background-color: #ddeafc;
+		border: none;
 	}
 </style>
