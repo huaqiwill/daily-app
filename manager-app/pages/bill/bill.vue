@@ -15,10 +15,10 @@
 					<text>总收入</text>
 				</view>
 				<view class="general_income_money">
-					<view style="display: flex; align-items: start">
-						<image style="width: 50rpx; height: 50rpx;" src="../../static/images/arrow-up-circle.png">
+					<view style="display: flex; align-items: center">
+						<image style="width: 50rpx; height: 50rpx;margin-right: 10rpx;" src="../../static/images/arrow-up-circle.png">
 						</image>
-						<text>+10%</text>
+						<text style="color: #2e48de;">+10%</text>
 					</view>
 				</view>
 			</view>
@@ -27,7 +27,7 @@
 					<text><text style="font-weight: bold;">¥3200.00</text>本月</text>
 				</view>
 				<view class="general_income_money">
-					<text>上月¥{{2400.00}}</text>
+					<text>上月<text style="font-weight: bold;">¥{{2400.00}}</text></text>
 				</view>
 			</view>
 		</view>
@@ -38,10 +38,10 @@
 					<text>总支出</text>
 				</view>
 				<view class="total_expenditure_money">
-					<view style="display: flex; align-items: start">
-						<image style="width: 50rpx; height: 50rpx;" src="../../static/images/arrow-down-circle.png">
+					<view style="display: flex; align-items: center">
+						<image style="width: 50rpx; height: 50rpx;margin-right: 10rpx;" src="../../static/images/arrow-down-circle.png">
 						</image>
-						<text>-5%</text>
+						<text style="color: #d81e06;">-5%</text>
 					</view>
 				</view>
 			</view>
@@ -51,7 +51,7 @@
 
 				</view>
 				<view class="total_expenditure_money">
-					<text>上月¥{{2200.00}}</text>
+					<text>上月<text style="font-weight: bold;">¥{{2200.00}}</text></text>
 				</view>
 			</view>
 		</view>
@@ -59,7 +59,7 @@
 
 		<view class="latest_statement">
 			<view class="title">
-				<text>最近账单</text>
+				<text style="font-weight: bold;">最近账单</text>
 			</view>
 			<view class="bill_cell">
 				<up-cell-group :border="false" class="bill_cell_group">
@@ -81,7 +81,7 @@
 
 		<view class="latest_statement">
 			<view class="title">
-				<text>收入统计</text>
+				<text style="font-weight: bold;">收入统计</text>
 			</view>
 			<view class="bill_cell">
 				<up-cell-group :border="false" class="bill_cell_group">
