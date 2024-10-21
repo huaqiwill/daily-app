@@ -6,6 +6,10 @@ use app\BaseController;
 use Exception;
 use think\facade\Db;
 
+/**
+ * 食物
+ * 餐饮记录新增、修改、删除
+ */
 class Food extends BaseController
 {
     protected $user_table = 'user';
