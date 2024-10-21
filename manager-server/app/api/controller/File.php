@@ -7,7 +7,6 @@ use app\service\QiniuService;
 
 class File extends BaseController
 {
-
     function upload()
     {
         $qiniuService = new QiniuService();
