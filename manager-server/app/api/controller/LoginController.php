@@ -2,6 +2,7 @@
 
 namespace app\api\controller;
 
+use app\api\service\AuthService;
 use app\BaseController;
 use think\facade\Db;
 
@@ -35,5 +36,34 @@ class LoginController extends BaseController
 
     }
 
+
+    public function wechat()
+    {
+        $authService = new AuthService();
+        $provider = $authService->wechatLogin();
+        $authorizationUrl = $provider->getAuthorizationUrl();
+        
+        // 将生成的 URL 重定向到微信授权页面
+        header('Location: ' . $authorizationUrl);
+        exit;
+    }
+
+    public function wechatCallback()
+    {
+        // 处理微信回调
+        $authService = new AuthService();
+        $provider = $authService->wechatLogin();
+        $code = input('get.code');
+
+        try {
+            $token = $provider->getAccessToken('authorization_code', ['code' => $code]);
+            // 使用 $token 获取用户信息
+            return json(['success' => true, 'token' => $token]);
+        } catch (\Exception $e) {
+            return json(['success' => false, 'message' => $e->getMessage()]);
+        }
+    }
+
+    // 类似处理抖音和 CSDN 登录
     
 }
