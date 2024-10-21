@@ -5,6 +5,11 @@ namespace app\api\controller;
 use app\BaseController;
 use think\facade\Db;
 
+/**
+ * 账单
+ * 账单新增、修改、删除、查询
+ * 
+ */
 class Bill extends BaseController
 {
 

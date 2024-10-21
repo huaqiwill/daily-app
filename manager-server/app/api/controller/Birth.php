@@ -4,11 +4,16 @@ namespace app\api\controller;
 
 use app\BaseController;
 use think\facade\Db;
+use think\Request;
 
+/**
+ * 生日
+ * 生日新增、修改、删除、查询
+ */
 class Birth extends BaseController
 {
     // 新增
-    public function create()
+    public function create(Request $request)
     {
         $postData = input('post.');
 

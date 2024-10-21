@@ -3,6 +3,7 @@
 namespace app\api\controller;
 
 use app\BaseController;
+use app\api\validate\UserValidate;
 use Exception;
 use think\facade\Db;
 
@@ -19,6 +20,7 @@ class User extends BaseController
     {
         try {
             $postData = input('post.');
+            validate(UserValidate::class)->check($postData);
 
             $data = [
                 'username' => $postData['username'],
