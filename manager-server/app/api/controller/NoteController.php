@@ -5,7 +5,7 @@ namespace app\api\controller;
 use app\BaseController;
 use think\facade\Db;
 
-class Task extends BaseController
+class NoteController extends BaseController
 {
 
     public function create()
@@ -34,7 +34,6 @@ class Task extends BaseController
         $data = Db::table('birth')->where('id', $id)->find();
         return $this->jsonResponse($data);
     }
-
 
     public function queryList() {
         $data = Db::table('birth')->select();

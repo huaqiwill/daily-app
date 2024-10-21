@@ -5,7 +5,7 @@ namespace app\api\controller;
 use app\BaseController;
 use think\facade\Db;
 
-class Login extends BaseController
+class LoginController extends BaseController
 {
     public function login()
     {

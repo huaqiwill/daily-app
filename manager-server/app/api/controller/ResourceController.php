@@ -5,12 +5,7 @@ namespace app\api\controller;
 use app\BaseController;
 use think\facade\Db;
 
-/**
- * 账单
- * 账单新增、修改、删除、查询
- * 
- */
-class Bill extends BaseController
+class ResourceController extends BaseController
 {
 
     public function create()
@@ -40,9 +35,9 @@ class Bill extends BaseController
         return $this->jsonResponse($data);
     }
 
-    public function queryList()
-    {
-        $data = Db::table('app_bill')->select();
+
+    public function queryList() {
+        $data = Db::table('birth')->select();
         return $this->jsonResponse($data);
     }
 

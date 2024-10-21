@@ -5,7 +5,7 @@ namespace app\api\controller;
 use app\BaseController;
 use app\service\QiniuService;
 
-class File extends BaseController
+class FileController extends BaseController
 {
     function upload()
     {

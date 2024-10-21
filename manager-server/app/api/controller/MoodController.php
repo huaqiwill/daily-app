@@ -5,7 +5,7 @@ namespace app\api\controller;
 use app\BaseController;
 use think\facade\Db;
 
-class Note extends BaseController
+class MoodController extends BaseController
 {
 
     public function create()

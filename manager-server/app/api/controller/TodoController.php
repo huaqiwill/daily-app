@@ -5,7 +5,7 @@ namespace app\api\controller;
 use app\BaseController;
 use think\facade\Db;
 
-class Resource extends BaseController
+class TodoController extends BaseController
 {
 
     public function create()

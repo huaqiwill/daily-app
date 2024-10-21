@@ -5,7 +5,7 @@ namespace app\api\controller;
 use app\BaseController;
 use think\facade\Db;
 
-class Friend extends BaseController
+class FriendController extends BaseController
 {
     public function getParam($name, $default = '')
     {

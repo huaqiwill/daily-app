@@ -3,24 +3,22 @@
 namespace app\api\controller;
 
 use app\BaseController;
-use app\api\validate\UserValidate;
 use Exception;
 use think\facade\Db;
 
-class User extends BaseController
+/**
+ * 食物
+ * 餐饮记录新增、修改、删除
+ */
+class FoodController extends BaseController
 {
     protected $user_table = 'user';
 
-    public function index()
-    {
-        return $this->jsonResponse();
-    }
 
-    public function add()
+    public function create()
     {
         try {
             $postData = input('post.');
-            validate(UserValidate::class)->check($postData);
 
             $data = [
                 'username' => $postData['username'],
@@ -48,7 +46,7 @@ class User extends BaseController
         return $this->jsonResponse();
     }
 
-    public function find()
+    public function query()
     {
         try {
             $id = $this->request->param('id');
@@ -59,7 +57,7 @@ class User extends BaseController
         }
     }
 
-    public function edit()
+    public function update()
     {
         try {
             $id = $this->request->param('id');
@@ -82,7 +80,7 @@ class User extends BaseController
         }
     }
 
-    public function list()
+    public function queryList()
     {
         $list = Db::table('user')->select();
         return json($list);

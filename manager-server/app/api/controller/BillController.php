@@ -5,7 +5,12 @@ namespace app\api\controller;
 use app\BaseController;
 use think\facade\Db;
 
-class Todo extends BaseController
+/**
+ * 账单
+ * 账单新增、修改、删除、查询
+ * 
+ */
+class BillController extends BaseController
 {
 
     public function create()
@@ -35,9 +40,9 @@ class Todo extends BaseController
         return $this->jsonResponse($data);
     }
 
-
-    public function queryList() {
-        $data = Db::table('birth')->select();
+    public function queryList()
+    {
+        $data = Db::table('app_bill')->select();
         return $this->jsonResponse($data);
     }
 

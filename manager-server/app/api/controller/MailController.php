@@ -3,7 +3,7 @@
 use app\api\service\EmailService;
 use app\BaseController;
 
-class Mail extends  BaseController
+class MailController extends  BaseController
 {
     public function send()
     {

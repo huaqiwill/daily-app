@@ -10,7 +10,7 @@ use think\Request;
  * 生日
  * 生日新增、修改、删除、查询
  */
-class Birth extends BaseController
+class BirthController extends BaseController
 {
     // 新增
     public function create(Request $request)
