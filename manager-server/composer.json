@@ -25,7 +25,8 @@
         "topthink/think-filesystem": "^1.0",
         "topthink/think-multi-app": "^1.0",
         "qiniu/php-sdk": "^7.13",
-        "phpmailer/phpmailer": "^6.9"
+        "phpmailer/phpmailer": "^6.9",
+        "league/oauth2-client": "^2.7"
     },
     "require-dev": {
         "symfony/var-dumper": "^4.2",
