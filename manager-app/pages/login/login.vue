@@ -84,6 +84,7 @@
 		margin-bottom: 30rpx;
 		text-indent: 10rpx;
 	}
+
 	.regster-text{
 		color: #83a0d1;
 	}
