@@ -8,7 +8,8 @@
 				<image class="avatar-pic" src="../../static/pj-logo.png" mode=""></image>
 			</view>
 			<view class="info">
-				<view class="info-item"><text>名字</text><text>{{userInfo.username}}</text></view>
+				<view class="info-item"><text>名字</text><text v-if="!userInfo.edit">{{userInfo.username}}</text><u-input
+						v-else v-model="userInfo.username"></u-input><u-icon @click="editUserInfo()" :name="userInfo.edit? 'lock':'edit-pen'"></u-icon></view>
 				<view class="info-item"><text>简介</text><text>{{userInfo.introductory}}</text></view>
 				<view class="info-item"><text>性别</text><text>{{userInfo.gender}}</text></view>
 				<view class="info-item"><text>生日</text><text>{{userInfo.birthday}}</text></view>
@@ -16,7 +17,7 @@
 				<view class="info-item"><text>学校</text><text>{{userInfo.school}}</text></view>
 				<view class="info-item"><text>Id</text><text>{{userInfo.Id}}</text></view>
 			</view>
-			
+
 			<button class="save-edit" @click="saveEdit()">保存编辑</button>
 		</view>
 		<u-toast ref="uToast"></u-toast>
@@ -27,29 +28,32 @@
 	export default {
 		data() {
 			return {
-				userInfo:{
-					username:"张三",
-					introductory:"介绍",
-					gender:"性别",
-					birthday:"1990-01-01",
-					address:"hubei",
-					school:"whdx",
-					Id:""
+				userInfo: {
+					username: "张三",
+					introductory: "介绍",
+					gender: "性别",
+					birthday: "1990-01-01",
+					address: "hubei",
+					school: "whdx",
+					Id: "",
+					edit: false
 				}
 			};
 		},
-		methods:{
-			saveEdit(){
+		methods: {
+			saveEdit() {
 				this.$refs.uToast.show({
-					message:"保存成功",
-					type:"success"
+					message: "保存成功",
+					type: "success"
 				})
-				setTimeout(()=>{
+				setTimeout(() => {
 					uni.switchTab({
-						url:"/pages/profile/profile"
+						url: "/pages/profile/profile"
 					})
-				},1000)
-				
+				}, 1000)
+			},
+			editUserInfo(){
+				this.userInfo.edit = !this.userInfo.edit
 			}
 		}
 	};
@@ -64,17 +68,20 @@
 		min-height: 100vh;
 		/* 确保在小屏幕设备上依然填充整个页面 */
 	}
-	.cover-bg{
+
+	.cover-bg {
 		width: 100%;
 		height: 400rpx;
 		background-color: red;
 		overflow: hidden;
 	}
-	.cover-bg .cover-pic{
+
+	.cover-bg .cover-pic {
 		width: 100%;
 		background-size: cover;
 	}
-	.user-info{
+
+	.user-info {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -84,9 +91,10 @@
 		background: #f5f5f5;
 		top: -50rpx;
 		border-radius: 20rpx;
-		
+
 	}
-	.avatar-box{
+
+	.avatar-box {
 		position: absolute;
 		top: -100rpx;
 		width: 200rpx;
@@ -95,30 +103,38 @@
 		border-radius: 50%;
 		overflow: hidden;
 	}
-	.avatar-pic{
+
+	.avatar-pic {
 		width: 200rpx;
 		height: 200rpx;
 	}
-	.info{
+
+	.info {
 		width: 100%;
 		margin-top: 200rpx;
 		/* background-color: red; */
 	}
-	.info .info-item{
+
+	.info .info-item {
 		display: flex;
 		align-items: center;
-		margin-bottom: 50rpx;
+		margin-bottom: 20rpx;
+		/* background-color: red; */
+		height: 100rpx;
 	}
-	.info .info-item text:nth-child(1){
+
+	.info .info-item text:nth-child(1) {
 		width: 200rpx;
 		margin-left: 80rpx;
 	}
-	.info .info-item text:nth-child(2){
+
+	.info .info-item text:nth-child(2) {
 		margin-left: 20rpx;
 	}
-	.save-edit{
-		width: 80%;
-		position: absolute;
-		bottom: 40rpx;
+
+	.save-edit {
+		width: 50%;
+		height: 80rpx;
+		font-size:30rpx;
 	}
 </style>
