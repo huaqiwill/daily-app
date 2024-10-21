@@ -2,7 +2,9 @@
 
 namespace app\api\controller;
 
+use app\api\validate\BirthValidate;
 use app\BaseController;
+use Exception;
 use think\facade\Db;
 use think\Request;
 
@@ -12,69 +14,104 @@ use think\Request;
  */
 class BirthController extends BaseController
 {
-    // 新增
-    public function create(Request $request)
+    /**
+     * 新增生日
+     * @return \think\response\Json
+     */
+    public function create()
     {
-        $postData = input('post.');
+        try {
+            validate(BirthValidate::class)->check($this->request->post());
 
-        $data = [
-            'name' => $postData['name'],
-            'sex' => $postData['sex'],
-            'birth_date' => $postData['birth_date'],
-            'birth_type' => $postData['birth_type'],
-            'phone' => $postData['phone'],
-            'email' => $postData['email'],
-            'wechat' => $postData['wechat'],
-            'qq' => $postData['qq'],
-        ];
+            $data = [
+                'name' => $this->request->param('name'),
+                'sex' => $this->request->param('sex'),
+                'birth_date' => $this->request->param('birth_date'),
+                'birth_type' => $this->request->param('birth_type'),
+                'phone' => $this->request->param('phone'),
+                'email' => $this->request->param('email'),
+                'wechat' => $this->request->param('wechat'),
+                'qq' => $this->request->param('qq'),
+            ];
 
-        Db::table('app_birth')->insert($data);
-        return $this->jsonResponse($data);
+            Db::table('app_birth')->insert($data);
+            return $this->jsonResponse($data);
+        } catch (Exception $e) {
+            return $this->jsonResponse([], $e->getMessage(), 500);
+        }
     }
 
-    // 删除
-    public function delete()
-    {
-        $id = $this->request->param('id');
-        Db::table('app_birth')->where('id', $id)->delete();
-        return $this->jsonResponse();
-    }
 
-    // 修改
+    /**
+     * 修改生日
+     * @return \think\response\Json
+     */
     public function update()
     {
-        $id = $this->request->param('id');
-        $postData = input('post.');
+        try {
+            $id = $this->request->param('id');
+            validate(BirthValidate::class)->check($this->request->post());
 
-        $data = [
-            'name' => $postData['name'],
-            'sex' => $postData['sex'],
-            'birth_date' => $postData['birth_date'],
-            'birth_type' => $postData['birth_type'],
-            'phone' => $postData['phone'],
-            'email' => $postData['emai'],
-            'wechat' => $postData['wechat'],
-            'qq' => $postData['qq'],
-        ];
+            $data = [
+                'name' => $this->request->param('name'),
+                'sex' => $this->request->param('sex'),
+                'birth_date' => $this->request->param('birth_date'),
+                'birth_type' => $this->request->param('birth_type'),
+                'phone' => $this->request->param('phone'),
+                'email' => $this->request->param('email'),
+                'wechat' => $this->request->param('wechat'),
+                'qq' => $this->request->param('qq'),
+            ];
 
-        Db::table('app_birth')->where('id', $id)->update($data);
+            Db::table('app_birth')->where('id', $id)->update($data);
 
-        return $this->jsonResponse($data);
+            return $this->jsonResponse($data);
+        } catch (Exception $e) {
+            return $this->jsonResponse([], $e->getMessage(), 500);
+        }
     }
 
-    // 查询
+    /**
+     * 删除生日
+     * @return \think\response\Json
+     */
+    public function delete()
+    {
+        try {
+            $id = $this->request->param('id');
+            Db::table('app_birth')->where('id', $id)->delete();
+            return $this->jsonResponse();
+        } catch (Exception $e) {
+            return $this->jsonResponse([], $e->getMessage(), 500);
+        }
+    }
+
+    /**
+     * 查询生日信息
+     * @return \think\response\Json
+     */
     public function query()
     {
-        $id = $this->request->param('id');
-        $data = Db::table('app_birth')->where('id', $id)->find();
-        return $this->jsonResponse($data);
+        try {
+            $id = $this->request->param('id');
+            $data = Db::table('app_birth')->where('id', $id)->find();
+            return $this->jsonResponse($data);
+        } catch (Exception $e) {
+            return $this->jsonResponse([], $e->getMessage(), 500);
+        }
     }
 
-
-    // 获取所有
+    /**
+     * 查询生日集合
+     * @return \think\response\Json
+     */
     public function queryList()
     {
-        $data = Db::table('app_birth')->select();
-        return $this->jsonResponse($data);
+        try {
+            $data = Db::table('app_birth')->select();
+            return $this->jsonResponse($data);
+        } catch (Exception $e) {
+            return $this->jsonResponse([], $e->getMessage(), 500);
+        }
     }
 }

@@ -2,6 +2,7 @@
 
 namespace app\api\controller;
 
+use app\api\validate\FoodValidate;
 use app\BaseController;
 use Exception;
 use think\facade\Db;
@@ -12,26 +13,28 @@ use think\facade\Db;
  */
 class FoodController extends BaseController
 {
-    protected $user_table = 'user';
+    protected $food_table = 'app_food';
 
-
+    /**
+     * 创建食物记录，新增基础信息，新增图片记录，
+     * @return \think\response\Json
+     */
     public function create()
     {
         try {
-            $postData = input('post.');
-
+            validate(FoodValidate::class)->check(input('post.'));
             $data = [
-                'username' => $postData['username'],
-                'password' => $postData['password'],
-                'nickname' => $postData['nickname'],
-                'sex' => $postData['sex'],
+                'user_id' => $this->request->param('username'),
+                'category_id' => $this->request->param('password'),
+                'name' => $this->request->param('nickname'),
+                'describe' => $this->request->param('sex'),
                 'create_time' =>  date('Y-m-d H:i:s'),
                 'update_time' => date('Y-m-d H:i:s'),
-                'status' => $postData['status'],
-                'avatar' => $postData['avatar'],
+                'status' => $this->request->param('status'),
+                'thumbnail' => $this->request->param('thumbnail'),
             ];
 
-            $id =  Db::table('user')->insert($data, true);
+            $id =  Db::table($this->food_table)->insert($data, true);
             $data['id'] = $id;
             return $this->jsonResponse($data);
         } catch (Exception $e) {
@@ -41,16 +44,20 @@ class FoodController extends BaseController
 
     public function delete()
     {
-        $id = $this->request->param('id');
-        Db::table('user')->where('id', $id)->delete();
-        return $this->jsonResponse();
+        try {
+            $id = $this->request->param('id');
+            Db::table($this->food_table)->where('id', $id)->delete();
+            return $this->jsonResponse();
+        } catch (Exception $e) {
+            return $this->jsonResponse(null, 500, $e->getMessage());
+        }
     }
 
     public function query()
     {
         try {
             $id = $this->request->param('id');
-            $user = Db::table('')->where('id', $id)->find();
+            $user = Db::table($this->food_table)->where('id', $id)->find();
             return $this->jsonResponse($user);
         } catch (Exception $e) {
             return $this->jsonResponse(null, 500, $e->getMessage());
@@ -61,19 +68,20 @@ class FoodController extends BaseController
     {
         try {
             $id = $this->request->param('id');
-            $postData = input('post.');
+            validate(FoodValidate::class)->check(input('post.'));
 
             $data = [
-                'username' => $postData['username'],
-                'password' => $postData['password'],
-                'nickname' => $postData['nickname'],
-                'sex' => $postData['sex'],
+                'user_id' => $this->request->param('username'),
+                'category_id' => $this->request->param('password'),
+                'name' => $this->request->param('nickname'),
+                'describe' => $this->request->param('sex'),
+                'create_time' =>  date('Y-m-d H:i:s'),
                 'update_time' => date('Y-m-d H:i:s'),
-                'status' => $postData['status'],
-                'avatar' => $postData['avatar'],
+                'status' => $this->request->param('status'),
+                'thumbnail' => $this->request->param('thumbnail'),
             ];
 
-            Db::table('user')->where('id', $id)->update($data);
+            Db::table($this->food_table)->where('id', $id)->update($data);
             return $this->jsonResponse();
         } catch (Exception $e) {
             return $this->jsonResponse(null, 500, $e->getMessage());
@@ -82,7 +90,11 @@ class FoodController extends BaseController
 
     public function queryList()
     {
-        $list = Db::table('user')->select();
-        return json($list);
+        try {
+            $list = Db::table($this->food_table)->select();
+            return json($list);
+        } catch (Exception $e) {
+            return $this->jsonResponse(null, 500, $e->getMessage());
+        }
     }
 }
