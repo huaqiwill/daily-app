@@ -52,7 +52,7 @@
 					<view class="nav-item nav_friends">
 						<image src="../../static/images/invoice.png" mode=""></image>
 					</view>
-					<text>bill</text>
+					<text>账单</text>
 				</view>
 
 			</view>
@@ -68,7 +68,7 @@
 					<view class="nav-item nav_birth">
 						<image src="../../static/images/megaphone.png" mode=""></image>
 					</view>
-					<text>bill</text>
+					<text>通知</text>
 				</view>
 
 				<view class="nav-item-box">
@@ -82,7 +82,7 @@
 					<view class="nav-item nav_friends">
 						<image src="../../static/images/user.png" mode=""></image>
 					</view>
-					<text>bill</text>
+					<text>Lore</text>
 				</view>
 			</view>
 		</view>
