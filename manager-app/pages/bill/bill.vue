@@ -101,7 +101,14 @@
 			</view>
 		</view>
 		
-		
+		<view>
+			<u-tabbar :value="value1" @change="change1" :fixed="true" :placeholder="false" :safeAreaInsetBottom="true">
+				<up-tabbar-item text="账单" icon="rmb-circle" @click="click1"></up-tabbar-item>
+				<up-tabbar-item text="统计" icon="order" @click="goToAdd()"></up-tabbar-item>
+				<up-tabbar-item text="钱包" icon="email" @click="click1"></up-tabbar-item>
+				<up-tabbar-item text="设置" icon="setting" @click="click1"></up-tabbar-item>
+			</u-tabbar>
+		</view>
 	</view>
 </template>
 <script>

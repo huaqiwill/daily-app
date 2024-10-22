@@ -35,7 +35,7 @@
 					birthday: "1990-01-01",
 					address: "hubei",
 					school: "whdx",
-					Id: "",
+					Id: "123",
 					edit: false
 				}
 			};
@@ -138,5 +138,8 @@
 		height: 80rpx;
 		line-height: 80rpx;
 		font-size:30rpx;
+		/* #ifdef APP-PLUS */
+		margin-bottom: 30rpx;
+		/* #endif */
 	}
 </style>
