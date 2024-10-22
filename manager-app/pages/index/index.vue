@@ -28,27 +28,27 @@
 
 		<view>
 			<view class="nav">
-				<view class="nav-item-box">
+				<view class="nav-item-box" @click="goToProfile()">
 					<view class="nav-item nav_profile">
 						<image src="../../static/images/user.png" mode=""></image>
 					</view>
 					<text>用户</text>
 				</view>
-				<view class="nav-item-box">
+				<view class="nav-item-box" @click="">
 					<view class="nav-item nav_birth">
 						<image src="../../static/images/public-relations.png" mode=""></image>
 					</view>
 					<text>关系</text>
 				</view>
 
-				<view class="nav-item-box">
+				<view class="nav-item-box" @click="goToNote()">
 					<view class="nav-item nav_friends">
 						<image src="../../static/images/notes.png" mode=""></image>
 					</view>
 					<text>笔记</text>
 				</view>
 
-				<view class="nav-item-box">
+				<view class="nav-item-box" @click="goToBill()">
 					<view class="nav-item nav_friends">
 						<image src="../../static/images/invoice.png" mode=""></image>
 					</view>
@@ -57,28 +57,28 @@
 
 			</view>
 			<view class="nav">
-				<view class="nav-item-box">
+				<view class="nav-item-box" @click="goToTodos()">
 					<view class="nav-item nav_profile">
 						<image src="../../static/images/backlog.png" mode=""></image>
 					</view>
 					<text>待办</text>
 				</view>
 
-				<view class="nav-item-box">
+				<view class="nav-item-box" @click="goToMessage()">
 					<view class="nav-item nav_birth">
 						<image src="../../static/images/megaphone.png" mode=""></image>
 					</view>
 					<text>通知</text>
 				</view>
 
-				<view class="nav-item-box">
+				<view class="nav-item-box" @click="goToBirth()">
 					<view class="nav-item nav_friends">
 						<image src="../../static/images/birth.png" mode=""></image>
 					</view>
 					<text>生日</text>
 				</view>
 
-				<view class="nav-item-box">
+				<view class="nav-item-box" @click="">
 					<view class="nav-item nav_friends">
 						<image src="../../static/images/user.png" mode=""></image>
 					</view>
@@ -141,7 +141,7 @@
 						<view class="demo-shop">
 							{{item.shop}}
 						</view>
-				<!-- 		<up-icon name="close-circle-fill" color="#fa3534" size="34" class="u-close"
+						<!-- 		<up-icon name="close-circle-fill" color="#fa3534" size="34" class="u-close"
 							@click="remove(item.id)"></up-icon> -->
 					</view>
 				</template>
@@ -166,7 +166,7 @@
 						<view class="demo-shop">
 							{{item.shop}}
 						</view>
-					<!-- 	<up-icon name="close-circle-fill" color="#fa3534" size="34" class="u-close"
+						<!-- 	<up-icon name="close-circle-fill" color="#fa3534" size="34" class="u-close"
 							@click="remove(item.id)"></up-icon> -->
 					</view>
 				</template>
@@ -278,27 +278,6 @@
 			}, 1000)
 		},
 		methods: {
-			// 跳转到指定页面
-			goToProfile() {
-				uni.navigateTo({
-					url: '/pages/profile/profile'
-				});
-			},
-			goToBirth() {
-				uni.navigateTo({
-					url: '/pages/birth/birth'
-				});
-			},
-			gotoFriends() {
-				uni.navigateTo({
-					url: '/pages/friends/friends'
-				});
-			},
-			goToLogin() {
-				uni.navigateTo({
-					url: "/pages/login/login"
-				})
-			},
 			onSearch(val) {
 				this.$refs.uToastRef.show({
 					message: val,
@@ -319,7 +298,47 @@
 			},
 			clear() {
 				this.$refs.uWaterfallRef.clear();
+			},
+			// start 主页跳转页面集合
+			// 跳转到指定页面
+			goToProfile() {
+				uni.switchTab({
+					url: '/pages/profile/profile'
+				});
+			},
+			goToBirth() {
+				uni.navigateTo({
+					url: '/pages/birth/birth'
+				});
+			},
+			goToLogin() {
+				uni.navigateTo({
+					url: "/pages/login/login"
+				})
+			},
+			goToNote() {
+				uni.navigateTo({
+					url: "/pages/notes/notes"
+				})
+			},
+			goToBill() {
+				uni.navigateTo({
+					url: "/pages/bill/bill"
+				})
+			},
+			goToTodos() {
+				uni.navigateTo({
+					url: "/pages/todos/todos"
+				})
+			},
+			goToMessage() {
+				uni.navigateTo({
+					url: "/pages/message/message"
+				})
 			}
+			// end 主页跳转页面集合
+
+
 		}
 	}
 </script>
