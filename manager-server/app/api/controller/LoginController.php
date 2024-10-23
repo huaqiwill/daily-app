@@ -14,10 +14,32 @@ use think\facade\Db;
  */
 class LoginController extends BaseController
 {
+    /**
+     * 用户登录
+     *  用户输入用户名、密码登录
+     *  用户输入手机号、密码登录
+     *  用户输入邮箱、密码登录
+     *  用户使用第三方账号登录
+     * @return \think\response\Json
+     */
     public function login()
     {
-        $data = input('post.');
-        $user = Db::table('user')->where('username', $data['username'])->find();
+        $data = [
+            'username' => input('post.username'),
+            'password' => input('post.password'),
+        ];
+        // 判断用户名输入为邮箱
+        if (filter_var($data['username'], FILTER_VALIDATE_EMAIL)) {
+            $user = Db::table('user')->where('email', $data['username'])->find();
+        }
+        // 判断用户名输入为手机号
+        else if (preg_match('/^1[3456789]\d{9}$/', $data['username'])) {
+            $user = Db::table('user')->where('phone', $data['username'])->find();
+        }
+        // 输入的账号为普通用户
+        else {
+            $user = Db::table('user')->where('username', $data['username'])->find();
+        }
         if ($user) {
             if ($user['password'] == $data['password']) {
                 return json(['code' => 200, 'msg' => '登录成功', 'data' => $user]);
@@ -29,18 +51,58 @@ class LoginController extends BaseController
         }
     }
 
+    /**
+     * 用户注册
+     *  用户使用第三方账号登录后进行手机号注册
+     *  用户使用手机号注册
+     *  用户使用邮箱注册
+     * @return \think\response\Json
+     */
+    public function register()
+    {
+        $data = [
+            'username' => input('post.username'),
+            'password' => input('post.password'),
+            'phone' => input('post.phone'),
+            'email' => input('post.email'),
+        ];
+        // 判断用户名是否已存在
+        if (Db::table('user')->where('username', $data['username'])->find()) {
+            return json(['code' => 201, 'msg' => '用户名已存在']);
+        }
+        // 判断手机号是否已存在
+        if (Db::table('user')->where('phone', $data['phone'])->find()) {
+            return json(['code' => 202, 'msg' => '手机号已存在']);
+        }
+        // 判断邮箱是否已存在
+        if (Db::table('user')->where('email', $data['email'])->find()) {
+            return json(['code' => 203, 'msg' => '邮箱已存在']);
+        }
+        // 注册用户
+        Db::table('user')->insert($data);
+        return json(['code' => 200, 'msg' => '注册成功']);
+    }
 
-    public function register() {
+    /**
+     * 用户退出登录
+     * @return void
+     */
+    public function logout()
+    {
+        // 清除用户登录状态
+        session('user', null);
+    }
+
+    /**
+     * 用户重置密码
+     * @return void
+     */
+    public function resetPassword(){
+        // 用户重置密码
 
     }
 
-    public function logout() {
-        
-    }
-
-    public function check() {
-
-    }
+    public function check() {}
 
 
     public function wechat()
@@ -48,7 +110,7 @@ class LoginController extends BaseController
         $authService = new AuthService();
         $provider = $authService->wechatLogin();
         $authorizationUrl = $provider->getAuthorizationUrl();
-        
+
         // 将生成的 URL 重定向到微信授权页面
         header('Location: ' . $authorizationUrl);
         exit;
@@ -71,5 +133,5 @@ class LoginController extends BaseController
     }
 
     // 类似处理抖音和 CSDN 登录
-    
+
 }

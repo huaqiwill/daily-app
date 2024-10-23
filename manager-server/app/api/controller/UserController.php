@@ -33,7 +33,7 @@ class UserController extends BaseController
                 'avatar' => $this->request->param('avatar'),
             ];
 
-            $id =  Db::table('user')->insert($data, true);
+            $id =  Db::table('sys_user')->insert($data, true);
             $data['id'] = $id;
             return $this->jsonResponse($data);
         } catch (Exception $e) {
@@ -62,7 +62,7 @@ class UserController extends BaseController
                 'avatar' => $this->request->param('avatar'),
             ];
 
-            Db::table('user')->where('id', $id)->update($data);
+            Db::table('sys_user')->where('id', $id)->update($data);
             return $this->jsonResponse();
         } catch (Exception $e) {
             return $this->jsonResponse(null, 500, $e->getMessage());
@@ -77,7 +77,7 @@ class UserController extends BaseController
     {
         try {
             $id = $this->request->param('id');
-            Db::table('user')->where('id', $id)->delete();
+            Db::table('sys_user')->where('id', $id)->delete();
             return $this->jsonResponse();
         } catch (Exception $e) {
             return $this->jsonResponse(null, 500, $e->getMessage());
@@ -92,7 +92,7 @@ class UserController extends BaseController
     {
         try {
             $id = $this->request->param('id');
-            $user = Db::table('')->where('id', $id)->find();
+            $user = Db::table('sys_user')->where('id', $id)->find();
             return $this->jsonResponse($user);
         } catch (Exception $e) {
             return $this->jsonResponse(null, 500, $e->getMessage());
@@ -106,7 +106,7 @@ class UserController extends BaseController
     public function queryList()
     {
         try {
-            $list = Db::table('user')->select();
+            $list = Db::table('sys_user')->select();
             return json($list);
         } catch (Exception $e) {
             return $this->jsonResponse(null, 500, $e->getMessage());
