@@ -5,6 +5,10 @@ namespace app\api\controller;
 use app\BaseController;
 use think\facade\Db;
 
+/**
+ * 关系、档案、个人信息管理
+ * 新增、修改、删除、查询
+ */
 class FriendController extends BaseController
 {
     public function getParam($name, $default = '')

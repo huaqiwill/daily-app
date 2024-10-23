@@ -5,6 +5,12 @@ namespace app\api\controller;
 use app\BaseController;
 use think\facade\Db;
 
+/**
+ * 笔记管理
+ * 笔记新增、修改、删除、查询
+ * 其他功能：
+ *  评论、点赞、收藏、分享
+ */
 class NoteController extends BaseController
 {
 
@@ -13,8 +19,8 @@ class NoteController extends BaseController
         $postData = input('post.');
 
         $data = [
-            'name' => $postData['name'],
-            'sex' => $postData['sex'],
+            'name' => $this->request->param('name'),
+            'sex' => $this->request->param('sex'),
         ];
 
         Db::table('birth')->insert($data);

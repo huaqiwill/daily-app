@@ -11,7 +11,7 @@ class Friends extends BaseController
     {
         $postData = input('post.');
         $data = [
-            'name' => $postData['name'],
+            'name' => $this->request->param('name'),
             'age' => 18,
         ];
         Db::table('friends')->insert($data);

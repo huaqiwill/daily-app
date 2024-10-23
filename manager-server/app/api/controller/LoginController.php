@@ -6,6 +6,12 @@ use app\api\service\AuthService;
 use app\BaseController;
 use think\facade\Db;
 
+/**
+ * 登录控制器
+ * 用户用户登录、注册、忘记密码、退出登录等功能
+ * 包含第三方登录功能
+ * 如微信、抖音、CSDN等
+ */
 class LoginController extends BaseController
 {
     public function login()

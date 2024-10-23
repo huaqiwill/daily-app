@@ -21,14 +21,14 @@ class User extends BaseController
             $postData = input('post.');
 
             $data = [
-                'username' => $postData['username'],
-                'password' => $postData['password'],
-                'nickname' => $postData['nickname'],
-                'sex' => $postData['sex'],
+                'username' => $this->request->param('username'),
+                'password' => $this->request->param('password'),
+                'nickname' => $this->request->param('nickname'),
+                'sex' => $this->request->param('sex'),
                 'create_time' =>  date('Y-m-d H:i:s'),
                 'update_time' => date('Y-m-d H:i:s'),
-                'status' => $postData['status'],
-                'avatar' => $postData['avatar'],
+                'status' => $this->request->param('status'),
+                'avatar' => $this->request->param('avatar'),
             ];
 
             $id =  Db::table('user')->insert($data, true);
@@ -64,13 +64,13 @@ class User extends BaseController
             $postData = input('post.');
 
             $data = [
-                'username' => $postData['username'],
-                'password' => $postData['password'],
-                'nickname' => $postData['nickname'],
-                'sex' => $postData['sex'],
+                'username' => $this->request->param('username'),
+                'password' => $this->request->param('password'),
+                'nickname' => $this->request->param('nickname'),
+                'sex' => $this->request->param('sex'),
                 'update_time' => date('Y-m-d H:i:s'),
-                'status' => $postData['status'],
-                'avatar' => $postData['avatar'],
+                'status' => $this->request->param('status'),
+                'avatar' => $this->request->param('avatar'),
             ];
 
             Db::table('user')->where('id', $id)->update($data);

@@ -5,6 +5,12 @@ namespace app\api\controller;
 use app\BaseController;
 use think\facade\Db;
 
+/**
+ * 心情管理
+ * 新增、修改、删除、查询
+ * 其他操作：
+ *  1.点赞、评论、分享
+ */
 class MoodController extends BaseController
 {
 
@@ -13,8 +19,8 @@ class MoodController extends BaseController
         $postData = input('post.');
 
         $data = [
-            'name' => $postData['name'],
-            'sex' => $postData['sex'],
+            'name' => $this->request->param('name'),
+            'sex' => $this->request->param('sex'),
         ];
 
         Db::table('birth')->insert($data);
@@ -53,5 +59,17 @@ class MoodController extends BaseController
         Db::table('birth')->where('id', $id)->update($data);
 
         return $this->jsonResponse($data);
+    }
+
+    public function like(){
+
+    }
+
+    public function comment(){
+        
+    }
+
+    public function share(){
+
     }
 }

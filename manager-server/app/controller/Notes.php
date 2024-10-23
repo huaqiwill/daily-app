@@ -13,8 +13,8 @@ class Notes extends BaseController
         $postData = input('post.');
 
         $data = [
-            'name' => $postData['name'],
-            'sex' => $postData['sex'],
+            'name' => $this->request->param('name'),
+            'sex' => $this->request->param('sex'),
         ];
 
         Db::table('birth')->insert($data);

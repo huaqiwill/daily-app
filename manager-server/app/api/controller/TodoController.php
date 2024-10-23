@@ -5,6 +5,12 @@ namespace app\api\controller;
 use app\BaseController;
 use think\facade\Db;
 
+/**
+ * 代办管理
+ *  新增、修改、删除、查询
+ * 其他功能：
+ *  点赞、评论、分享、收藏
+ */
 class TodoController extends BaseController
 {
 
@@ -13,8 +19,8 @@ class TodoController extends BaseController
         $postData = input('post.');
 
         $data = [
-            'name' => $postData['name'],
-            'sex' => $postData['sex'],
+            'name' => $this->request->param('name'),
+            'sex' => $this->request->param('sex'),
         ];
 
         Db::table('birth')->insert($data);

@@ -4,6 +4,10 @@ namespace app\api\controller;
 
 use app\api\service\OAuthService;
 
+/**
+ * 授权管理
+ * 允许用户通过微信、CSDN等第三方平台登录
+ */
 class AuthController
 {
     public function login()

@@ -3,6 +3,10 @@
 use app\api\service\EmailService;
 use app\BaseController;
 
+/**
+ * 邮件发送控制器
+ * 包含发送邮件功能
+ */
 class MailController extends  BaseController
 {
     public function send()
