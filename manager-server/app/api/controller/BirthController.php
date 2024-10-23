@@ -9,7 +9,7 @@ use think\facade\Db;
 use think\Request;
 
 /**
- * 生日
+ * 生日管理
  * 生日新增、修改、删除、查询
  */
 class BirthController extends BaseController
@@ -49,9 +49,8 @@ class BirthController extends BaseController
     public function update()
     {
         try {
-            $id = $this->request->param('id');
             validate(BirthValidate::class)->check($this->request->post());
-
+            $id = $this->request->param('id');
             $data = [
                 'name' => $this->request->param('name'),
                 'sex' => $this->request->param('sex'),
@@ -64,7 +63,6 @@ class BirthController extends BaseController
             ];
 
             Db::table('app_birth')->where('id', $id)->update($data);
-
             return $this->jsonResponse($data);
         } catch (Exception $e) {
             return $this->jsonResponse([], $e->getMessage(), 500);
