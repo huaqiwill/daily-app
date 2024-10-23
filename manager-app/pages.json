@@ -59,7 +59,7 @@
 		{
 			"path": "pages/bill/bill-edit",
 			"style": {
-				"navigationBarTitleText": "编辑账单"
+				"navigationBarTitleText": "账单分析"
 			}
 		},
 		{
@@ -191,6 +191,13 @@
 			"path": "pages/tabbar/tabbar",
 			"style": {
 				"navigationBarTitleText": "tabbar"
+			}
+		},
+		{
+			"path" : "pages/message/message",
+			"style" : 
+			{
+				"navigationBarTitleText" : ""
 			}
 		}
 	],

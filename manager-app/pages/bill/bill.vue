@@ -16,7 +16,8 @@
 				</view>
 				<view class="general_income_money">
 					<view style="display: flex; align-items: center">
-						<image style="width: 50rpx; height: 50rpx;margin-right: 10rpx;" src="../../static/images/arrow-up-circle.png">
+						<image style="width: 50rpx; height: 50rpx;margin-right: 10rpx;"
+							src="../../static/images/arrow-up-circle.png">
 						</image>
 						<text style="color: #2e48de;">+10%</text>
 					</view>
@@ -39,7 +40,8 @@
 				</view>
 				<view class="total_expenditure_money">
 					<view style="display: flex; align-items: center">
-						<image style="width: 50rpx; height: 50rpx;margin-right: 10rpx;" src="../../static/images/arrow-down-circle.png">
+						<image style="width: 50rpx; height: 50rpx;margin-right: 10rpx;"
+							src="../../static/images/arrow-down-circle.png">
 						</image>
 						<text style="color: #d81e06;">-5%</text>
 					</view>
@@ -100,8 +102,15 @@
 				</up-cell-group>
 			</view>
 		</view>
-		
-		
+
+		<view>
+			<u-tabbar :value="value1" @change="change1" :fixed="true" :placeholder="false" :safeAreaInsetBottom="true">
+				<up-tabbar-item text="账单" icon="rmb-circle" @click="click1"></up-tabbar-item>
+				<up-tabbar-item text="统计" icon="order" @click="goToBillAnalysis()"></up-tabbar-item>
+				<up-tabbar-item text="钱包" icon="email" @click="click1"></up-tabbar-item>
+				<up-tabbar-item text="设置" icon="setting" @click="click1"></up-tabbar-item>
+			</u-tabbar>
+		</view>
 	</view>
 </template>
 <script>
@@ -115,7 +124,11 @@
 
 		},
 		methods: {
-
+			goToBillAnalysis() {
+				uni.navigateTo({
+					url: "/pages/bill/bill-edit"
+				})
+			}
 		}
 	}
 </script>
