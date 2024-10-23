@@ -9,16 +9,30 @@
 			</view>
 			<view class="info">
 				<view class="info-item"><text>名字</text><text v-if="!userInfo.edit">{{userInfo.username}}</text><u-input
-						v-else v-model="userInfo.username"></u-input><u-icon @click="editUserInfo()" :name="userInfo.edit? 'lock':'edit-pen'"></u-icon></view>
-				<view class="info-item"><text>简介</text><text>{{userInfo.introductory}}</text></view>
-				<view class="info-item"><text>性别</text><text>{{userInfo.gender}}</text></view>
-				<view class="info-item"><text>生日</text><text>{{userInfo.birthday}}</text></view>
-				<view class="info-item"><text>所在地</text><text>{{userInfo.address}}</text></view>
-				<view class="info-item"><text>学校</text><text>{{userInfo.school}}</text></view>
-				<view class="info-item"><text>Id</text><text>{{userInfo.Id}}</text></view>
+						v-else v-model="userInfo.username"></u-input><u-icon @click="editUserInfo()"
+						:name="userInfo.edit? 'lock':'edit-pen'"></u-icon></view>
+				<view class="info-item"><text>简介</text><text
+						v-if="!userInfo.edit">{{userInfo.introductory}}</text><u-input v-else
+						v-model="userInfo.introductory"></u-input><u-icon @click="editUserInfo()"
+						:name="userInfo.edit? 'lock':'edit-pen'"></u-icon></view>
+				<view class="info-item"><text>性别</text><text v-if="!userInfo.edit">{{userInfo.gender}}</text><u-input v-else
+						v-model="userInfo.gender"></u-input><u-icon @click="editUserInfo()"
+						:name="userInfo.edit? 'lock':'edit-pen'"></u-icon></view>
+				<view class="info-item"><text>生日</text><text v-if="!userInfo.edit">{{userInfo.birthday}}</text><u-input v-else
+						v-model="userInfo.birthday"></u-input><u-icon @click="editUserInfo()"
+						:name="userInfo.edit? 'lock':'edit-pen'"></u-icon></view>
+				<view class="info-item"><text>所在地</text><text v-if="!userInfo.edit">{{userInfo.address}}</text><u-input v-else
+						v-model="userInfo.address"></u-input><u-icon @click="editUserInfo()"
+						:name="userInfo.edit? 'lock':'edit-pen'"></u-icon></view>
+				<view class="info-item"><text>学校</text><text v-if="!userInfo.edit">{{userInfo.school}}</text><u-input v-else
+						v-model="userInfo.school"></u-input><u-icon @click="editUserInfo()"
+						:name="userInfo.edit? 'lock':'edit-pen'"></u-icon></view>
+				<view class="info-item"><text>Id</text><text v-if="!userInfo.edit">{{userInfo.Id}}</text><u-input v-else
+						v-model="userInfo.Id"></u-input><u-icon @click="editUserInfo()"
+						:name="userInfo.edit? 'lock':'edit-pen'"></u-icon></view>
 			</view>
 
-			<button class="save-edit" @click="saveEdit()">保存编辑</button>
+			<button class="save-edit" @click="saveEdit()">{{ userInfo.edit?"保存":"编辑"}}</button>
 		</view>
 		<u-toast ref="uToast"></u-toast>
 	</view>
@@ -42,17 +56,18 @@
 		},
 		methods: {
 			saveEdit() {
-				this.$refs.uToast.show({
-					message: "保存成功",
-					type: "success"
-				})
-				setTimeout(() => {
-					uni.switchTab({
-						url: "/pages/profile/profile"
-					})
-				}, 1000)
+				// this.$refs.uToast.show({
+				// 	message: "保存成功",
+				// 	type: "success"
+				// })
+				this.userInfo.edit = !this.userInfo.edit
+				// setTimeout(() => {
+				// 	uni.switchTab({
+				// 		url: "/pages/profile/profile"
+				// 	})
+				// }, 1000)
 			},
-			editUserInfo(){
+			editUserInfo() {
 				this.userInfo.edit = !this.userInfo.edit
 			}
 		}
@@ -137,7 +152,7 @@
 		width: 50%;
 		height: 80rpx;
 		line-height: 80rpx;
-		font-size:30rpx;
+		font-size: 30rpx;
 		/* #ifdef APP-PLUS */
 		margin-bottom: 30rpx;
 		/* #endif */

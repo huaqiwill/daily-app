@@ -37,7 +37,7 @@
 					<up-input v-model="birthData.name" type="text" clearable placeholder="请输入待办标题"></up-input>
 					<u-textarea></u-textarea>
 					<up-datetime-picker hasInput :show="dateShow" v-model="birthData.date"
-						mode="datetime"></up-datetime-picker>
+						mode="date"></up-datetime-picker>
 				</view>
 				<u-button style="width: 500rpx;" @click="saveBirth()">保存</u-button>
 			</view>
