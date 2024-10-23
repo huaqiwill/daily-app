@@ -2,7 +2,9 @@
 
 namespace app\api\controller;
 
+use app\api\validate\NoteValidate;
 use app\BaseController;
+use Exception;
 use think\facade\Db;
 
 /**
@@ -13,51 +15,90 @@ use think\facade\Db;
  */
 class NoteController extends BaseController
 {
-
+    /**
+     * 笔记创建
+     * @return \think\response\Json
+     */
     public function create()
     {
-        $postData = input('post.');
+        try {
+            validate(NoteValidate::class)->check($this->request->param());
 
-        $data = [
-            'name' => $this->request->param('name'),
-            'sex' => $this->request->param('sex'),
-        ];
+            $data = [
+                'name' => $this->request->param('name'),
+                'sex' => $this->request->param('sex'),
+            ];
 
-        Db::table('birth')->insert($data);
-        return $this->jsonResponse();
+            Db::table('app_note')->insert($data);
+            return $this->jsonResponse();
+        } catch (Exception $e) {
+            return $this->jsonResponse([], $e->getMessage(), 500);
+        }
     }
 
-    public function delete()
-    {
-        $id = $this->request->param('id');
-        Db::table('birth')->where('id', $id)->delete();
-        return $this->jsonResponse();
-    }
-
-    public function query()
-    {
-        $id = $this->request->param('id');
-        $data = Db::table('birth')->where('id', $id)->find();
-        return $this->jsonResponse($data);
-    }
-
-    public function queryList() {
-        $data = Db::table('birth')->select();
-        return $this->jsonResponse($data);
-    }
-
+    /**
+     * 笔记更新
+     * @return \think\response\Json
+     */
     public function update()
     {
-        $id = $this->request->param('id');
-        $postData = input('post.');
+        try {
+            validate(NoteValidate::class)->check($this->request->param());
+            $id = $this->request->param('id');
+            $data = [
+                'name' => $this->request->param('name'),
+                'sex' => $this->request->param('sex'),
+            ];
 
-        $data = [
-            'name' => '张三',
-            'age' => 18,
-        ];
+            Db::table('app_note')->where('id', $id)->update($data);
 
-        Db::table('birth')->where('id', $id)->update($data);
+            return $this->jsonResponse($data);
+        } catch (Exception $e) {
+            return $this->jsonResponse([], $e->getMessage(), 500);
+        }
+    }
 
-        return $this->jsonResponse($data);
+    /**
+     * 笔记删除
+     * @return \think\response\Json
+     */
+    public function delete()
+    {
+        try {
+            $id = $this->request->param('id');
+            Db::table('app_note')->where('id', $id)->delete();
+            return $this->jsonResponse();
+        } catch (Exception $e) {
+            return $this->jsonResponse([], $e->getMessage(), 500);
+        }
+    }
+
+    /**
+     * 笔记详情
+     * @return \think\response\Json
+     */
+    public function query()
+    {
+        try {
+            $id = $this->request->param('id');
+            $data = Db::table('app_note')->where('id', $id)->find();
+            return $this->jsonResponse($data);
+        } catch (Exception $e) {
+            return $this->jsonResponse([], $e->getMessage(), 500);
+        }
+    }
+
+    /**
+     * 笔记查询
+     * @return \think\response\Json
+     */
+    public function queryList()
+    {
+        try {
+            $data = Db::table('app_note')->select();
+            return $this->jsonResponse($data);
+        } catch (Exception $e) {
+            return $this->jsonResponse([], $e->getMessage(), 500);
+        }
     }
 }
