@@ -8,7 +8,7 @@ use Exception;
 use think\facade\Db;
 
 /**
- * 食物
+ * 食物管理
  * 餐饮记录新增、修改、删除
  */
 class FoodController extends BaseController
@@ -16,6 +16,7 @@ class FoodController extends BaseController
     protected $food_table = 'app_food';
 
     /**
+     * 食物创建
      * 创建食物记录，新增基础信息，新增图片记录，
      * @return \think\response\Json
      */
@@ -42,28 +43,10 @@ class FoodController extends BaseController
         }
     }
 
-    public function delete()
-    {
-        try {
-            $id = $this->request->param('id');
-            Db::table($this->food_table)->where('id', $id)->delete();
-            return $this->jsonResponse();
-        } catch (Exception $e) {
-            return $this->jsonResponse(null, 500, $e->getMessage());
-        }
-    }
-
-    public function query()
-    {
-        try {
-            $id = $this->request->param('id');
-            $user = Db::table($this->food_table)->where('id', $id)->find();
-            return $this->jsonResponse($user);
-        } catch (Exception $e) {
-            return $this->jsonResponse(null, 500, $e->getMessage());
-        }
-    }
-
+    /**
+     * 食物更新
+     * @return \think\response\Json
+     */
     public function update()
     {
         try {
@@ -88,6 +71,40 @@ class FoodController extends BaseController
         }
     }
 
+    /**
+     * 食物删除
+     * @return \think\response\Json
+     */
+    public function delete()
+    {
+        try {
+            $id = $this->request->param('id');
+            Db::table($this->food_table)->where('id', $id)->delete();
+            return $this->jsonResponse();
+        } catch (Exception $e) {
+            return $this->jsonResponse(null, 500, $e->getMessage());
+        }
+    }
+
+    /**
+     * 食物查询
+     * @return \think\response\Json
+     */
+    public function query()
+    {
+        try {
+            $id = $this->request->param('id');
+            $user = Db::table($this->food_table)->where('id', $id)->find();
+            return $this->jsonResponse($user);
+        } catch (Exception $e) {
+            return $this->jsonResponse(null, 500, $e->getMessage());
+        }
+    }
+
+    /**
+     * 食物查询列表
+     * @return \think\response\Json
+     */
     public function queryList()
     {
         try {
