@@ -64,19 +64,11 @@ class NoteController extends BaseController
     {
         try {
             $id = $this->getParamId();
-
             if ($this->isSoftDelete()) {
-                // 软删除
-                $data = [
-                    'delete_time' =>  date('Y-m-d H:i:s'),
-                    'is_delete' => 1,
-                ];
-                Db::table('app_note')->where('id', $id)->update($data);
+                Db::table('app_note')->where('id', $id)->update($this->buildDataWithSoftDelete());
             } else {
-                // 直接删除
                 Db::table('app_note')->where('id', $id)->delete();
             }
-
             return $this->jsonResponse();
         } catch (Exception $e) {
             return $this->jsonResponse([], $e->getMessage(), 500);

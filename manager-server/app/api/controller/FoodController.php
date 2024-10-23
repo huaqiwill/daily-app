@@ -23,18 +23,16 @@ class FoodController extends BaseController
     public function create()
     {
         try {
-            validate(FoodValidate::class)->check(input('post.'));
-            $data = [
-                'user_id' => $this->request->param('username'),
-                'category_id' => $this->request->param('password'),
-                'name' => $this->request->param('nickname'),
-                'describe' => $this->request->param('sex'),
-                'create_time' =>  date('Y-m-d H:i:s'),
-                'update_time' => date('Y-m-d H:i:s'),
-                'status' => $this->request->param('status'),
-                'thumbnail' => $this->request->param('thumbnail'),
-            ];
-
+            validate(FoodValidate::class)->check($this->request->param());
+            $data = $this->buildData([
+                'user_id',
+                'category_id',
+                'name',
+                'describe',
+                'status',
+                'thumbnail'
+            ]);
+            $data['create_time'] = date('Y-m-d H:i:s');
             $id =  Db::table($this->food_table)->insert($data, true);
             $data['id'] = $id;
             return $this->jsonResponse($data);
@@ -50,20 +48,17 @@ class FoodController extends BaseController
     public function update()
     {
         try {
-            $id = $this->request->param('id');
-            validate(FoodValidate::class)->check(input('post.'));
-
-            $data = [
-                'user_id' => $this->request->param('username'),
-                'category_id' => $this->request->param('password'),
-                'name' => $this->request->param('nickname'),
-                'describe' => $this->request->param('sex'),
-                'create_time' =>  date('Y-m-d H:i:s'),
-                'update_time' => date('Y-m-d H:i:s'),
-                'status' => $this->request->param('status'),
-                'thumbnail' => $this->request->param('thumbnail'),
-            ];
-
+            $id = $this->getParamId();
+            validate(FoodValidate::class)->check($this->request->param());
+            $data = $this->buildData([
+                'user_id',
+                'category_id',
+                'name',
+                'describe',
+                'status',
+                'thumbnail'
+            ]);
+            $data['update_time'] = date('Y-m-d H:i:s');
             Db::table($this->food_table)->where('id', $id)->update($data);
             return $this->jsonResponse();
         } catch (Exception $e) {
@@ -78,8 +73,12 @@ class FoodController extends BaseController
     public function delete()
     {
         try {
-            $id = $this->request->param('id');
-            Db::table($this->food_table)->where('id', $id)->delete();
+            $id = $this->getParamId();
+            if ($this->isSoftDelete()) {
+                Db::table($this->food_table)->where('id', $id)->update($this->buildDataWithSoftDelete());
+            } else {
+                Db::table($this->food_table)->where('id', $id)->delete();
+            }
             return $this->jsonResponse();
         } catch (Exception $e) {
             return $this->jsonResponse(null, 500, $e->getMessage());
@@ -93,7 +92,7 @@ class FoodController extends BaseController
     public function query()
     {
         try {
-            $id = $this->request->param('id');
+            $id = $this->getParamId();
             $user = Db::table($this->food_table)->where('id', $id)->find();
             return $this->jsonResponse($user);
         } catch (Exception $e) {

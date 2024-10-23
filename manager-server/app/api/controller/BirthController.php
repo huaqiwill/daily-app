@@ -23,16 +23,16 @@ class BirthController extends BaseController
         try {
             validate(BirthValidate::class)->check($this->request->post());
 
-            $data = [
-                'name' => $this->request->param('name'),
-                'sex' => $this->request->param('sex'),
-                'birth_date' => $this->request->param('birth_date'),
-                'birth_type' => $this->request->param('birth_type'),
-                'phone' => $this->request->param('phone'),
-                'email' => $this->request->param('email'),
-                'wechat' => $this->request->param('wechat'),
-                'qq' => $this->request->param('qq'),
-            ];
+            $data = $this->buildData([
+                'name',
+                'sex',
+                'birth_date',
+                'birth_type',
+                'phone',
+                'email',
+                'wechat',
+                'qq'
+            ]);
 
             Db::table('app_birth')->insert($data);
             return $this->jsonResponse($data);
@@ -49,18 +49,18 @@ class BirthController extends BaseController
     public function update()
     {
         try {
+            $id = $this->getParamId();
             validate(BirthValidate::class)->check($this->request->post());
-            $id = $this->request->param('id');
-            $data = [
-                'name' => $this->request->param('name'),
-                'sex' => $this->request->param('sex'),
-                'birth_date' => $this->request->param('birth_date'),
-                'birth_type' => $this->request->param('birth_type'),
-                'phone' => $this->request->param('phone'),
-                'email' => $this->request->param('email'),
-                'wechat' => $this->request->param('wechat'),
-                'qq' => $this->request->param('qq'),
-            ];
+            $data = $this->buildData([
+                'name',
+                'sex',
+                'birth_date',
+                'birth_type',
+                'phone',
+                'email',
+                'wechat',
+                'qq'
+            ]);
 
             Db::table('app_birth')->where('id', $id)->update($data);
             return $this->jsonResponse($data);
@@ -76,8 +76,12 @@ class BirthController extends BaseController
     public function delete()
     {
         try {
-            $id = $this->request->param('id');
-            Db::table('app_birth')->where('id', $id)->delete();
+            $id = $this->getParamId();
+            if ($this->isSoftDelete()) {
+                Db::table('app_birth')->where('id', $id)->update($this->buildDataWithSoftDelete());
+            } else {
+                Db::table('app_birth')->where('id', $id)->delete();
+            }
             return $this->jsonResponse();
         } catch (Exception $e) {
             return $this->jsonResponse([], $e->getMessage(), 500);
@@ -91,7 +95,7 @@ class BirthController extends BaseController
     public function query()
     {
         try {
-            $id = $this->request->param('id');
+            $id = $this->getParamId();
             $data = Db::table('app_birth')->where('id', $id)->find();
             return $this->jsonResponse($data);
         } catch (Exception $e) {

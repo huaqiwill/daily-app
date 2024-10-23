@@ -123,7 +123,13 @@ abstract class BaseController
      */
     public function getParamId()
     {
-        return (int)$this->request->param('id');
+        $id = $this->request->param('id');
+
+        if (empty($id)) {
+            throw new \InvalidArgumentException('参数 ID 不能为空');
+        }
+
+        return (int)$id;
     }
 
     /**
