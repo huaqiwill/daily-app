@@ -7,13 +7,13 @@ use think\Validate;
 class NoteValidate extends Validate
 {
     protected $rule = [
-        'name'  =>  'require|max:25',
-        'email' =>  'email',
+        'title'  =>  'require|max:50',
+        'content' =>  '',
     ];
 
     protected $message = [
-        'name'  =>  '用户名必须',
-        'email' =>  '邮箱格式错误',
+        'title'  =>  '用户名必须',
+        'content' =>  '邮箱格式错误',
     ];
 }
 

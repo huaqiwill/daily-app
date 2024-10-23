@@ -24,10 +24,8 @@ class NoteController extends BaseController
         try {
             validate(NoteValidate::class)->check($this->request->param());
 
-            $data = [
-                'name' => $this->request->param('name'),
-                'sex' => $this->request->param('sex'),
-            ];
+            $data = $this->buildData(['title', 'content']);
+            $data['create_time'] = date('Y-m-d H:i:s');
 
             Db::table('app_note')->insert($data);
             return $this->jsonResponse();
@@ -43,12 +41,12 @@ class NoteController extends BaseController
     public function update()
     {
         try {
+            $id = $this->getParamId();
+
             validate(NoteValidate::class)->check($this->request->param());
-            $id = $this->request->param('id');
-            $data = [
-                'name' => $this->request->param('name'),
-                'sex' => $this->request->param('sex'),
-            ];
+
+            $data = $this->buildData(['title', 'content']);
+            $data['update_time'] = date('Y-m-d H:i:s');
 
             Db::table('app_note')->where('id', $id)->update($data);
 
@@ -65,8 +63,20 @@ class NoteController extends BaseController
     public function delete()
     {
         try {
-            $id = $this->request->param('id');
-            Db::table('app_note')->where('id', $id)->delete();
+            $id = $this->getParamId();
+
+            if ($this->isSoftDelete()) {
+                // 软删除
+                $data = [
+                    'delete_time' =>  date('Y-m-d H:i:s'),
+                    'is_delete' => 1,
+                ];
+                Db::table('app_note')->where('id', $id)->update($data);
+            } else {
+                // 直接删除
+                Db::table('app_note')->where('id', $id)->delete();
+            }
+
             return $this->jsonResponse();
         } catch (Exception $e) {
             return $this->jsonResponse([], $e->getMessage(), 500);
@@ -80,7 +90,7 @@ class NoteController extends BaseController
     public function query()
     {
         try {
-            $id = $this->request->param('id');
+            $id = $this->getParamId();
             $data = Db::table('app_note')->where('id', $id)->find();
             return $this->jsonResponse($data);
         } catch (Exception $e) {

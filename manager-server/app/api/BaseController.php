@@ -107,4 +107,40 @@ abstract class BaseController
     {
         return $this->request->param($name, $default);
     }
+
+    /**
+     * 是否为软删除
+     * @return bool
+     */
+    public function isSoftDelete()
+    {
+        return (bool)config('app.soft_delete');
+    }
+
+    /**
+     * 获取参数ID
+     * @return int
+     */
+    public function getParamId()
+    {
+        return (int)$this->request->param('id');
+    }
+
+    /**
+     * 构造数据数组
+     * @return array
+     */
+    public function buildData($keys)
+    {
+        $data = [];
+
+        foreach ($keys as $key) {
+            $value = $this->request->param($key);
+            if (!empty($value)) {
+                $data[$key] = $value;
+            }
+        }
+
+        return $data;
+    }
 }
