@@ -143,4 +143,17 @@ abstract class BaseController
 
         return $data;
     }
+
+    /**
+     * 构造软删除数据数组
+     * @return array
+     */
+    public function buildDataWithSoftDelete()
+    {
+        $data = [
+            'delete_time' => date('Y-m-d H:i:s'),
+            'is_delte' => 1,
+        ];
+        return $data;
+    }
 }

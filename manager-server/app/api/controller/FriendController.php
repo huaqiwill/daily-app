@@ -103,11 +103,7 @@ class FriendController extends BaseController
         try {
             $id = $this->getParamId();
             if ($this->isSoftDelete()) {
-                $data = [
-                    'delete_time' => date('Y-m-d H:i:s'),
-                    'is_delte' => 1,
-                ];
-                Db::table('app_friend')->where('id', $id)->update($data);
+                Db::table('app_friend')->where('id', $id)->update($this->buildDataWithSoftDelete());
             } else {
                 Db::table('app_friend')->where('id', $id)->delete();
             }
