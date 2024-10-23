@@ -8,13 +8,13 @@ use Exception;
 use think\facade\Db;
 
 /**
- * 账单
+ * 账单管理
  * 账单新增、修改、删除、查询
  */
 class BillController extends BaseController
 {
     /**
-     * 创建账单
+     * 账单创建
      * @return \think\response\Json
      */
     public function create()
@@ -35,7 +35,7 @@ class BillController extends BaseController
     }
 
     /**
-     * 更新账单
+     * 账单更新
      * @return \think\response\Json
      */
     public function update()
@@ -57,7 +57,7 @@ class BillController extends BaseController
     }
 
     /**
-     * 删除账单
+     * 账单删除
      * @return \think\response\Json
      */
     public function delete()
@@ -72,7 +72,7 @@ class BillController extends BaseController
     }
 
     /**
-     * 查询账单
+     * 账单查询
      * @return \think\response\Json
      */
     public function query()
@@ -87,7 +87,7 @@ class BillController extends BaseController
     }
 
     /**
-     * 查询账单集合
+     * 账单查询集合
      * @return \think\response\Json
      */
     public function queryList()
