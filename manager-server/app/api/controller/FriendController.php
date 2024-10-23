@@ -8,6 +8,7 @@ use Exception;
 use think\facade\Db;
 
 /**
+ * 朋友管理
  * 关系、档案、个人信息管理
  * 新增、修改、删除、查询
  */
@@ -21,19 +22,31 @@ class FriendController extends BaseController
     {
         try {
             validate(FriendValidate::class)->check($this->request->param());
-            $data = [
-                'name' => $this->request->param('name'),
-                'sex' => $this->request->param('sex'),
-                'birth_date' => $this->request->param('birth_date'),
-                'status' => $this->request->param('status'),
-                'avatar' => $this->request->param('avatar'),
-                'phone' => $this->request->param('phone'),
-                'qq' => $this->request->param('qq'),
-                'wechat' => $this->request->param('wechat'),
-                'email' => $this->request->param('email'),
-                'address' => $this->request->param('address'),
-                'remark' => $this->request->param('remark'),
-            ];
+
+            $data = $this->buildData([
+                'name',
+                'sex',
+                'birth_data',
+                'birth_type',
+                'status',
+                'avatar',
+                'phone',
+                'qq',
+                'wechat',
+                'email',
+                'address',
+                'remark',
+                'live_address',
+                'disposition',
+                'advantage',
+                'disadvantage',
+                'hobby',
+                'family',
+                'work',
+                'school',
+            ]);
+            $data['create_time'] = date('Y-m-d H:i:s');
+
             $id =  Db::table('app_friend')->insert($data, true);
             $data['id'] = $id;
             return $this->jsonResponse($data);
@@ -50,20 +63,30 @@ class FriendController extends BaseController
     {
         try {
             validate(FriendValidate::class)->check($this->request->param());
-            $id = $this->request->param('id');
-            $data = [
-                'name' => $this->request->param('name'),
-                'sex' => $this->request->param('sex'),
-                'birth_date' => $this->request->param('birth_date'),
-                'status' => $this->request->param('status'),
-                'avatar' => $this->request->param('avatar'),
-                'phone' => $this->request->param('phone'),
-                'qq' => $this->request->param('qq'),
-                'wechat' => $this->request->param('wechat'),
-                'email' => $this->request->param('email'),
-                'address' => $this->request->param('address'),
-                'remark' => $this->request->param('remark'),
-            ];
+            $id = $this->getParamId();
+            $data = $this->buildData([
+                'name',
+                'sex',
+                'birth_data',
+                'birth_type',
+                'status',
+                'avatar',
+                'phone',
+                'qq',
+                'wechat',
+                'email',
+                'address',
+                'remark',
+                'live_address',
+                'disposition',
+                'advantage',
+                'disadvantage',
+                'hobby',
+                'family',
+                'work',
+                'school',
+            ]);
+            $data['update_time'] = date('Y-m-d H:i:s');
             Db::table('app_friend')->where('id', $id)->update($data);
             return $this->jsonResponse();
         } catch (Exception $e) {
@@ -78,8 +101,16 @@ class FriendController extends BaseController
     public function delete()
     {
         try {
-            $id = $this->request->param('id');
-            Db::table('app_friend')->where('id', $id)->delete();
+            $id = $this->getParamId();
+            if ($this->isSoftDelete()) {
+                $data = [
+                    'delete_time' => date('Y-m-d H:i:s'),
+                    'is_delte' => 1,
+                ];
+                Db::table('app_friend')->where('id', $id)->update($data);
+            } else {
+                Db::table('app_friend')->where('id', $id)->delete();
+            }
             return $this->jsonResponse();
         } catch (Exception $e) {
             return $this->jsonResponse([], $e->getMessage(), 500);
@@ -93,7 +124,7 @@ class FriendController extends BaseController
     public function query()
     {
         try {
-            $id = $this->request->param('id');
+            $id = $this->getParamId();
             $data = Db::table('app_friend')->where('id', $id)->find();
             return $this->jsonResponse($data);
         } catch (Exception $e) {
