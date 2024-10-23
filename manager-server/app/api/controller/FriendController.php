@@ -20,17 +20,17 @@ class FriendController extends BaseController
     {
         try {
             $data = [
-                'name' => $this->getParam('name'),
-                'sex' => $this->getParam('sex'),
-                'birth_date' => $this->getParam('birth_date'),
-                'status' => $this->getParam('status'),
-                'avatar' => $this->getParam('avatar'),
-                'phone' => $this->getParam('phone'),
-                'qq' => $this->getParam('qq'),
-                'wechat' => $this->getParam('wechat'),
-                'email' => $this->getParam('email'),
-                'address' => $this->getParam('address'),
-                'remark' => $this->getParam('remark'),
+                'name' => $this->request->param('name'),
+                'sex' => $this->request->param('sex'),
+                'birth_date' => $this->request->param('birth_date'),
+                'status' => $this->request->param('status'),
+                'avatar' => $this->request->param('avatar'),
+                'phone' => $this->request->param('phone'),
+                'qq' => $this->request->param('qq'),
+                'wechat' => $this->request->param('wechat'),
+                'email' => $this->request->param('email'),
+                'address' => $this->request->param('address'),
+                'remark' => $this->request->param('remark'),
             ];
             $id =  Db::table('app_friend')->insert($data, true);
             $data['id'] = $id;
