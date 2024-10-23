@@ -2,6 +2,7 @@
 
 namespace app\api\controller;
 
+use app\api\validate\FriendValidate;
 use app\BaseController;
 use Exception;
 use think\facade\Db;
@@ -19,6 +20,7 @@ class FriendController extends BaseController
     public function create()
     {
         try {
+            validate(FriendValidate::class)->check($this->request->param());
             $data = [
                 'name' => $this->request->param('name'),
                 'sex' => $this->request->param('sex'),
@@ -47,9 +49,22 @@ class FriendController extends BaseController
     public function update()
     {
         try {
+            validate(FriendValidate::class)->check($this->request->param());
             $id = $this->request->param('id');
-            $postData = input('post.');
-            Db::table('app_friend')->where('id', $id)->update($postData);
+            $data = [
+                'name' => $this->request->param('name'),
+                'sex' => $this->request->param('sex'),
+                'birth_date' => $this->request->param('birth_date'),
+                'status' => $this->request->param('status'),
+                'avatar' => $this->request->param('avatar'),
+                'phone' => $this->request->param('phone'),
+                'qq' => $this->request->param('qq'),
+                'wechat' => $this->request->param('wechat'),
+                'email' => $this->request->param('email'),
+                'address' => $this->request->param('address'),
+                'remark' => $this->request->param('remark'),
+            ];
+            Db::table('app_friend')->where('id', $id)->update($data);
             return $this->jsonResponse();
         } catch (Exception $e) {
             return $this->jsonResponse([], $e->getMessage(), 500);
