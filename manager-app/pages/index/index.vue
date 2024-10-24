@@ -78,11 +78,11 @@
 					<text>生日</text>
 				</view>
 
-				<view class="nav-item-box" @click="">
+				<view class="nav-item-box" @click="getToFood()">
 					<view class="nav-item nav_friends">
 						<image src="../../static/images/user.png" mode=""></image>
 					</view>
-					<text>Lore</text>
+					<text>食谱</text>
 				</view>
 			</view>
 		</view>
@@ -334,6 +334,11 @@
 			goToMessage() {
 				uni.navigateTo({
 					url: "/pages/message/message"
+				})
+			},
+			getToFood(){
+				uni.navigateTo({
+					url:"/pages/food/food"
 				})
 			}
 			// end 主页跳转页面集合
