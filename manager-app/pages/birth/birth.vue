@@ -14,14 +14,13 @@
 				<text>生日提醒</text>
 			</view>
 			<view class="birth-list">
-
 				<up-swipe-action>
 					<up-swipe-action-item class="birth-items" :border="false" v-for="(item,index) in birthList"
 						:key="item.id" @click="delBirth(item,index)" v-model:show="item.ishow" :options="options1"
 						@close="" @open="">
 						<u-cell-group :border="false">
 							<u-cell style="border-radius: 15rpx 0rpx 0rpx 15rpx;
-		transition: all 0.5s;" @click="editBirth()" class="birth-item" :border="false" :isLink="true"
+		transition: all 0.5s;" @click="editBirth()" class="birth-item" :border="false"
 								:title="item.name" :label="item.date">
 							</u-cell>
 						</u-cell-group>
@@ -177,13 +176,13 @@
 
 	.birth-content .birth-item {
 		border-radius: 15rpx 0rpx 0rpx 15rpx;
-		transition: all 0.5s;
+		// transition: all 0.5s;
 	}
 
 	.birth-content .birth-items {
 		border-radius: 15rpx;
 		margin-bottom: 20rpx;
-		transition: all 0.5s;
+		// transition: all 0.5s;
 		overflow: hidden;
 	}
 
