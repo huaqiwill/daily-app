@@ -4,8 +4,8 @@
 			<view class="title">
 				<text>账单管理</text>
 			</view>
-			<view class="edit">
-				<u-icon name="more-dot-fill"></u-icon>
+			<view class="edit" @click="addBill()">
+				<u-icon name="plus"></u-icon>
 			</view>
 		</view>
 
@@ -128,6 +128,11 @@
 				uni.navigateTo({
 					url: "/pages/bill/bill-edit"
 				})
+			},
+			addBill(){
+				uni.navigateTo({
+					url:"/pages/bill/bill-add"
+				})
 			}
 		}
 	}
@@ -181,9 +186,9 @@
 				}
 
 				.cell-item {
-					border: 1rpx solid darkgray;
+					border: 1rpx solid #606266;
 					margin-bottom: 20rpx;
-					border-radius: 10rpx;
+					border-radius: 20rpx;
 				}
 			}
 		}
