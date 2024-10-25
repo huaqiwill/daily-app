@@ -1,7 +1,19 @@
 <template>
-	<view>food</view>
+	<view class="container">
+		<view class="">
+			<text></text>
+		</view>
+	</view>
 </template>
 <script>
-	
+	export default {
+		data() {
+			return {
+
+			}
+		}
+	}
 </script>
-<style></style>
+<style scoped lang="scss">
+	
+</style>

@@ -13,7 +13,7 @@
 			<view class="title">
 				<text class="title-text">今日饮食记录</text>
 			</view>
-			<view class="add-icon">
+			<view class="add-icon" @click="addFood()">
 				<u-icon name="plus" size="20"></u-icon>
 			</view>
 		</view>
@@ -113,6 +113,7 @@
 			</view>
 		</view>
 
+		<u-toast ref="uToast"></u-toast>
 	</view>
 </template>
 
@@ -127,7 +128,11 @@
 
 		},
 		methods: {
-
+			addFood() {
+				uni.navigateTo({
+					url: "/pages/food/food-add"
+				})
+			}
 		}
 	}
 </script>
@@ -143,19 +148,32 @@
 			font-weight: bold;
 		}
 
-		.food-top,
+		.food-top {
+			display: flex;
+			justify-content: space-between;
+			margin-bottom: 30rpx;
+
+			.title {
+				.title-text {
+					font-weight: bold;
+					font-size: 40rpx;
+				}
+			}
+		}
+
 		.food-add {
 			display: flex;
 			justify-content: space-between;
 			margin-bottom: 30rpx;
-		}
 
-		.title {
-			.title-text {
-				font-weight: bold;
-				font-size: 40rpx;
+			.title {
+				.title-text {
+					font-weight: bold;
+				}
 			}
 		}
+
+
 
 		.add-icon {
 			display: flex;
