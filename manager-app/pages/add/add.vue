@@ -23,6 +23,9 @@
 	import {
 		getData
 	} from '../../utils/api'
+	import {
+		http
+	} from 'uview-plus'
 	export default {
 		data() {
 			return {
@@ -46,6 +49,15 @@
 				} catch (e) {
 					console.log("错误处理", e);
 				}
+
+				// uni.request({
+				// 	url: "http://127.0.0.1:8080/data"
+				// }).then(res => {
+				// 	console.log(res);
+				// 	this.userData = res.data
+				// })
+
+
 			},
 			goToBillPage() {
 				uni.navigateTo({

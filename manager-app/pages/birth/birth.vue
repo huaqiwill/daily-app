@@ -20,8 +20,7 @@
 						@close="" @open="">
 						<u-cell-group :border="false">
 							<u-cell style="border-radius: 15rpx 0rpx 0rpx 15rpx;
-		transition: all 0.5s;" @click="editBirth()" class="birth-item" :border="false"
-								:title="item.name" :label="item.date">
+		transition: all 0.5s;" @click="editBirth()" class="birth-item" :border="false" :title="item.name" :label="item.date">
 							</u-cell>
 						</u-cell-group>
 					</up-swipe-action-item>
@@ -30,7 +29,7 @@
 		</view>
 		<u-toast ref="uToast"></u-toast>
 
-		<up-popup :show="addBrithShow" mode="bottom" @close="close" @open="open">
+		<up-popup :show="addBrithShow" mode="bottom">
 			<view>
 				<view class="backlogForm" style="height: 800rpx;">
 					<up-input v-model="birthData.name" type="text" clearable placeholder="请输入待办标题"></up-input>
@@ -48,6 +47,7 @@
 	export default {
 		data() {
 			return {
+				dateShow: false,
 				addBrithShow: false,
 				birthList: [{
 						id: 1,

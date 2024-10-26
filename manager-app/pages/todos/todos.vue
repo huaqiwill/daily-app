@@ -11,8 +11,8 @@
 					<u-icon name="plus"></u-icon>
 				</view>
 				<view class="tip-todo" style="position: relative;">
-					<up-badge showZero="true" :value="num" style="z-index: 99;" :isDot="true" type="error"
-						absolute="false" offset="[1,1]">
+					<up-badge :showZero="true" :value="num" style="z-index: 99;" :isDot="true" type="error"
+						:absolute="true" :offset="[-3,1]">
 
 					</up-badge>
 					<u-icon name="bell"></u-icon>
@@ -102,7 +102,7 @@
 
 		<u-toast ref="uToast"></u-toast>
 
-		<up-popup :show="show" mode="bottom" @close="close" @open="open">
+		<up-popup :show="show" mode="bottom">
 			<view>
 				<view class="backlogForm" style="height: 800rpx;">
 					<up-input type="text" clearable placeholder="请输入待办标题"></up-input>

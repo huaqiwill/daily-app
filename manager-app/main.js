@@ -3,9 +3,9 @@ import App from './App'
 // #ifndef VUE3
 import Vue from 'vue'
 
-import uView from "uview-ui";
-Vue.use(uView);
-console.log(uni.$u.config.v);
+// import uView from "uview-ui";
+// Vue.use(uView);
+// console.log(uni.$u.config.v);
 
 import './uni.promisify.adaptor'
 Vue.config.productionTip = false

@@ -104,11 +104,11 @@
 		</view>
 
 		<view>
-			<u-tabbar :value="value1" @change="change1" :fixed="true" :placeholder="false" :safeAreaInsetBottom="true">
-				<up-tabbar-item text="账单" icon="rmb-circle" @click="click1"></up-tabbar-item>
+			<u-tabbar :fixed="true" :placeholder="false" :safeAreaInsetBottom="true">
+				<up-tabbar-item text="账单" icon="rmb-circle" @click=""></up-tabbar-item>
 				<up-tabbar-item text="统计" icon="order" @click="goToBillAnalysis()"></up-tabbar-item>
-				<up-tabbar-item text="钱包" icon="email" @click="click1"></up-tabbar-item>
-				<up-tabbar-item text="设置" icon="setting" @click="click1"></up-tabbar-item>
+				<up-tabbar-item text="钱包" icon="email" @click=""></up-tabbar-item>
+				<up-tabbar-item text="设置" icon="setting" @click=""></up-tabbar-item>
 			</u-tabbar>
 		</view>
 	</view>
