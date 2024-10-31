@@ -55,3 +55,10 @@ Route::get('note/<id>', 'NoteController/query');
 Route::post('note', 'NoteController/create');
 Route::put('note/<id>', 'NoteController/update');
 Route::delete('note/<id>', 'NoteController/delete');
+
+
+Route::get('friend','FriendController/querList');
+Route::get('friend/<id>','FriendController/query');
+Route::get('friend','FriendController/create');
+Route::get('friend/<id>','FriendController/update');
+Route::get('friend/<id>','FriendController/delete');
