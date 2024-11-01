@@ -115,6 +115,11 @@ class UserController extends BaseController
 
     public function test()
     {
-        return "hello";
+        try{
+            $user = Db::table('sys_user')->where('id',1)->find();
+            return $this->jsonResponse($user);
+        }catch(Exception $e){
+            return $this->jsonResponse(null,500,$e->getMessage());
+        }
     }
 }

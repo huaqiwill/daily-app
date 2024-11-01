@@ -15,8 +15,9 @@ Route::post('register', 'LoginController/register');
 Route::post('resetPassword', 'LoginController/resetPassword');
 
 // 用户路由
-Route::get('user', 'UserController/queryList');
+Route::get('user/getuser', 'UserController/test');
 Route::get('user/<id>', 'UserController/query');
+Route::get('user', 'UserController/queryList');
 Route::post('user', 'UserController/create');
 Route::put('user/:id', 'UserController/update');
 Route::delete('user/:id', 'UserController/delete');
