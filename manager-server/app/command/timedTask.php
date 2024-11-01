@@ -37,5 +37,6 @@ class timedTask extends Command
             "title" => "定时任务"
         ]);
 //        实现逻辑
+    // echo "hello";
     }
 }
