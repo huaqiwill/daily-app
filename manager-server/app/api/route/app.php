@@ -31,10 +31,15 @@ Route::put('bill/:id', 'BillController/update');
 Route::delete('bill/:id', 'BillController/delete');
 
 // 生日路由
+//查询具体某人生日
 Route::get('birth/<id>', 'BirthController/query');
+//查询生日列表
 Route::get('birth', 'BirthController/queryList');
+//新增生日
 Route::post('birth', 'BirthController/create');
+//修改生日
 Route::put('birth/<id>', 'BirthController/update');
+//删除生日
 Route::delete('birth/<id>', 'BirthController/delete');
 
 // 档案路由

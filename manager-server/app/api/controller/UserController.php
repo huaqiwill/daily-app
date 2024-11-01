@@ -5,6 +5,7 @@ namespace app\api\controller;
 use app\BaseController;
 use app\api\validate\UserValidate;
 use Exception;
+use think\db\Where;
 use think\facade\Db;
 
 /**
@@ -27,13 +28,13 @@ class UserController extends BaseController
                 'password' => $this->request->param('password'),
                 'nickname' => $this->request->param('nickname'),
                 'sex' => $this->request->param('sex'),
-                'create_time' =>  date('Y-m-d H:i:s'),
+                'create_time' => date('Y-m-d H:i:s'),
                 'update_time' => date('Y-m-d H:i:s'),
                 'status' => $this->request->param('status'),
                 'avatar' => $this->request->param('avatar'),
             ];
 
-            $id =  Db::table('sys_user')->insert($data, true);
+            $id = Db::table('sys_user')->insert($data, true);
             $data['id'] = $id;
             return $this->jsonResponse($data);
         } catch (Exception $e) {
@@ -115,11 +116,13 @@ class UserController extends BaseController
 
     public function test()
     {
-        try{
-            $user = Db::table('sys_user')->where('id',1)->find();
-            return $this->jsonResponse($user);
-        }catch(Exception $e){
-            return $this->jsonResponse(null,500,$e->getMessage());
+        try {
+            $user = Db::table('sys_user')->where('id', 1)->find();
+//           /*条件查询*/
+            $list = Db::table('sys_user')->whereNotIn('id', 1)->paginate(2);
+            return json($list);
+        } catch (Exception $e) {
+            return $this->jsonResponse(null, 500, $e->getMessage());
         }
     }
 }
