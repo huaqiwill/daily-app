@@ -112,4 +112,9 @@ class UserController extends BaseController
             return $this->jsonResponse(null, 500, $e->getMessage());
         }
     }
+
+    public function test()
+    {
+        return "hello";
+    }
 }

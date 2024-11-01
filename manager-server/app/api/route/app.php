@@ -21,6 +21,7 @@ Route::post('user', 'UserController/create');
 Route::put('user/:id', 'UserController/update');
 Route::delete('user/:id', 'UserController/delete');
 
+
 // 账单路由
 Route::get('bill', 'BillController/queryList');
 Route::get('bill/<id>', 'BillController/query');
