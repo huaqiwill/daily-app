@@ -5,5 +5,7 @@
 return [
     // 指令定义
     'commands' => [
+        'task' => 'app\command\Task',
+//        \app\command\Gather::class,
     ],
 ];
