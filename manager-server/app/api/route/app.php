@@ -5,50 +5,67 @@ use think\facade\Route;
 Route::get('/', function () {
     return 'hello,api';
 });
+Route::get('/hello',function(){
+    return "test api";
+});
 
 // 登录路由
-Route::post('login', 'Login/login');
-Route::post('register', 'Login/register');
-Route::post('resetPassword', 'Login/resetPassword');
+Route::post('login', 'LoginController/login');
+Route::post('register', 'LoginController/register');
+Route::post('resetPassword', 'LoginController/resetPassword');
 
 // 用户路由
-Route::get('user', 'User/queryList');
-Route::get('user/<id>', 'User/query');
-Route::post('user', 'User/create');
-Route::put('user/:id', 'User/update');
-Route::delete('user/:id', 'User/delete');
+Route::get('user/getuser', 'UserController/test');
+Route::get('user/<id>', 'UserController/query');
+Route::get('user', 'UserController/queryList');
+Route::post('user', 'UserController/create');
+Route::put('user/:id', 'UserController/update');
+Route::delete('user/:id', 'UserController/delete');
+
 
 // 账单路由
-Route::get('bill', 'Bill/queryList');
-Route::get('bill/<id>', 'Bill/query');
-Route::post('bill', 'Bill/create');
-Route::put('bill/:id', 'Bill/update');
-Route::delete('bill/:id', 'Bill/delete');
+Route::get('bill', 'BillController/queryList');
+Route::get('bill/<id>', 'BillController/query');
+Route::post('bill', 'BillController/create');
+Route::put('bill/:id', 'BillController/update');
+Route::delete('bill/:id', 'BillController/delete');
 
 // 生日路由
-Route::get('birth/<id>', 'Birth/query');
-Route::get('birth', 'Birth/queryList');
-Route::post('birth', 'Birth/create');
-Route::put('birth/<id>', 'Birth/update');
-Route::delete('birth/<id>', 'Birth/delete');
+//查询具体某人生日
+Route::get('birth/<id>', 'BirthController/query');
+//查询生日列表
+Route::get('birth', 'BirthController/queryList');
+//新增生日
+Route::post('birth', 'BirthController/create');
+//修改生日
+Route::put('birth/<id>', 'BirthController/update');
+//删除生日
+Route::delete('birth/<id>', 'BirthController/delete');
 
 // 档案路由
-Route::get('friend/<id>', 'Friend/query');
-Route::get('friend', 'Friend/queryList');
-Route::post('friend', 'Friend/create');
-Route::put('friend/:id', 'Friend/update');
-Route::delete('friend/:id', 'Friend/delete');
+Route::get('friend/<id>', 'FriendController/query');
+Route::get('friend', 'FriendController/queryList');
+Route::post('friend', 'FriendController/create');
+Route::put('friend/:id', 'FriendController/update');
+Route::delete('friend/:id', 'FriendController/delete');
 
 // 待办路由
-Route::get('todo', 'Todo/queryList');
-Route::get('todo/<id>', 'Todo/query');
-Route::post('todo', 'Todo/create');
-Route::put('todo/<id>', 'Todo/update');
-Route::delete('todo/<id>', 'Todo/delete');
+Route::get('todo', 'TodoController/queryList');
+Route::get('todo/<id>', 'TodoController/query');
+Route::post('todo', 'TodoController/create');
+Route::put('todo/<id>', 'TodoController/update');
+Route::delete('todo/<id>', 'TodoController/delete');
 
 // 笔记路由
-Route::get('note', 'Note/queryList');
-Route::get('note/<id>', 'Note/query');
-Route::post('note', 'Note/create');
-Route::put('note/<id>', 'Note/update');
-Route::delete('note/<id>', 'Note/delete');
+Route::get('note', 'NoteController/queryList');
+Route::get('note/<id>', 'NoteController/query');
+Route::post('note', 'NoteController/create');
+Route::put('note/<id>', 'NoteController/update');
+Route::delete('note/<id>', 'NoteController/delete');
+
+
+Route::get('friend','FriendController/querList');
+Route::get('friend/<id>','FriendController/query');
+Route::get('friend','FriendController/create');
+Route::get('friend/<id>','FriendController/update');
+Route::get('friend/<id>','FriendController/delete');

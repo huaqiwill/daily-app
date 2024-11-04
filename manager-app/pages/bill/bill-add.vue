@@ -21,9 +21,7 @@
 			<view class="">
 				<text>基本信息</text>
 			</view>
-			<!-- 			<u-cell-group>
-				<u-cell title="姓名" label="请选择姓名"></u-cell>
-			</u-cell-group> -->
+
 			<view class="">
 
 				<view class=""
@@ -43,9 +41,9 @@
 				</view>
 
 				<view class="" style="margin-top: 25rpx;">
-					<up-radio-group style="display: flex;" v-model="radiovalue1" placement="row" @change="groupChange">
+					<up-radio-group style="display: flex;" placement="row">
 						<up-radio :customStyle="{marginBottom: '8px'}" v-for="(item, index) in radiolist1" :key="index"
-							:label="item.name" :name="item.name" @change="radioChange">
+							:label="item.name" :name="item.name">
 						</up-radio>
 					</up-radio-group>
 				</view>
@@ -59,6 +57,20 @@
 					</view>
 				</view>
 
+
+				<view class="">
+					<view class="">
+						<text>支出类型</text>
+					</view>
+
+					<view class="">
+						<up-radio-group style="display: flex;" placement="row">
+							<up-radio :customStyle="{marginBottom: '8px'}" v-for="(item, index) in payType"
+								:key="index" :label="item.name" :name="item.name">
+							</up-radio>
+						</up-radio-group>
+					</view>
+				</view>
 				<view class="" style="margin-top: 25rpx;">
 					<view class="" style="margin-bottom: 25rpx;">
 						<text>备注</text>
@@ -180,15 +192,34 @@
 	export default {
 		data() {
 			return {
+				value1: "test",
 				radiolist1: [{
 						name: '收入',
-						disabled: false
+						disabled: true
 					},
 					{
 						name: '支出',
 						disabled: false
 					}
 				],
+				payType:[
+					{
+						typId:1,
+						name:"餐饮",
+					},
+					{
+						typId:2,
+						name:"购物",
+					},
+					{
+						typId:3,
+						name:"交通",
+					},
+					{
+						typId:4,
+						name:"娱乐",
+					}
+				]
 			}
 		},
 		onLoad() {

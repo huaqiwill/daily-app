@@ -1,8 +1,5 @@
 <template>
 	<view class="container">
-		<view>name:{{userData.name}}</view>
-		<view>age:{{userData.age}}</view>
-		<button @click="getData">getData</button>
 
 		<button type="primary" @click="goToFriendsPage()">关系管理</button>
 		<button type="primary" @click="goToBillPage()">账单管理</button>
@@ -20,12 +17,6 @@
 	</view>
 </template>
 <script>
-	import {
-		getData
-	} from '../../utils/api'
-	import {
-		http
-	} from 'uview-plus'
 	export default {
 		data() {
 			return {
@@ -42,23 +33,6 @@
 			console.log("我触底执行了");
 		},
 		methods: {
-			async getData() {
-				try {
-					const result = await getData()
-					this.userData = result
-				} catch (e) {
-					console.log("错误处理", e);
-				}
-
-				// uni.request({
-				// 	url: "http://127.0.0.1:8080/data"
-				// }).then(res => {
-				// 	console.log(res);
-				// 	this.userData = res.data
-				// })
-
-
-			},
 			goToBillPage() {
 				uni.navigateTo({
 					url: "/pages/bill/bill"
