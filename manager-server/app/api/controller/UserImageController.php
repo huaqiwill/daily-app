@@ -8,10 +8,9 @@ use Exception;
 use think\facade\Db;
 
 /**
- * 食物管理、饮食管理
- * 餐饮记录新增、修改、删除
+ * 用户画像、用户形象
  */
-class FoodController extends BaseController
+class UserImageController extends BaseController
 {
     protected $food_table = 'app_food';
 
@@ -26,12 +25,11 @@ class FoodController extends BaseController
             validate(FoodValidate::class)->check($this->request->param());
             $data = $this->buildData([
                 'user_id',
+                'category_id',
                 'name',
-                'price',
-                'images',
-                'date',
-                'time',
-                'notes'
+                'describe',
+                'status',
+                'thumbnail'
             ]);
             $data['create_time'] = date('Y-m-d H:i:s');
             $id =  Db::table($this->food_table)->insert($data, true);
@@ -53,12 +51,11 @@ class FoodController extends BaseController
             validate(FoodValidate::class)->check($this->request->param());
             $data = $this->buildData([
                 'user_id',
+                'category_id',
                 'name',
-                'price',
-                'images',
-                'date',
-                'time',
-                'notes'
+                'describe',
+                'status',
+                'thumbnail'
             ]);
             $data['update_time'] = date('Y-m-d H:i:s');
             Db::table($this->food_table)->where('id', $id)->update($data);
@@ -81,9 +78,9 @@ class FoodController extends BaseController
             } else {
                 Db::table($this->food_table)->where('id', $id)->delete();
             }
-            return $this->success();
+            return $this->jsonResponse();
         } catch (Exception $e) {
-            return $this->error($e->getMessage(), 500);
+            return $this->jsonResponse(null, 500, $e->getMessage());
         }
     }
 

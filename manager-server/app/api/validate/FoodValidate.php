@@ -7,13 +7,23 @@ use think\Validate;
 class FoodValidate extends Validate
 {
     protected $rule = [
-        'name'  =>  'require|max:25',
-        'email' =>  'email',
+        'user_id'  =>  'require|max:25',
+        'name' =>  'require',
+        'price' =>  'require',
+        'images' =>  'require',
+        'date' =>  'require',
+        'time' =>  'require',
+        // 'notes' =>  'require',
     ];
 
     protected $message = [
+        'user_id'  =>  'require|max:25',
         'name'  =>  '用户名必须',
-        'email' =>  '邮箱格式错误',
+        'price' =>  'require',
+        'images' =>  'require',
+        'date' =>  'require',
+        'time' =>  'require',
+        // 'notes' =>  'require',
     ];
 }
 

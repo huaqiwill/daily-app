@@ -91,15 +91,86 @@ abstract class BaseController
         return $v->failException(true)->check($data);
     }
 
+    public function success($data = null, $message = 'ok')
+    {
+        return $this->jsonResponse($data, 200, $message);
+    }
+
+    public function error($message = 'error', $code = 500)
+    {
+        return $this->jsonResponse(null, $code, $message);
+    }
+
     // 通用的返回 JSON 数据的方法
-    protected function jsonResponse($data = [], $code = 200, $message = 'Success')
+    protected function jsonResponse($data = [], $code = 200, $message = 'ok')
     {
         $response = [
             'code' => $code,
             'message' => $message,
-            'data' => $data,
         ];
-
+        if ($data) {
+            $response['data'] = $data;
+        }
         return json($response);
+    }
+
+    public function getParam($name, $default = '')
+    {
+        return $this->request->param($name, $default);
+    }
+
+    /**
+     * 是否为软删除
+     * @return bool
+     */
+    public function isSoftDelete()
+    {
+        return (bool)config('app.soft_delete');
+    }
+
+    /**
+     * 获取参数ID
+     * @return int
+     */
+    public function getParamId()
+    {
+        $id = $this->request->param('id');
+
+        if (empty($id)) {
+            throw new \InvalidArgumentException('参数 ID 不能为空');
+        }
+
+        return (int)$id;
+    }
+
+    /**
+     * 构造数据数组
+     * @return array
+     */
+    public function buildData($keys)
+    {
+        $data = [];
+
+        foreach ($keys as $key) {
+            $value = $this->request->param($key);
+            if (!empty($value)) {
+                $data[$key] = $value;
+            }
+        }
+
+        return $data;
+    }
+
+    /**
+     * 构造软删除数据数组
+     * @return array
+     */
+    public function buildDataWithSoftDelete()
+    {
+        $data = [
+            'delete_time' => date('Y-m-d H:i:s'),
+            'is_delete' => 1,
+        ];
+        return $data;
     }
 }

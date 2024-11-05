@@ -1,5 +1,9 @@
 <?php
 
-class FileService{
+/**
+ * 文件服务
+ */
+class FileService
+{
     
 }
