@@ -2,7 +2,7 @@
 
 namespace app\api\controller;
 
-use app\api\validate\FoodValidate;
+use app\api\validate\UserImageValidate;
 use app\BaseController;
 use Exception;
 use think\facade\Db;
@@ -12,7 +12,7 @@ use think\facade\Db;
  */
 class UserImageController extends BaseController
 {
-    protected $food_table = 'app_food';
+    protected $table_name = 'app_user_image';
 
     /**
      * 食物创建
@@ -22,17 +22,14 @@ class UserImageController extends BaseController
     public function create()
     {
         try {
-            validate(FoodValidate::class)->check($this->request->param());
+            validate(UserImageValidate::class)->check($this->request->post());
             $data = $this->buildData([
                 'user_id',
-                'category_id',
-                'name',
-                'describe',
-                'status',
-                'thumbnail'
+                'date',
+                'images',
             ]);
             $data['create_time'] = date('Y-m-d H:i:s');
-            $id =  Db::table($this->food_table)->insert($data, true);
+            $id =  Db::table($this->table_name)->insert($data, true);
             $data['id'] = $id;
             return $this->jsonResponse($data);
         } catch (Exception $e) {
@@ -48,17 +45,14 @@ class UserImageController extends BaseController
     {
         try {
             $id = $this->getParamId();
-            validate(FoodValidate::class)->check($this->request->param());
+            validate(UserImageValidate::class)->check($this->request->post());
             $data = $this->buildData([
                 'user_id',
-                'category_id',
-                'name',
-                'describe',
-                'status',
-                'thumbnail'
+                'date',
+                'images',
             ]);
             $data['update_time'] = date('Y-m-d H:i:s');
-            Db::table($this->food_table)->where('id', $id)->update($data);
+            Db::table($this->table_name)->where('id', $id)->update($data);
             return $this->jsonResponse();
         } catch (Exception $e) {
             return $this->jsonResponse(null, 500, $e->getMessage());
@@ -74,9 +68,9 @@ class UserImageController extends BaseController
         try {
             $id = $this->getParamId();
             if ($this->isSoftDelete()) {
-                Db::table($this->food_table)->where('id', $id)->update($this->buildDataWithSoftDelete());
+                Db::table($this->table_name)->where('id', $id)->update($this->buildDataWithSoftDelete());
             } else {
-                Db::table($this->food_table)->where('id', $id)->delete();
+                Db::table($this->table_name)->where('id', $id)->delete();
             }
             return $this->jsonResponse();
         } catch (Exception $e) {
@@ -92,7 +86,7 @@ class UserImageController extends BaseController
     {
         try {
             $id = $this->getParamId();
-            $user = Db::table($this->food_table)->where('id', $id)->find();
+            $user = Db::table($this->table_name)->where('id', $id)->find();
             return $this->jsonResponse($user);
         } catch (Exception $e) {
             return $this->jsonResponse(null, 500, $e->getMessage());
@@ -106,7 +100,7 @@ class UserImageController extends BaseController
     public function queryList()
     {
         try {
-            $list = Db::table($this->food_table)->select();
+            $list = Db::table($this->table_name)->select();
             return json($list);
         } catch (Exception $e) {
             return $this->jsonResponse(null, 500, $e->getMessage());

@@ -50,7 +50,7 @@ class FoodController extends BaseController
     {
         try {
             $id = $this->getParamId();
-            validate(FoodValidate::class)->check($this->request->param());
+            validate(FoodValidate::class)->check($this->request->put());
             $data = $this->buildData([
                 'user_id',
                 'name',
@@ -110,9 +110,9 @@ class FoodController extends BaseController
     {
         try {
             $list = Db::table($this->food_table)->select();
-            return json($list);
+            return $this->success($list);
         } catch (Exception $e) {
-            return $this->jsonResponse(null, 500, $e->getMessage());
+            return $this->error($e->getMessage(), 500);
         }
     }
 }
