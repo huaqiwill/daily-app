@@ -1,18 +1,22 @@
 <template>
 	<view class="container">
+
+		<!-- 头部 -->
 		<view class="profile_top">
-			<view class="avatar">
+			<view class="avatar" @click="goToSetting()">
 
 			</view>
-			<view class="user_tip" @click="goToLogin()">
-				<text>注册/登录</text>
+			<view class="user_tip">
+				<text>
+					<text @click="goToLogin(0)">注册</text>
+					/
+					<text @click="goToLogin(1)">登录</text>
+				</text>
 				<text>登录后可体验更多服务</text>
-			</view>
-			<view class="setting" @click="goToSetting()">
-				<text class="setting-text">设置</text>
 			</view>
 		</view>
 
+		<!-- 菜单 -->
 		<view class="profile_look">
 			<view class="history">
 				<text>{{1}}</text>
@@ -30,36 +34,12 @@
 			</view>
 		</view>
 
-
+		<!-- 菜单 -->
 		<view class="profile_tools">
 			<view :class="item.name" v-for="(item,index) of tools" :key="item.id">
 				<u-icon :size="item.icon_size" class="icon-map" :name="item.type"></u-icon>
 				{{item.title}}
 			</view>
-			<!-- <view class="relation">
-				<u-icon :size="30" class="icon-map" name="map"></u-icon>
-				关系管理
-			</view>
-			<view class="birth">
-				<u-icon :size="30" class="icon-map" name="map"></u-icon>
-				生日管理
-			</view>
-			<view class="everyday">
-				<u-icon :size="30" class="icon-map" name="map"></u-icon>
-				日常管理
-			</view>
-			<view class="note">
-				<u-icon :size="30" class="icon-map" name="map"></u-icon>
-				笔记管理
-			</view>
-			<view class="bill">
-				<u-icon :size="30" class="icon-map" name="map"></u-icon>
-				账单管理
-			</view>
-			<view class="backlog">
-				<u-icon :size="30" class="icon-map" name="map"></u-icon>
-				待办管理
-			</view> -->
 		</view>
 
 		<view class="other">
@@ -69,70 +49,42 @@
 		<up-toast ref="uToast"></up-toast>
 	</view>
 </template>
-<script>
-	export default {
-		data() {
-			return {
-				title: "hello",
-				tools: [{
-						id: 1,
-						name: "relation",
-						type: "map",
-						title: "关系管理",
-						icon_size: 30
-					},
-					{
-						id: 2,
-						name: "birth",
-						type: "map",
-						title: "生日管理",
-						icon_size: 30
-					},
-					{
-						id: 3,
-						name: "everyday",
-						type: "map",
-						title: "日常管理",
-						icon_size: 30
-					},
-					{
-						id: 4,
-						name: "note",
-						type: "map",
-						title: "笔记管理",
-						icon_size: 30
-					},
-					{
-						id: 5,
-						name: "bill",
-						type: "map",
-						title: "账单管理",
-						icon_size: 30
-					},
-					{
-						id: 6,
-						name: "backlog",
-						type: "map",
-						title: "关系管理",
-						icon_size: 30
-					}
-				]
-			}
-		},
-		methods: {
-			goToSetting() {
-				this.$refs.uToast.show({
-					message: "setting"
-				})
-				uni.navigateTo({
-					url: "/pages/profile/profile-edit"
-				})
-			},
-			goToLogin() {
-				uni.navigateTo({
-					url: "/pages/login/login"
-				})
-			}
+<script setup>
+	import {
+		ref
+	} from 'vue'
+	import {
+		onLoad
+	} from '@dcloudio/uni-app'
+	import {
+		toolsData
+	} from './data.js'
+
+	const title = ref("hello")
+	const tools = ref([])
+
+	onLoad(() => {
+		tools.value = toolsData
+	})
+
+	function goToSetting() {
+		uni.showToast({
+			title: "setting"
+		})
+		uni.navigateTo({
+			url: "/pages/profile/profile-edit"
+		})
+	}
+
+	function goToLogin(index) {
+		if (index == 1) {
+			uni.navigateTo({
+				url: "/pages/login/login"
+			})
+		} else {
+			uni.navigateTo({
+				url: "/pages/login/register"
+			})
 		}
 	}
 </script>

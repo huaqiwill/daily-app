@@ -1,79 +1,32 @@
 <template>
 	<view class="content">
-		<up-toast ref="uToastRef"></up-toast>
-		<view class="seach-box">
-			<u-search @search="onSearch(kw)" class="seach-input" placeholder="日照香炉生紫烟" v-model="kw"
-				@custom="onSearch(kw)" bgColor="#fff"></u-search>
+		<!-- 搜索框 -->
+		<view class="seach-box" @click="gotoSearchPage">
+			<u-search @search="onSearch(kw)" class="seach-input" placeholder="日照香炉生紫烟" v-model="kw" @custom="onSearch(kw)"
+				bgColor="#fff" :showAction="false"></u-search>
 		</view>
 
-		<view class="u-demo-block">
-			<!-- <text class="u-demo-block__title">卡片式</text> -->
-			<up-swiper :list="list3" previousMargin="30" nextMargin="30" circular :autoplay="false" radius="5"
-				</up-swiper>
-		</view>
-
+		<!-- 轮播图 -->
 		<view>
-			<view class="nav">
-				<view class="nav-item-box" @click="goToProfile()">
-					<view class="nav-item nav_profile">
-						<image src="../../static/images/user.png" mode=""></image>
-					</view>
-					<text>用户</text>
-				</view>
-				<view class="nav-item-box" @click="">
-					<view class="nav-item nav_birth">
-						<image src="../../static/images/public-relations.png" mode=""></image>
-					</view>
-					<text>关系</text>
-				</view>
-
-				<view class="nav-item-box" @click="goToNote()">
-					<view class="nav-item nav_friends">
-						<image src="../../static/images/notes.png" mode=""></image>
-					</view>
-					<text>笔记</text>
-				</view>
-
-				<view class="nav-item-box" @click="goToBill()">
-					<view class="nav-item nav_friends">
-						<image src="../../static/images/invoice.png" mode=""></image>
-					</view>
-					<text>账单</text>
-				</view>
-
-			</view>
-			<view class="nav">
-				<view class="nav-item-box" @click="goToTodos()">
-					<view class="nav-item nav_profile">
-						<image src="../../static/images/backlog.png" mode=""></image>
-					</view>
-					<text>待办</text>
-				</view>
-
-				<view class="nav-item-box" @click="goToMessage()">
-					<view class="nav-item nav_birth">
-						<image src="../../static/images/megaphone.png" mode=""></image>
-					</view>
-					<text>通知</text>
-				</view>
-
-				<view class="nav-item-box" @click="goToBirth()">
-					<view class="nav-item nav_friends">
-						<image src="../../static/images/birth.png" mode=""></image>
-					</view>
-					<text>生日</text>
-				</view>
-
-				<view class="nav-item-box" @click="getToFood()">
-					<view class="nav-item nav_friends">
-						<image src="../../static/images/user.png" mode=""></image>
-					</view>
-					<text>食谱</text>
-				</view>
-			</view>
+			<up-swiper :list="swiperList" @click="onBannerClick" keyName="image" previousMargin="30" nextMargin="30"
+				:autoplay="false" radius="5" circular indicator indicatorMode="line">
+			</up-swiper>
 		</view>
 
+		<!-- 菜单 -->
+		<u-grid :col="4" class="mt-space">
+			<u-grid-item v-for="(item, index) in menus.slice(0, 4)" :key="index" @click="goToPage(item.url)">
+				<u-icon :name="item.image" :size="46"></u-icon>
+				<view class="mt-space">{{ item.name }}</view>
+			</u-grid-item>
+			<u-grid-item class="mt-space" v-for="(item, index) in menus.slice(4, 8)" :key="index + 4"
+				@click="goToPage(item.url)">
+				<u-icon :name="item.image" :size="46"></u-icon>
+				<view class="mt-space">{{ item.name }}</view>
+			</u-grid-item>
+		</u-grid>
 
+		<!-- 笔记 -->
 		<view>
 			<up-card :title="title" :sub-title="subTitle" :thumb="thumb">
 				<template #body>
@@ -100,7 +53,6 @@
 			</up-card>
 		</view>
 
-
 		<!-- warter list -->
 		<view class="wrap">
 			<!-- <up-button @click="clear">清空列表</up-button> -->
@@ -108,8 +60,7 @@
 				<template v-slot:left="{leftList}">
 					<view class="demo-warter" v-for="(item, index) in leftList" :key="index">
 						<!-- 警告：微信小程序中需要hx2.8.11版本才支持在template中结合其他组件，比如下方的lazy-load组件 -->
-						<up-lazy-load threshold="-450" border-radius="10" :image="item.image"
-							:index="index"></up-lazy-load>
+						<up-lazy-load threshold="-450" border-radius="10" :image="item.image" :index="index"></up-lazy-load>
 						<view class="demo-title">
 							{{item.title}}
 						</view>
@@ -133,8 +84,7 @@
 				</template>
 				<template v-slot:right="{rightList}">
 					<view class="demo-warter" v-for="(item, index) in rightList" :key="index">
-						<up-lazy-load threshold="-450" border-radius="10" :image="item.image"
-							:index="index"></up-lazy-load>
+						<up-lazy-load threshold="-450" border-radius="10" :image="item.image" :index="index"></up-lazy-load>
 						<view class="demo-title">
 							{{item.title}}
 						</view>
@@ -163,176 +113,113 @@
 	</view>
 </template>
 
-<script>
+<script setup>
 	import {
-		toUrl
-	} from '../../utils';
-	export default {
-		data() {
-			return {
-				kw: "",
-				show: false,
-				list3: [
-					'https://cdn.uviewui.com/uview/swiper/swiper3.png',
-					'https://cdn.uviewui.com/uview/swiper/swiper2.png',
-					'https://cdn.uviewui.com/uview/swiper/swiper1.png',
-				],
-				title: '素胚勾勒出青花，笔锋浓转淡',
-				subTitle: '2020-05-15',
-				thumb: 'https://img11.360buyimg.com/n7/jfs/t1/94448/29/2734/524808/5dd4cc16E990dfb6b/59c256f85a8c3757.jpg',
-				loadStatus: 'loadmore',
-				flowList: [],
-				list: [{
-						price: 35,
-						title: '北国风光，千里冰封，万里雪飘',
-						shop: '李白杜甫白居易旗舰店',
-						image: 'https://cdn.uviewui.com/uview/swiper/swiper1.png',
-					},
-					{
-						price: 75,
-						title: '望长城内外，惟余莽莽',
-						shop: '李白杜甫白居易旗舰店',
-						image: 'https://cdn.uviewui.com/uview/swiper/swiper1.png',
-					},
-					{
-						price: 385,
-						title: '大河上下，顿失滔滔',
-						shop: '李白杜甫白居易旗舰店',
-						image: 'https://cdn.uviewui.com/uview/swiper/swiper1.png',
-					},
-					{
-						price: 784,
-						title: '欲与天公试比高',
-						shop: '李白杜甫白居易旗舰店',
-						image: 'https://cdn.uviewui.com/uview/swiper/swiper1.png',
-					},
-					{
-						price: 7891,
-						title: '须晴日，看红装素裹，分外妖娆',
-						shop: '李白杜甫白居易旗舰店',
-						image: 'https://cdn.uviewui.com/uview/swiper/swiper1.png',
-					},
-					{
-						price: 2341,
-						shop: '李白杜甫白居易旗舰店',
-						title: '江山如此多娇，引无数英雄竞折腰',
-						image: 'https://cdn.uviewui.com/uview/swiper/swiper1.png',
-					},
-					{
-						price: 661,
-						shop: '李白杜甫白居易旗舰店',
-						title: '惜秦皇汉武，略输文采',
-						image: 'https://cdn.uviewui.com/uview/swiper/swiper1.png',
-					},
-					{
-						price: 1654,
-						title: '唐宗宋祖，稍逊风骚',
-						shop: '李白杜甫白居易旗舰店',
-						image: 'https://cdn.uviewui.com/uview/swiper/swiper1.png',
-					},
-					{
-						price: 1678,
-						title: '一代天骄，成吉思汗',
-						shop: '李白杜甫白居易旗舰店',
-						image: 'https://cdn.uviewui.com/uview/swiper/swiper1.png',
-					},
-					{
-						price: 924,
-						title: '只识弯弓射大雕',
-						shop: '李白杜甫白居易旗舰店',
-						image: 'https://cdn.uviewui.com/uview/swiper/swiper1.png',
-					},
-					{
-						price: 8243,
-						title: '俱往矣，数风流人物，还看今朝',
-						shop: '李白杜甫白居易旗舰店',
-						image: 'https://cdn.uviewui.com/uview/swiper/swiper1.png',
-					},
-				]
-			}
-		},
-		onLoad() {
-
-		},
-		onReachBottom() {
-			// 触底执行
-			this.loadStatus = 'loading';
-			// 模拟数据加载
-			setTimeout(() => {
-				this.addRandomData();
-				this.loadStatus = 'loadmore';
-			}, 1000)
-		},
-		methods: {
-			onSearch(val) {
-				this.$refs.uToastRef.show({
-					message: val,
-					type: "success"
-				})
-			},
-			addRandomData() {
-				for (let i = 0; i < 10; i++) {
-					let index = this.$u.random(0, this.list.length - 1);
-					// 先转成字符串再转成对象，避免数组对象引用导致数据混乱
-					let item = JSON.parse(JSON.stringify(this.list[index]))
-					item.id = this.$u.guid();
-					this.flowList.push(item);
-				}
-			},
-			remove(id) {
-				this.$refs.uWaterfallRef.remove(id);
-			},
-			clear() {
-				this.$refs.uWaterfallRef.clear();
-			},
-			// start 主页跳转页面集合
-			// 跳转到指定页面
-			goToProfile() {
-				uni.switchTab({
-					url: '/pages/profile/profile'
-				});
-			},
-			goToBirth() {
-				uni.navigateTo({
-					url: '/pages/birth/birth'
-				});
-			},
-			goToLogin() {
-				uni.navigateTo({
-					url: "/pages/login/login"
-				})
-			},
-			goToNote() {
-				uni.navigateTo({
-					url: "/pages/notes/notes"
-				})
-			},
-			goToBill() {
-				uni.navigateTo({
-					url: "/pages/bill/bill"
-				})
-			},
-			goToTodos() {
-				uni.navigateTo({
-					url: "/pages/todos/todos"
-				})
-			},
-			goToMessage() {
-				uni.navigateTo({
-					url: "/pages/message/message"
-				})
-			},
-			getToFood(){
-				uni.navigateTo({
-					url:"/pages/food/food"
-				})
-			}
-			// end 主页跳转页面集合
+		ref
+	} from 'vue'
+	import {
+		onLoad,
+		onReachBottom
+	} from '@dcloudio/uni-app'
+	import {
+		openWebPage
+	} from '@/utils/index.js'
 
 
+
+	import {
+		swiperData,
+		menuData
+	} from './data.js'
+
+	const kw = ""
+
+	function gotoSearchPage() {
+		uni.navigateTo({
+			url: "/pages/index/search"
+		})
+	}
+	const show = false
+	const swiperList = ref([])
+
+	function onBannerClick(index) {
+		// 获取当前点击项的url
+		const url = swiperList.value[index].url;
+		console.log(url);
+		// 跳转到指定页面
+		openWebPage(url)
+	}
+
+	const title = '素胚勾勒出青花，笔锋浓转淡'
+	const subTitle = '2020-05-15'
+	const thumb = 'https://img11.360buyimg.com/n7/jfs/t1/94448/29/2734/524808/5dd4cc16E990dfb6b/59c256f85a8c3757.jpg'
+	const loadStatus = ref('loadmore')
+	const flowList = []
+	const uToastRef = ref()
+	const list = ref([])
+
+	const menus = ref([])
+
+	function goToPage(page) {
+		if (page) {
+			uni.navigateTo({
+				url: page
+			});
 		}
 	}
+
+	onLoad(() => {
+		menus.value = menuData
+		swiperList.value = swiperData
+	})
+
+	onReachBottom(() => {
+		// 触底执行
+		loadStatus.value = 'loading';
+		// 模拟数据加载
+		setTimeout(() => {
+			addRandomData();
+			loadStatus.value = 'loadmore';
+		}, 1000)
+	})
+
+
+	function onSearch(val) {
+		uni.showToast({
+			message: val,
+			type: "success"
+		})
+	}
+
+	function guid() {
+		return 1;
+	}
+
+	function random(a, b) {
+		return 1;
+	}
+
+	function addRandomData() {
+		for (let i = 0; i < 10; i++) {
+			let index = random(0, list.length - 1);
+			// 先转成字符串再转成对象，避免数组对象引用导致数据混乱
+			let item = JSON.parse(JSON.stringify(list[index]))
+			item.id = guid();
+			flowList.push(item);
+		}
+	}
+
+	const uWaterfallRef = ref()
+
+	function remove(id) {
+		uWaterfallRef.remove(id);
+	}
+
+	function clear() {
+		uWaterfallRef.clear();
+	}
 </script>
+
 <style>
 	/* page不能写带scope的style标签中，否则无效 */
 	page {
@@ -345,6 +232,7 @@
 		display: flex;
 		justify-content: space-evenly;
 		margin-top: 100rpx;
+		flex-wrap: wrap;
 	}
 
 	.nav-item {
@@ -358,6 +246,10 @@
 	}
 
 	.nav-item-box {
+		width: 22%;
+		/* 每项占据 1/4 的宽度，22% 包括边距 */
+		margin-bottom: 20rpx;
+		/* 每行之间的间距 */
 		text-align: center;
 		font-size: 28rpx;
 	}

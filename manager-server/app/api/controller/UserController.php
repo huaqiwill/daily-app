@@ -5,19 +5,13 @@ namespace app\api\controller;
 use app\BaseController;
 use app\api\validate\UserValidate;
 use Exception;
-use think\db\Where;
 use think\facade\Db;
 
 /**
  * 用户管理
- * 用户新增、删除、查询、修改
  */
 class UserController extends BaseController
 {
-    /**
-     * 新增用户
-     * @return \think\response\Json
-     */
     public function create()
     {
         try {
@@ -42,10 +36,6 @@ class UserController extends BaseController
         }
     }
 
-    /**
-     * 更新用户
-     * @return \think\response\Json
-     */
     public function update()
     {
         try {
@@ -70,10 +60,6 @@ class UserController extends BaseController
         }
     }
 
-    /**
-     * 删除用户
-     * @return \think\response\Json
-     */
     public function delete()
     {
         try {
@@ -85,10 +71,6 @@ class UserController extends BaseController
         }
     }
 
-    /**
-     * 查询用户
-     * @return \think\response\Json
-     */
     public function query()
     {
         try {
@@ -100,26 +82,10 @@ class UserController extends BaseController
         }
     }
 
-    /**
-     * 查询用户列表
-     * @return \think\response\Json
-     */
     public function queryList()
     {
         try {
             $list = Db::table('sys_user')->select();
-            return json($list);
-        } catch (Exception $e) {
-            return $this->jsonResponse(null, 500, $e->getMessage());
-        }
-    }
-
-    public function test()
-    {
-        try {
-            $user = Db::table('sys_user')->where('id', 1)->find();
-//           /*条件查询*/
-            $list = Db::table('sys_user')->whereNotIn('id', 1)->paginate(2);
             return json($list);
         } catch (Exception $e) {
             return $this->jsonResponse(null, 500, $e->getMessage());

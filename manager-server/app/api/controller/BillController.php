@@ -9,14 +9,11 @@ use think\facade\Db;
 
 /**
  * 账单管理
- * 账单新增、修改、删除、查询
  */
 class BillController extends BaseController
 {
-    /**
-     * 账单创建
-     * @return \think\response\Json
-     */
+    private $table_name = "app_bill";
+
     public function create()
     {
         try {
@@ -27,17 +24,14 @@ class BillController extends BaseController
                 'sex' => $this->request->param('sex'),
             ];
 
-            Db::table('app_bill')->insert($data);
-            return $this->jsonResponse();
+            Db::table($this->table_name)->insert($data);
+            return $this->success($data);
         } catch (Exception $e) {
-            return $this->jsonResponse([], $e->getMessage(), 500);
+            return $this->error($e->getMessage(), 500);
         }
     }
 
-    /**
-     * 账单更新
-     * @return \think\response\Json
-     */
+
     public function update()
     {
         try {
@@ -49,54 +43,45 @@ class BillController extends BaseController
                 'sex' => $this->request->param('sex'),
             ];
 
-            Db::table('app_bill')->where('id', $id)->update($data);
-            return $this->jsonResponse($data);
+            Db::table($this->table_name)->where('id', $id)->update($data);
+            return $this->success($data);
         } catch (Exception $e) {
-            return $this->jsonResponse([], $e->getMessage(), 500);
+            return $this->error($e->getMessage(), 500);
         }
     }
 
-    /**
-     * 账单删除
-     * @return \think\response\Json
-     */
     public function delete()
     {
         try {
-            $id = $this->request->param('id');
-            Db::table('app_bill')->where('id', $id)->delete();
-            return $this->jsonResponse();
+            $id = $this->getParamId();
+            Db::table($this->table_name)->where('id', $id)->delete();
+            return $this->success($id);
         } catch (Exception $e) {
-            return $this->jsonResponse([], $e->getMessage(), 500);
+            return $this->error($e->getMessage(), 500);
         }
     }
 
-    /**
-     * 账单查询
-     * @return \think\response\Json
-     */
     public function query()
     {
         try {
             $id = $this->request->param('id');
-            $data = Db::table('app_bill')->where('id', $id)->find();
-            return $this->jsonResponse($data);
+            $data = Db::table($this->table_name)->where('id', $id)->find();
+            return $this->success($data);
         } catch (Exception $e) {
-            return $this->jsonResponse([], $e->getMessage(), 500);
+            return $this->error($e->getMessage(), 500);
         }
     }
 
-    /**
-     * 账单查询集合
-     * @return \think\response\Json
-     */
     public function queryList()
     {
         try {
-            $data = Db::table('app_bill')->select();
-            return $this->jsonResponse($data);
+            $data = Db::table($this->table_name)
+                ->where('is_delete', '<>', '1')
+                ->select()->toArray();
+
+            return $this->success($data);
         } catch (Exception $e) {
-            return $this->jsonResponse([], $e->getMessage(), 500);
+            return $this->error($e->getMessage(), 500);
         }
     }
 }

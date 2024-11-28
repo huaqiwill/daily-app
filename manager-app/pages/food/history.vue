@@ -1,7 +1,13 @@
 <template>
-	<view>todos</view>
+	<view>
+		history
+	</view>
 </template>
+
 <script setup>
 	
 </script>
-<style></style>
+
+<style>
+
+</style>

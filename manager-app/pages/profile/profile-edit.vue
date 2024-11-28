@@ -8,12 +8,11 @@
 				<image class="avatar-pic" src="../../static/pj-logo.png" mode=""></image>
 			</view>
 			<view class="info">
-				<view class="info-item"><text>名字</text><text v-if="!userInfo.edit">{{userInfo.username}}</text><u-input
-						v-else v-model="userInfo.username"></u-input><u-icon @click="editUserInfo()"
+				<view class="info-item"><text>名字</text><text v-if="!userInfo.edit">{{userInfo.username}}</text><u-input v-else
+						v-model="userInfo.username"></u-input><u-icon @click="editUserInfo()"
 						:name="userInfo.edit? 'lock':'edit-pen'"></u-icon></view>
-				<view class="info-item"><text>简介</text><text
-						v-if="!userInfo.edit">{{userInfo.introductory}}</text><u-input v-else
-						v-model="userInfo.introductory"></u-input><u-icon @click="editUserInfo()"
+				<view class="info-item"><text>简介</text><text v-if="!userInfo.edit">{{userInfo.introductory}}</text><u-input
+						v-else v-model="userInfo.introductory"></u-input><u-icon @click="editUserInfo()"
 						:name="userInfo.edit? 'lock':'edit-pen'"></u-icon></view>
 				<view class="info-item"><text>性别</text><text v-if="!userInfo.edit">{{userInfo.gender}}</text><u-input v-else
 						v-model="userInfo.gender"></u-input><u-icon @click="editUserInfo()"

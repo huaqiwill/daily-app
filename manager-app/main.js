@@ -20,7 +20,9 @@ app.$mount()
 import {
 	createSSRApp
 } from 'vue'
-
+import {
+	apiTest
+} from './utils/api'
 // bootstrap4
 // import 'bootstrap/dist/css/bootstrap.min.css';
 // import 'bootstrap/dist/js/bootstrap.min.js';
@@ -36,10 +38,14 @@ import uviewPlus from 'uview-plus'
 import tabBar from '@/pages/tabbar/tabbar'
 export function createApp() {
 	const app = createSSRApp(App)
-	app.component('tab-bar',tabBar) //挂载
+	app.component('tab-bar', tabBar) //挂载
 	app.use(uviewPlus)
 	// app.use(Vant); // 全局注册 Vant 组件
 
+	apiTest().then((data) => {
+		console.log(data)
+	})
+	
 	return {
 		app
 	}

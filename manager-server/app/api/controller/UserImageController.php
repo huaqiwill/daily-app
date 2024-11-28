@@ -8,17 +8,12 @@ use Exception;
 use think\facade\Db;
 
 /**
- * 用户画像、用户形象
+ * 用户画像
  */
 class UserImageController extends BaseController
 {
     protected $table_name = 'app_user_image';
 
-    /**
-     * 食物创建
-     * 创建食物记录，新增基础信息，新增图片记录，
-     * @return \think\response\Json
-     */
     public function create()
     {
         try {
@@ -29,18 +24,23 @@ class UserImageController extends BaseController
                 'images',
             ]);
             $data['create_time'] = date('Y-m-d H:i:s');
+
+            // 处理文件路径
+            foreach ($data['images'] as $key => $image) {
+                // 将 images 字段的 JSON 解码为数组
+                $data['images'][$key] = 'http://localhost:8000/api/preview' . $image;
+            }
+
+            $data['images'] = json_encode($data['images']);
             $id =  Db::table($this->table_name)->insert($data, true);
             $data['id'] = $id;
-            return $this->jsonResponse($data);
+            $data['images'] = json_decode($data['images'], true);
+            return $this->success($data);
         } catch (Exception $e) {
-            return $this->jsonResponse(null, 500, $e->getMessage());
+            return $this->error($e->getMessage(), 500);
         }
     }
 
-    /**
-     * 食物更新
-     * @return \think\response\Json
-     */
     public function update()
     {
         try {
@@ -53,16 +53,12 @@ class UserImageController extends BaseController
             ]);
             $data['update_time'] = date('Y-m-d H:i:s');
             Db::table($this->table_name)->where('id', $id)->update($data);
-            return $this->jsonResponse();
+            return $this->success($data);
         } catch (Exception $e) {
-            return $this->jsonResponse(null, 500, $e->getMessage());
+            return $this->error($e->getMessage(), 500);
         }
     }
 
-    /**
-     * 食物删除
-     * @return \think\response\Json
-     */
     public function delete()
     {
         try {
@@ -72,38 +68,51 @@ class UserImageController extends BaseController
             } else {
                 Db::table($this->table_name)->where('id', $id)->delete();
             }
-            return $this->jsonResponse();
+            return $this->success($id);
         } catch (Exception $e) {
-            return $this->jsonResponse(null, 500, $e->getMessage());
+            return $this->error($e->getMessage(), 500);
         }
     }
 
-    /**
-     * 食物查询
-     * @return \think\response\Json
-     */
     public function query()
     {
         try {
             $id = $this->getParamId();
             $user = Db::table($this->table_name)->where('id', $id)->find();
-            return $this->jsonResponse($user);
+            return $this->success($user);
         } catch (Exception $e) {
-            return $this->jsonResponse(null, 500, $e->getMessage());
+            return $this->error($e->getMessage(), 500);
         }
     }
 
-    /**
-     * 食物查询列表
-     * @return \think\response\Json
-     */
     public function queryList()
     {
         try {
-            $list = Db::table($this->table_name)->select();
-            return json($list);
+            $list = Db::table($this->table_name)
+                ->where('is_delete', '<>', 1)
+                ->select()->toArray();
+
+            if ($list) {
+                foreach ($list as $key => $value) {
+                    // 将 images 字段的 JSON 解码为数组
+                    $images = json_decode($value['images'], true);
+
+                    // 确保 JSON 解码成功且是数组
+                    if (is_array($images) && !empty($images)) {
+                        // 添加 url 字段并设置为 images 中的第一张图片
+                        $list[$key]['url'] = $images[0];
+                        $list[$key]['images'] = $images;
+                    } else {
+                        // 如果 images 为空或不是数组，设置 url 为 null
+                        $list[$key]['url'] = null;
+                        $list[$key]['images'] = [];
+                    }
+                }
+            }
+
+            return $this->success($list);
         } catch (Exception $e) {
-            return $this->jsonResponse(null, 500, $e->getMessage());
+            return $this->error($e->getMessage(), 500);
         }
     }
 }

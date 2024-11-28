@@ -1,59 +1,62 @@
 <template>
 	<view class="container">
+
+		<!-- LOGO -->
 		<view class="logo">
 			<image class="logo-pic" src="../../static/pj-logo.png" mode=""></image>
 		</view>
 
+		<!-- 注册表单 -->
 		<view class="my-form">
 			<text>用户名：</text>
-			<input type="text" v-model="userData.username" name="username" id="username" />
+			<input class="mt-space" type="text" v-model="userData.username" name="username" id="username" />
 			<text>密码：</text>
-			<input type="password" v-model="userData.password" name="password" id="password">
+			<input class="mt-space" type="password" v-model="userData.password" name="password" id="password">
 
 			<button @click="userLogin()">注册</button>
-			<text>已有账号？去<text class="login-text" @click="goToLogin()">登录</text>。</text>
+			<view class="mt-space">
+				<text>已有账号？去<text class="login-text" @click="goToLogin()">登录</text>。</text>
+			</view>
 		</view>
+
+		<!-- 提示组件 -->
 		<up-toast ref="uToast"></up-toast>
 	</view>
 </template>
-<script>
-	export default {
-		data() {
-			return {
-				userData: {
-					username: "admin",
-					password: "admin"
+<script setup>
+	import {
+		ref
+	} from 'vue'
+
+	const userData = ref({
+		username: "admin",
+		password: "admin"
+	})
+
+	function userLogin() {
+		console.log(userData.value);
+		if (userData.value.username == "admin" && userData.value.password == "admin") {
+			uni.switchTab({
+				url: "/pages/index/index",
+				success: function() {
+					console.log('跳转成功');
+				},
+				fail: function(error) {
+					console.log('跳转失败:', error);
 				}
-			}
-		},
-		methods: {
-			
-			userLogin() {
-				console.log(this.userData.username, this.userData.password);
-				if (this.userData.username == "admin" && this.userData.password == "admin") {
-					uni.switchTab({
-						url: "/pages/index/index",
-						success: function() {
-							console.log('跳转成功');
-						},
-						fail: function(error) {
-							console.log('跳转失败:', error);
-						}
-					})
-				} else {
-					this.$refs.uToast.show({
-						message: "用户名或密码错误！！！",
-						type: "warning"
-					})
-				}
-			},
-			// 用户注册
-			goToLogin(){
-				uni.navigateTo({
-					url:"/pages/login/login"
-				})
-			}
+			})
+		} else {
+			uni.showToast({
+				title: "用户名或密码错误！！！",
+				icon: "error"
+			})
 		}
+	}
+
+	function goToLogin() {
+		uni.navigateTo({
+			url: "/pages/login/login"
+		})
 	}
 </script>
 <style scoped>
@@ -84,7 +87,8 @@
 		margin-bottom: 30rpx;
 		text-indent: 10rpx;
 	}
-	.login-text{
+
+	.login-text {
 		color: #83a0d1;
 	}
 </style>

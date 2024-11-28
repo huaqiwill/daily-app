@@ -113,28 +113,44 @@
 		</view>
 	</view>
 </template>
-<script>
-	export default {
-		data() {
-			return {
+<script setup>
+	import {
+		ref
+	} from 'vue'
+	import {
+		onLoad
+	} from '@dcloudio/uni-app'
+	import {
+		apiBillList
+	} from '@/utils/api.js'
 
-			}
-		},
-		onLoad() {
+	const billList = ref([])
 
-		},
-		methods: {
-			goToBillAnalysis() {
-				uni.navigateTo({
-					url: "/pages/bill/bill-edit"
-				})
-			},
-			addBill(){
-				uni.navigateTo({
-					url:"/pages/bill/bill-add"
-				})
-			}
-		}
+	function getBillList() {
+		apiBillList().then(res => {
+			billList.value = res.data
+			console.log(billList.value)
+		}).catch(res => {
+			uni.showToast({
+				title: res.msg
+			})
+		})
+	}
+
+	onLoad(() => {
+		getBillList()
+	})
+
+	function goToBillAnalysis() {
+		uni.navigateTo({
+			url: "/pages/bill/bill-edit"
+		})
+	}
+
+	function addBill() {
+		uni.navigateTo({
+			url: "/pages/bill/bill-add"
+		})
 	}
 </script>
 <style scoped lang="scss">

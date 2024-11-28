@@ -199,6 +199,55 @@
 			{
 				"navigationBarTitleText" : ""
 			}
+		},
+		{
+			"path" : "pages/user-image/user-image",
+			"style" : 
+			{
+				"navigationBarTitleText" : "用户画像"
+			}
+		},
+		{
+			"path" : "pages/user-image/user-image-add",
+			"style" : 
+			{
+				"navigationBarTitleText" : "画像新增"
+			}
+		},
+		{
+			"path" : "pages/user-image/user-image-detail",
+			"style" : 
+			{
+				"navigationBarTitleText" : "画像详情"
+			}
+		},
+		{
+			"path" : "pages/food/history",
+			"style" : 
+			{
+				"navigationBarTitleText" : "历史记录"
+			}
+		},
+		{
+			"path" : "pages/todos/settings",
+			"style" : 
+			{
+				"navigationBarTitleText" : "待办提醒设置"
+			}
+		},
+		{
+			"path" : "pages/index/search",
+			"style" : 
+			{
+				"navigationBarTitleText" : ""
+			}
+		},
+		{
+			"path" : "pages/user-image/user-image-edit",
+			"style" : 
+			{
+				"navigationBarTitleText" : ""
+			}
 		}
 	],
 	"globalStyle": {

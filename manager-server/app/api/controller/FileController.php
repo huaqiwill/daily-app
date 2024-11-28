@@ -6,17 +6,22 @@ use app\BaseController;
 
 /**
  * 文件服务
- * 文件上传、下载
  */
 class FileController extends BaseController
 {
-    /**
-     * 文件上传
-     */
     public function upload()
     {
         // 获取上传的文件
         $file = $this->request->file('file');
+
+        // 检查文件大小是否超过限制
+        $maxSize = 2 * 1024 * 1024;  // 2MB
+        if ($file && $file->getSize() > $maxSize) {
+            return json([
+                'code' => 400,
+                'message' => '上传文件大小不能超过2MB'
+            ]);
+        }
 
         if ($file) {
             // 获取当前日期
@@ -53,9 +58,7 @@ class FileController extends BaseController
         }
     }
 
-    /**
-     * 文件下载
-     */
+
     public function download(string $date, string $type, string $filename)
     {
         // 获取文件路径
@@ -79,6 +82,37 @@ class FileController extends BaseController
         header('Pragma: public');
 
         // 读取文件内容并输出
+        readfile($filePath);
+        exit;
+    }
+
+    public function preview(string $date, string $type, string $filename)
+    {
+        // 获取文件路径
+        $filePath =  getcwd()
+            . DIRECTORY_SEPARATOR . 'public'
+            . DIRECTORY_SEPARATOR . 'uploads'
+            . DIRECTORY_SEPARATOR . $date
+            . DIRECTORY_SEPARATOR . $type
+            . DIRECTORY_SEPARATOR . $filename;
+
+        // 检查文件是否存在
+        if (!file_exists($filePath)) {
+            return $this->error('文件不存在');
+        }
+
+        // 获取文件的 MIME 类型，确保是图片
+        $mimeType = mime_content_type($filePath);
+        if (strpos($mimeType, 'image') === false) {
+            return $this->error('文件类型不是图片');
+        }
+
+        // 设置响应头，返回图片内容
+        header('Content-Type: ' . $mimeType);
+        header('Cache-Control: public, max-age=3600');
+        header('Pragma: public');
+
+        // 输出图片内容
         readfile($filePath);
         exit;
     }

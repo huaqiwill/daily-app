@@ -32,4 +32,6 @@ return [
 
     // 软删除
     'soft_delete'      => true,
+
+    'middleware_on' => true,
 ];

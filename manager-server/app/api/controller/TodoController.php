@@ -2,63 +2,95 @@
 
 namespace app\api\controller;
 
+use app\api\validate\TodoValidate;
 use app\BaseController;
+use Exception;
 use think\facade\Db;
 
 /**
- * 代办管理
- *  新增、修改、删除、查询
- * 其他功能：
- *  点赞、评论、分享、收藏
+ * 待办管理
  */
 class TodoController extends BaseController
 {
+    private $table_name = 'app_todo';
 
     public function create()
     {
-        $postData = input('post.');
-
-        $data = [
-            'name' => $this->request->param('name'),
-            'sex' => $this->request->param('sex'),
-        ];
-
-        Db::table('birth')->insert($data);
-        return $this->jsonResponse();
+        try {
+            validate(TodoValidate::class)->check($this->request->post());
+            $data = $this->buildData([
+                'name',
+                'describe',
+                'start_time',
+                'end_time',
+                'remind_time',
+                'user_id',
+            ]);
+            $data['create_time'] = date('Y-m-d H:i:s');
+            $data['id'] = Db::table($this->table_name)->insert($data, true);
+            return $this->success($data);
+        } catch (Exception $e) {
+            return $this->error($e->getMessage(), 500);
+        }
     }
 
     public function delete()
     {
-        $id = $this->request->param('id');
-        Db::table('birth')->where('id', $id)->delete();
-        return $this->jsonResponse();
+        try {
+            $id = $this->getParamId();
+            if ($this->isSoftDelete()) {
+                Db::table($this->table_name)->where('id', $id)->update($this->buildDataWithSoftDelete());
+            } else {
+                Db::table($this->table_name)->where('id', $id)->delete();
+            }
+            return $this->success($id);
+        } catch (Exception $e) {
+            return $this->error($e->getMessage(), 500);
+        }
     }
 
     public function query()
     {
-        $id = $this->request->param('id');
-        $data = Db::table('birth')->where('id', $id)->find();
-        return $this->jsonResponse($data);
+        try {
+            $id = $this->getParamId();
+            $data = Db::table($this->table_name)->where('id', $id)->find();
+            return $this->success($data);
+        } catch (Exception $e) {
+            return $this->error(500, $e->getMessage());
+        }
     }
 
 
-    public function queryList() {
-        $data = Db::table('birth')->select();
-        return $this->jsonResponse($data);
+    public function queryList()
+    {
+        try {
+            $data = Db::table($this->table_name)
+                ->where('is_delete', '<>', '1')
+                ->select()->toArray();
+            return $this->success($data);
+        } catch (Exception $e) {
+            return $this->error(500, $e->getMessage());
+        }
     }
 
     public function update()
     {
-        $id = $this->request->param('id');
-        $postData = input('post.');
-
-        $data = [
-            'name' => '张三',
-            'age' => 18,
-        ];
-
-        Db::table('birth')->where('id', $id)->update($data);
-
-        return $this->jsonResponse($data);
+        try {
+            validate(TodoValidate::class)->check($this->request->post());
+            $id = $this->getParamId();
+            $data = $this->buildData([
+                'name',
+                'describe',
+                'start_time',
+                'end_time',
+                'remind_time',
+                'user_id',
+            ]);
+            $data['update_time'] = date('Y-m-d H:i:s');
+            Db::table($this->table_name)->where('id', $id)->update($data);
+            return $this->success($data);
+        } catch (Exception $e) {
+            return $this->error($e->getMessage(), 500);
+        }
     }
 }

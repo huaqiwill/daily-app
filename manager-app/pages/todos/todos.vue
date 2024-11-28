@@ -7,17 +7,17 @@
 				<text class="todos-title">待办清单</text>
 			</view>
 			<view class="todos-tool">
-				<view class="add-todo" @click="addTask()">
+				<view class="add-todo" @click="goToTodosAddPage()">
 					<u-icon name="plus"></u-icon>
 				</view>
 				<view class="tip-todo" style="position: relative;">
-					<up-badge :showZero="true" :value="num" style="z-index: 99;" :isDot="true" type="error"
-						:absolute="true" :offset="[-3,1]">
+					<up-badge :showZero="true" :value="num" style="z-index: 99;" :isDot="true" type="error" :absolute="true"
+						:offset="[-3,1]">
 
 					</up-badge>
 					<u-icon name="bell"></u-icon>
 				</view>
-				<view class="setting-todo">
+				<view class="setting-todo" @click="gotoSettingsPage">
 					<u-icon name="setting"></u-icon>
 				</view>
 			</view>
@@ -32,16 +32,8 @@
 
 				<view class="todo-list">
 					<up-cell-group>
-						<up-cell title="开会讨论新项目" label="09:00 AM - 10:00 AM" isLink>
-							<!-- 使用插槽自定义图标 -->
-							<template #icon>
-								<image src="../../favicon.ico" mode="aspectFit" style="width: 20px; height: 20px;">
-								</image>
-							</template>
-						</up-cell>
-
-						<up-cell title="发送月度报告" label="09:00 AM - 10:00 AM" isLink>
-							<!-- 不自定义图标，使用默认配置 -->
+						<up-cell :title="item.name" label="09:00 AM - 10:00 AM" v-for="item in todoList"
+							@click="gotoDetailPage(item)" isLink>
 							<template #icon>
 								<image src="../../favicon.ico" mode="aspectFit" style="width: 20px; height: 20px;">
 								</image>
@@ -100,7 +92,7 @@
 		</view>
 
 
-		<u-toast ref="uToast"></u-toast>
+		<!-- <u-toast ref="uToast"></u-toast> -->
 
 		<up-popup :show="show" mode="bottom">
 			<view>
@@ -116,35 +108,76 @@
 
 	</view>
 </template>
-<script>
-	export default {
-		data() {
-			return {
-				num: 1,
-				src: 'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg',
-				show: false,
-				dateShow: false,
-				dateTime: Date.now(),
-				taskList: [],
-				task: {
-					taskTitle: "",
-					taskContent: "",
-					taskState: false
-				}
-			}
-		},
-		methods: {
-			addTask() {
-				this.$refs.uToast.show({
-					message: "新增成功",
-					type: "success"
-				})
-				this.show = true
-			},
-			saveBacklog() {
-				this.show = false
-			}
-		}
+<script setup>
+	import {
+		ref
+	} from 'vue'
+	import {
+		onLoad
+	} from '@dcloudio/uni-app'
+	import {
+		apiTodoList
+	} from '@/utils/api.js'
+
+	const num = 1
+	const src = 'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg'
+	const show = ref(false)
+	const dateShow = false
+	const dateTime = Date.now()
+	const taskList = []
+	const task = {
+		taskTitle: "",
+		taskContent: "",
+		taskState: false
+	}
+
+	function gotoSettingsPage() {
+		uni.navigateTo({
+			url: "/pages/todos/settings"
+		})
+	}
+
+	const todoList = ref([])
+
+	onLoad(() => {
+		getTodoList()
+	})
+
+	function gotoDetailPage(item) {
+		uni.setStorageSync("todo", {
+			data: item
+		})
+		uni.navigateTo({
+			url: "/pages/todos/todos-detail"
+		})
+	}
+
+	function goToTodosAddPage() {
+		uni.navigateTo({
+			url: "/pages/todos/todos-add"
+		})
+	}
+
+	function getTodoList() {
+		apiTodoList().then(res => {
+			todoList.value = res.data
+			console.log(todoList.value)
+		}).catch(res => {
+
+		})
+	}
+
+	function addTask() {
+		uni.showToast({
+			message: "新增成功",
+			type: "success"
+		})
+
+		show.value = true
+	}
+
+	function saveBacklog() {
+		show.value = false
 	}
 </script>
 <style scoped>

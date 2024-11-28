@@ -8,16 +8,12 @@ use Exception;
 use think\facade\Db;
 
 /**
- * 朋友管理
- * 关系、档案、个人信息管理
- * 新增、修改、删除、查询
+ * 档案管理
  */
 class FriendController extends BaseController
 {
-    /**
-     * 用户档案新增
-     * @return \think\response\Json
-     */
+    private $table_name = "app_friend";
+
     public function create()
     {
         try {
@@ -47,18 +43,14 @@ class FriendController extends BaseController
             ]);
             $data['create_time'] = date('Y-m-d H:i:s');
 
-            $id =  Db::table('app_friend')->insert($data, true);
+            $id =  Db::table($this->table_name)->insert($data, true);
             $data['id'] = $id;
-            return $this->jsonResponse($data);
+            return $this->success($data);
         } catch (Exception $e) {
-            return $this->jsonResponse([], $e->getMessage(), 500);
+            return $this->error($e->getMessage(), 500);
         }
     }
 
-    /**
-     * 用户档案修改
-     * @return \think\response\Json
-     */
     public function update()
     {
         try {
@@ -67,7 +59,7 @@ class FriendController extends BaseController
             $data = $this->buildData([
                 'name',
                 'sex',
-                'birth_data',
+                'birth_date',
                 'birth_type',
                 'status',
                 'avatar',
@@ -87,55 +79,45 @@ class FriendController extends BaseController
                 'school',
             ]);
             $data['update_time'] = date('Y-m-d H:i:s');
-            Db::table('app_friend')->where('id', $id)->update($data);
-            return $this->jsonResponse();
+            Db::table($this->table_name)->where('id', $id)->update($data);
+            return $this->success($data);
         } catch (Exception $e) {
-            return $this->jsonResponse([], $e->getMessage(), 500);
+            return $this->error($e->getMessage(), 500);
         }
     }
 
-    /**
-     * 用户档案删除
-     * @return \think\response\Json
-     */
     public function delete()
     {
         try {
             $id = $this->getParamId();
             if ($this->isSoftDelete()) {
-                Db::table('app_friend')->where('id', $id)->update($this->buildDataWithSoftDelete());
+                Db::table($this->table_name)->where('id', $id)->update($this->buildDataWithSoftDelete());
             } else {
-                Db::table('app_friend')->where('id', $id)->delete();
+                Db::table($this->table_name)->where('id', $id)->delete();
             }
-            return $this->jsonResponse();
+            return $this->success($id);
         } catch (Exception $e) {
-            return $this->jsonResponse([], $e->getMessage(), 500);
+            return $this->error($e->getMessage(), 500);
         }
     }
 
-    /**
-     * 用户档案查询
-     * @return \think\response\Json
-     */
     public function query()
     {
         try {
             $id = $this->getParamId();
-            $data = Db::table('app_friend')->where('id', $id)->find();
+            $data = Db::table($this->table_name)->where('id', $id)->find();
             return $this->jsonResponse($data);
         } catch (Exception $e) {
             return $this->jsonResponse([], $e->getMessage(), 500);
         }
     }
 
-    /**
-     * 用户档案查询列表
-     * @return \think\response\Json
-     */
     public function queryList()
     {
         try {
-            $data = Db::table('app_friend')->select();
+            $data = Db::table($this->table_name)
+                ->where('is_delete', '<>', '1')
+                ->select()->toArray();
             return $this->jsonResponse($data);
         } catch (Exception $e) {
             return $this->jsonResponse([], $e->getMessage(), 500);

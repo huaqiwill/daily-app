@@ -22,33 +22,32 @@
 			<view class="food-card">
 				<view class="three-meals">
 					<view class="card-head">
-						<view class="meal-header">
-							<view class="meal-info">
-								<u-avatar class="meal-avatar"></u-avatar>
-								<view class="meal-text">
-									<text class="title">早餐</text>
-									<text class="label">2022-06-20 08:00</text>
-								</view>
-							</view>
-							<view class="meal-arrow">
-								<u-icon name="arrow-right"></u-icon>
-							</view>
-						</view>
 						<u-cell-group :border="false">
-							<u-cell :border="false" title="鸡蛋三明治" label="卡路里:320">
-								<template #icon>
-									<view>
-										<image class="food-image" src="../../static/images/user.png" mode=""></image>
-									</view>
-								</template>
-							</u-cell>
-							<u-cell :border="false" title="全麦面包" label="卡路里:120">
-								<template #icon>
-									<view>
-										<image class="food-image" src="../../static/images/user.png" mode=""></image>
-									</view>
-								</template>
-							</u-cell>
+
+							<up-swipe-action>
+								<up-swipe-action-item class="birth-items" :border="false" v-for="(item,index) in foodList"
+									:key="item.id" @click="delBirth(item)" :options="options1" @close="" @open="">
+									<u-cell :border="false" label="2022-06-20 08:00" @click="onFoodDetail(item)">
+										<template #title>
+											<view style="display: flex;justify-content: space-between;">
+												{{item.name}}
+												<up-tag text="早餐" v-if="item.type==1"></up-tag>
+												<up-tag text="中餐" v-else-if="item.type==2"></up-tag>
+												<up-tag text="晚餐" v-else-if="item.type==3"></up-tag>
+												<up-tag text="夜宵" v-else-if="item.type==4"></up-tag>
+												<up-tag text="聚餐" v-else-if="item.type==5"></up-tag>
+												<up-tag text="其他" v-else></up-tag>
+											</view>
+										</template>
+										<template #icon>
+											<view>
+												<image class="food-image" src="../../static/images/user.png" mode=""></image>
+											</view>
+										</template>
+									</u-cell>
+								</up-swipe-action-item>
+							</up-swipe-action>
+
 						</u-cell-group>
 					</view>
 				</view>
@@ -61,7 +60,7 @@
 
 					<view class="card">
 						<u-cell-group :border="false">
-							<u-cell :border="false" title="2022-06-19" label="卡路里:1200">
+							<u-cell @click="goToHistoryPage" :border="false" title="2022-06-19" label="卡路里:1200">
 								<template #icon>
 									<view>
 										<image class="food-image" src="../../static/images/user.png" mode=""></image>
@@ -117,23 +116,64 @@
 	</view>
 </template>
 
-<script>
-	export default {
-		data() {
-			return {
+<script setup>
+	import {
+		onLoad
+	} from '@dcloudio/uni-app'
+	import {
+		apiFoodList,
+		apiFoodDelete
+	} from '@/utils/api.js'
+	import {
+		ref
+	} from 'vue'
 
-			}
-		},
-		onLoad() {
+	const foodList = ref([])
 
-		},
-		methods: {
-			addFood() {
-				uni.navigateTo({
-					url: "/pages/food/food-add"
-				})
-			}
+	const options1 = [{
+		text: "删除",
+		style: {
+			backgroundColor: '#f56c6c'
 		}
+	}]
+
+	function goToHistoryPage() {
+		uni.navigateTo({
+			url: "/pages/food/history"
+		})
+	}
+
+	function getFoodList() {
+		apiFoodList().then(res => {
+			foodList.value = res.data
+			console.log(res)
+		})
+	}
+
+	function onFoodDelete(item) {
+		console.log(item)
+		apiFoodDelete(item.id).then((res) => {
+			getFoodList();
+		})
+	}
+
+	function onFoodDetail(item) {
+		uni.setStorageSync("food", {
+			data: item
+		})
+		uni.navigateTo({
+			url: "/pages/food/food-detail"
+		})
+	}
+
+	onLoad(() => {
+		getFoodList()
+	})
+
+	function addFood() {
+		uni.navigateTo({
+			url: "/pages/food/food-add"
+		})
 	}
 </script>
 

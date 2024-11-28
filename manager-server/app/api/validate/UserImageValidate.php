@@ -10,6 +10,8 @@ class UserImageValidate extends Validate
         'user_id'  =>  'require',
         'date' =>  'require',
         'images' => 'require',
+        // 'position' => '',
+        // 'weather' => '',
     ];
 
     protected $message = [

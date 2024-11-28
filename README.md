@@ -6,6 +6,12 @@ Github项目地址：https://github.com/huaqiwill/daily-app
 
 作者：Iden9
 
+已实现功能
+
+* 用户画像
+* 饮食管理
+* 文件上传和下载
+* 笔记
 
 ## 技术 & 架构体系描述
 

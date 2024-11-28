@@ -10,7 +10,6 @@ use think\Request;
 
 /**
  * 生日管理
- * 生日新增、修改、删除、查询
  */
 class BirthController extends BaseController
 {
